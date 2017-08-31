@@ -8,9 +8,23 @@
     "react-scripts": "1.0.12"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "clean": "rimraf build",
+    "deploy": "npm run lint && npm run build",
+    "eject": "react-scripts eject",
+    "lint": "eslint --ignore-pattern '!.*' --ignore-pattern '/build/' --ignore-pattern '/node_modules/' --ignore-pattern '/src/registerServiceWorker.js' .",
+    "prepush": "npm run deploy",
+    "start": "react-scripts start",
+    "test": "react-scripts test --env=jsdom"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.5.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.3.0",
+    "husky": "^0.14.3",
+    "rimraf": "^2.6.1"
   }
 }
