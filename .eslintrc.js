@@ -7,6 +7,9 @@ module.exports = {
     node: true,
   },
   rules: {
+    'react/forbid-prop-types': ['error', {
+      forbid: ['any'],
+    }],
     'react/jsx-filename-extension': ['error', {
       extensions: ['.js'],
     }],

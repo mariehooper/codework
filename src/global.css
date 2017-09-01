@@ -1,8 +1,14 @@
-* {
+html {
   box-sizing: border-box;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 body {
-  font-family: 'Roboto Slab', serif;
   background: #f5f7f9;
+  font-family: 'Roboto Slab', serif;
 }
