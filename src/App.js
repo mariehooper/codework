@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Header = styled.header`
-  background-color: #FFF;
-  border-bottom: 1px solid #eee;
   padding: 1rem;
   text-align: center;
 `;
@@ -30,13 +28,14 @@ const ChallengeCard = styled.li`
   box-shadow: 0 1px 4px rgba(0,0,0,.04);
   border: 1px solid rgba(0,0,0,.09);
   border-radius: 3px;
+  background-color: #FFF;
 `;
 
 const ChallengeSubmitWrap = styled.div`
   padding: 1.5rem;
-  border: 1px solid #e6dbef;
-  background: #f8f0ff;
+  background: linear-gradient(to right, #0cebeb, #20e3b2, #29ffc6);
   border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(50,50,93,.15), 0 1px 0 rgba(0,0,0,.02);
 `;
 
 const InputWrap = styled.div`
@@ -58,7 +57,7 @@ const InputWrap = styled.div`
     font-size: 0.9rem;
     padding: 0.75rem 1rem;
     position: relative;
-    color: #673ab7;
+    color: #00bcd4;
     &:before {
       content: '';
       position: absolute;
