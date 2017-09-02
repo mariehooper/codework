@@ -8,10 +8,10 @@ const StyledChallengeList = styled.ul`
 `;
 
 const StyledChallengeCard = styled.li`
-  background-color: #FFF;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.09);
   border-radius: 3px;
-  border: 1px solid rgba(0,0,0,.09);
-  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   margin: 0.5rem 0;
   padding: 1rem 2rem;
 `;

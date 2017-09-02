@@ -5,13 +5,13 @@ import styled from 'styled-components';
 const StyledForm = styled.form`
   background: linear-gradient(to right, #0cebeb, #20e3b2, #29ffc6);
   border-radius: 3px;
-  box-shadow: 0 1px 3px rgba(50,50,93,.15), 0 1px 0 rgba(0,0,0,.02);
+  box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02);
   padding: 1.5rem;
 `;
 
 const StyledInputBar = styled.div`
   border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(50,50,93,.15), 0 1px 0 rgba(0,0,0,.02);
+  box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02);
   display: flex;
   overflow: hidden;
 
@@ -33,7 +33,7 @@ const StyledInputBar = styled.div`
     padding: 0.75rem 1rem;
     position: relative;
 
-    &:before {
+    &::before {
       background: #f2eaf7;
       bottom: 7px;
       content: '';

@@ -1,7 +1,31 @@
 {
   "name": "programming-challenges",
   "version": "0.1.0",
-  "private": true,
+  "description": "",
+  "homepage": "https://github.com/hoopr/programming-challenges#readme",
+  "bugs": {
+    "url": "https://github.com/hoopr/programming-challenges/issues"
+  },
+  "contributors": [
+    "Marie Hooper <marie.ashtari@gmail.com> (https://mariehooper.me)",
+    "Patrick Hooper <patrick.d.hooper@gmail.com> (https://patrickhooper.me)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hoopr/programming-challenges"
+  },
+  "scripts": {
+    "build": "react-scripts build",
+    "clean": "rimraf build",
+    "deploy": "npm-run-all lint build",
+    "eject": "react-scripts eject",
+    "lint": "npm-run-all --parallel 'lint:*'",
+    "lint:css": "stylelint 'src/**/*.js'",
+    "lint:js": "eslint --ignore-pattern '!.*' --ignore-pattern '/build/' --ignore-pattern '/node_modules/' --ignore-pattern '/src/registerServiceWorker.js' .",
+    "prepush": "npm run deploy",
+    "start": "react-scripts start",
+    "test": "react-scripts test --env=jsdom"
+  },
   "dependencies": {
     "normalize.css": "^7.0.0",
     "prop-types": "^15.5.10",
@@ -9,16 +33,6 @@
     "react-dom": "^15.6.1",
     "react-scripts": "1.0.12",
     "styled-components": "^2.1.2"
-  },
-  "scripts": {
-    "build": "react-scripts build",
-    "clean": "rimraf build",
-    "deploy": "npm run lint && npm run build",
-    "eject": "react-scripts eject",
-    "lint": "eslint --ignore-pattern '!.*' --ignore-pattern '/build/' --ignore-pattern '/node_modules/' --ignore-pattern '/src/registerServiceWorker.js' .",
-    "prepush": "npm run deploy",
-    "start": "react-scripts start",
-    "test": "react-scripts test --env=jsdom"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
@@ -28,6 +42,13 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.3.0",
     "husky": "^0.14.3",
-    "rimraf": "^2.6.1"
-  }
+    "npm-run-all": "^4.1.1",
+    "rimraf": "^2.6.1",
+    "stylelint": "^8.0.0",
+    "stylelint-config-standard": "^17.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-order": "^0.6.0",
+    "stylelint-processor-styled-components": "^0.4.0"
+  },
+  "private": true
 }
