@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import database from '../database';
 import ChallengeImportForm from './ChallengeImportForm';
 import ChallengeList from './ChallengeList';
 import Header from './Header';
@@ -13,9 +14,17 @@ const Content = styled.main`
 
 export default class App extends React.Component {
   state = {
-    challenges: ['Challenge 1', 'Challenge 2'],
+    challenges: [],
     url: '',
   };
+
+  componentDidMount() {
+    database.syncState('challenges', {
+      asArray: true,
+      context: this,
+      state: 'challenges',
+    });
+  }
 
   handleSubmit = (event) => {
     event.preventDefault();
