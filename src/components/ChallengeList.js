@@ -20,8 +20,8 @@ export default function ChallengeList({ challenges }) {
   return (
     <StyledChallengeList>
       {challenges.map(challenge => (
-        <StyledChallengeCard key={challenge}>
-          {challenge}
+        <StyledChallengeCard key={challenge.key}>
+          {challenge.name}
         </StyledChallengeCard>
       ))}
     </StyledChallengeList>

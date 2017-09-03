@@ -21,7 +21,7 @@
     "eject": "react-scripts eject",
     "lint": "npm-run-all --parallel 'lint:*'",
     "lint:css": "stylelint 'src/**/*.js'",
-    "lint:js": "eslint --ignore-pattern '!.*' --ignore-pattern '/build/' --ignore-pattern '/node_modules/' --ignore-pattern '/src/registerServiceWorker.js' .",
+    "lint:js": "eslint --ignore-pattern '!.*' --ignore-pattern '/build/' --ignore-pattern '/node_modules/' --ignore-pattern '/src/utils/registerServiceWorker.js' .",
     "prepush": "npm run deploy",
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom"
@@ -52,5 +52,14 @@
     "stylelint-order": "^0.6.0",
     "stylelint-processor-styled-components": "^0.4.0"
   },
-  "private": true
+  "private": true,
+  "proxy": {
+    "/codewars": {
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/codewars": ""
+      },
+      "target": "https://www.codewars.com/api/v1"
+    }
+  }
 }

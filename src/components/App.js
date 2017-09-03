@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import database from '../database';
 import ChallengeImportForm from './ChallengeImportForm';
 import ChallengeList from './ChallengeList';
 import Header from './Header';
+import database from '../utils/database';
+import request from '../utils/request';
 
 const Content = styled.main`
   margin: 0 auto;
@@ -26,12 +27,30 @@ export default class App extends React.Component {
     });
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
-    this.setState({
-      challenges: [...this.state.challenges, this.state.url],
-      url: '',
-    });
+
+    try {
+      const [, slug] = this.state.url.match(/codewars.com\/kata\/(.+)/i);
+      const data = await request(`/codewars/code-challenges/${slug}`);
+      const challenges = [...this.state.challenges];
+      if (!challenges.find(challenge => challenge.id === data.id)) {
+        const { description, id, name, rank, tags } = data;
+        challenges.push({
+          description,
+          id,
+          name,
+          points: rank.name,
+          tags,
+        });
+        this.setState({
+          challenges,
+          url: '',
+        });
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   handleChange = (event) => {
