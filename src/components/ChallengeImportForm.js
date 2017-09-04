@@ -76,7 +76,7 @@ export default class ChallengeImportForm extends React.Component {
               onBlur={this.handleBlur}
               onChange={handleChange}
               onFocus={this.handleFocus}
-              placeholder="CodeWars Challenge URL"
+              placeholder="Codewars Kata URL"
               type="text"
               value={url}
             />

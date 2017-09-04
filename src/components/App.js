@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -31,12 +32,13 @@ export default class App extends React.Component {
     event.preventDefault();
 
     try {
-      const [, slug] = this.state.url.match(/codewars.com\/kata\/(.+)/i);
+      const [, slug] = this.state.url.match(/codewars.com\/kata\/([^/]+)/i);
       const data = await request(`/codewars/code-challenges/${slug}`);
       const challenges = [...this.state.challenges];
       if (!challenges.find(challenge => challenge.id === data.id)) {
         const { description, id, name, rank, tags } = data;
-        challenges.push({
+        challenges.unshift({
+          createdAt: firebase.database.ServerValue.TIMESTAMP,
           description,
           id,
           name,
