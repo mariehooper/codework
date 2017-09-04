@@ -50,10 +50,47 @@ const StyledChallengeName = styled.h2`
   font-size: 1.25rem;
 `;
 
-const StyledDescription = styled.div`
+const StyledDescription = styled.article`
   font-size: 0.9rem;
   font-weight: 300;
   line-height: 1.5;
+
+  h1 {
+    font-size: 1.25rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+`;
+
+const StyledCardBottom = styled.div`
+  display: block;
+  margin-top: 1rem;
+  text-align: right;
+`;
+
+const StyledButton = styled.a`
+  background: #1ee4b7;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  color: #fff;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  height: 40px;
+  letter-spacing: 0.025em;
+  line-height: 40px;
+  padding: 0 14px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+
+  &:hover {
+    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
 `;
 
 export default function ChallengeCard({ challenge }) {
@@ -77,6 +114,9 @@ export default function ChallengeCard({ challenge }) {
           __html: marked(challenge.description),
         }}
       />
+      <StyledCardBottom>
+        <StyledButton href="" className="view-page">Solve</StyledButton>
+      </StyledCardBottom>
     </StyledChallengeCard>
   );
 }

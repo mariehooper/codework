@@ -43,6 +43,11 @@ const StyledInputBar = styled.div`
       background-color: #f6f9fc;
     }
 
+    &:hover {
+      color: #1ed4d4;
+      cursor: pointer;
+    }
+
     &::before {
       background: #f2eaf7;
       bottom: 7px;
