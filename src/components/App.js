@@ -32,18 +32,20 @@ export default class App extends React.Component {
     user: null,
   };
 
-  setUser(user) { // eslint-disable-line react/sort-comp
-    if (/umich\.edu$/i.test(user.email)) {
-      const { displayName, email, photoURL, uid } = user;
-      this.setState({
-        user: { displayName, email, photoURL, uid },
-      });
+  setUser(userData) { // eslint-disable-line react/sort-comp
+    if (/umich\.edu$/i.test(userData.email)) {
+      const { displayName, email, photoURL, uid } = userData;
+      const user = { displayName, email, photoURL, uid };
+      this.usersRef.child(uid).set(user);
+      this.setState({ user });
     } else {
       console.log('You must be part of the "umich.edu" domain to use this app.');
     }
   }
 
   componentDidMount() {
+    this.usersRef = firebase.database().ref('users');
+
     this.challengesRef = firebase.database().ref('challenges');
     this.challengesRef.on('value', (snapshot) => {
       const challenges = snapshot.val() || {};
@@ -61,6 +63,7 @@ export default class App extends React.Component {
   }
 
   componentWillUnmount() {
+    this.usersRef.off();
     this.challengesRef.off();
   }
 
@@ -91,7 +94,7 @@ export default class App extends React.Component {
       const data = await request(`/codewars/code-challenges/${slug}`);
       if (!this.state.challenges.find(challenge => challenge.id === data.id)) {
         const { description, id, name, rank, tags, url } = data;
-        const challenge = {
+        this.challengesRef.child(id).set({
           createdAt: firebase.database.ServerValue.TIMESTAMP,
           description,
           id,
@@ -99,8 +102,7 @@ export default class App extends React.Component {
           points: rank.name,
           tags,
           url,
-        };
-        this.challengesRef.push(challenge);
+        });
         this.setState({
           url: '',
         });
