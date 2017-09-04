@@ -1,0 +1,159 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  background: #f5f7f9;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Roboto Slab', serif;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+strong {
+  font-weight: 600;
+}
+
+pre {
+  background: #f7f8f9;
+  border-radius: 5px;
+  color: #424770;
+  line-height: normal;
+  overflow-x: auto;
+  padding: 11px 14px;
+  position: relative;
+}
+
+code {
+  background: #f7f8f9;
+  border-radius: 5px;
+  color: #424770;
+}
+
+code .token {
+  margin: 0;
+  padding: 0;
+}
+
+code .token:not(.script) {
+  font-weight: 400;
+}
+
+code .token.property {
+  font-weight: 500;
+}
+
+code .token.atrule,
+code .token.keyword {
+  color: #6772e5;
+}
+
+code.language-markup .token.namespace,
+code .token.attr-name,
+code .token.selector,
+code .token.tag,
+code .token.tag * {
+  color: #0075d6;
+}
+
+code .token.atrule,
+code .token.keyword,
+code .token.tag {
+  font-weight: 600;
+}
+
+code .token.attr-name {
+  font-style: italic;
+}
+
+code .token.comment {
+  color: #91a2b0;
+  font-weight: 400;
+}
+
+code.language-url,
+code .token.function,
+code .token.url {
+  color: #3297d3;
+  font-weight: 600;
+}
+
+code .token.boolean,
+code .token.builtin,
+code .token.class-name,
+code .token.constant,
+code .token.namespace {
+  color: #2191ef;
+  font-weight: 600;
+}
+
+code .token.number {
+  color: #fa755a;
+}
+
+code .token.header {
+  font-weight: 700;
+}
+
+code .token.curl,
+code .token.option,
+code .token.variable {
+  color: teal;
+  font-weight: 600;
+}
+
+code .token.curl,
+code .token.option {
+  font-weight: 500;
+}
+
+code.language-css .property,
+code .token.parameter,
+code .token.symbol {
+  color: #d14;
+  font-weight: 500;
+}
+
+code.language-html .token.attr-value > .punctuation:not(:first-child),
+code.language-markup .token.attr-value > .punctuation:not(:first-child),
+code .token.attr-value,
+code .token.macro,
+code .token.string,
+code .token.stripe,
+code .token.value {
+  color: #159570;
+  font-weight: 400;
+}
+
+code .token.macro .keyword {
+  color: #064508;
+}
+
+code .token.publishable-key,
+code .token.secret-key {
+  background: #eceff1;
+  border-radius: 3px;
+  margin: -2px;
+  padding: 2px;
+}
+
+code .token.publishable-key.enabled,
+code .token.secret-key.enabled {
+  background: #dfe3e6;
+}
