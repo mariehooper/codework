@@ -17,7 +17,19 @@ export default class App extends React.Component {
   state = {
     challenges: [],
     url: '',
+    user: null,
   };
+
+  setUser(user) { // eslint-disable-line react/sort-comp
+    if (/umich\.edu$/i.test(user.email)) {
+      const { displayName, email, photoURL, uid } = user;
+      this.setState({
+        user: { displayName, email, photoURL, uid },
+      });
+    } else {
+      console.log('You must be part of the "umich.edu" domain to use this app.');
+    }
+  }
 
   componentDidMount() {
     this.challengesRef = firebase.database().ref('challenges');
@@ -27,15 +39,30 @@ export default class App extends React.Component {
         challenges: Object.values(challenges),
       });
     });
+
+    this.auth = firebase.auth();
+    this.auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.setUser(user);
+      }
+    });
   }
 
   componentWillUnmount() {
     this.challengesRef.off();
   }
 
-  handleSubmit = async (event) => {
-    event.preventDefault();
+  async signIn() {
+    try {
+      const google = new firebase.auth.GoogleAuthProvider();
+      const { user } = await this.auth.signInWithPopup(google);
+      this.setUser(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
+  async importChallenge() {
     try {
       const [, slug] = this.state.url.match(/codewars.com\/kata\/([^/]+)/i);
       const data = await request(`/codewars/code-challenges/${slug}`);
@@ -57,6 +84,19 @@ export default class App extends React.Component {
       }
     } catch (error) {
       console.log(error.message);
+    }
+  }
+
+  handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (this.state.user) {
+      this.importChallenge();
+    } else {
+      await this.signIn();
+      if (this.state.user) {
+        this.importChallenge();
+      }
     }
   }
 
