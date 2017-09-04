@@ -10,7 +10,19 @@ import request from '../utils/request';
 const Content = styled.main`
   margin: 0 auto;
   max-width: 45rem;
-  padding-top: 2rem;
+  padding-top: 1.5rem;
+`;
+
+const StyledButtonLink = styled.button`
+  background: none;
+  border: none;
+  color: #00bcd4;
+
+  &:hover {
+    color: #1ed4d4;
+    cursor: pointer;
+    text-decoration: underline;
+  }
 `;
 
 export default class App extends React.Component {
@@ -52,11 +64,22 @@ export default class App extends React.Component {
     this.challengesRef.off();
   }
 
-  async signIn() {
+  signIn = async () => {
     try {
       const google = new firebase.auth.GoogleAuthProvider();
       const { user } = await this.auth.signInWithPopup(google);
       this.setUser(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  signOut = async () => {
+    try {
+      await this.auth.signOut();
+      this.setState({
+        user: null,
+      });
     } catch (error) {
       console.log(error.message);
     }
@@ -106,10 +129,18 @@ export default class App extends React.Component {
     });
   }
 
+  renderAuthLink() {
+    if (this.state.user) {
+      return <StyledButtonLink onClick={this.signOut}>Sign out</StyledButtonLink>;
+    }
+
+    return <StyledButtonLink onClick={this.signIn}>Sign in</StyledButtonLink>;
+  }
+
   render() {
     return (
       <div>
-        <Header />
+        <Header authLink={this.renderAuthLink()} />
         <Content>
           <ChallengeImportForm
             handleChange={this.handleChange}
