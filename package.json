@@ -20,15 +20,18 @@
     "deploy": "npm-run-all lint build",
     "eject": "react-scripts eject",
     "lint": "npm-run-all --parallel 'lint:*'",
-    "lint:css": "stylelint 'src/**/*.js'",
+    "lint:css": "stylelint 'src/**/*.css'",
     "lint:js": "eslint --ignore-pattern '!.*' --ignore-pattern '/build/' --ignore-pattern '/node_modules/' --ignore-pattern '/src/utils/registerServiceWorker.js' .",
+    "lint:sc": "cross-env STYLELINT_ENV=sc stylelint 'src/**/*.js'",
     "prepush": "npm run deploy",
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom"
   },
   "dependencies": {
     "firebase": "^4.3.0",
+    "marked": "^0.3.6",
     "normalize.css": "^7.0.0",
+    "prismjs": "^1.6.0",
     "prop-types": "^15.5.10",
     "re-base": "^3.0.3",
     "react": "^15.6.1",
@@ -38,6 +41,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
+    "cross-env": "^5.0.5",
     "eslint": "^4.5.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",

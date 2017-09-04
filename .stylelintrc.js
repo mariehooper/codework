@@ -1,7 +1,5 @@
-module.exports = {
-  processors: ['stylelint-processor-styled-components'],
-  extends: ['stylelint-config-standard', 'stylelint-config-styled-components'],
-  syntax: 'scss',
+const config = {
+  extends: ['stylelint-config-standard'],
   plugins: ['stylelint-order'],
   rules: {
     'at-rule-empty-line-before': null,
@@ -10,3 +8,11 @@ module.exports = {
     'order/properties-alphabetical-order': true,
   },
 };
+
+if (process.env.STYLELINT_ENV === 'sc') {
+  config.processors = ['stylelint-processor-styled-components'];
+  config.extends.push('stylelint-config-styled-components');
+  config.syntax = 'scss';
+}
+
+module.exports = config;
