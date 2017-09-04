@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import ChallengeImportForm from './ChallengeImportForm';
 import ChallengeList from './ChallengeList';
 import Header from './Header';
-import database from '../utils/database';
 import request from '../utils/request';
 
 const Content = styled.main`
@@ -21,11 +20,17 @@ export default class App extends React.Component {
   };
 
   componentDidMount() {
-    database.syncState('challenges', {
-      asArray: true,
-      context: this,
-      state: 'challenges',
+    this.challengesRef = firebase.database().ref('challenges');
+    this.challengesRef.on('value', (snapshot) => {
+      const challenges = snapshot.val() || {};
+      this.setState({
+        challenges: Object.values(challenges),
+      });
     });
+  }
+
+  componentWillUnmount() {
+    this.challengesRef.off();
   }
 
   handleSubmit = async (event) => {
@@ -34,19 +39,19 @@ export default class App extends React.Component {
     try {
       const [, slug] = this.state.url.match(/codewars.com\/kata\/([^/]+)/i);
       const data = await request(`/codewars/code-challenges/${slug}`);
-      const challenges = [...this.state.challenges];
-      if (!challenges.find(challenge => challenge.id === data.id)) {
-        const { description, id, name, rank, tags } = data;
-        challenges.unshift({
+      if (!this.state.challenges.find(challenge => challenge.id === data.id)) {
+        const { description, id, name, rank, tags, url } = data;
+        const challenge = {
           createdAt: firebase.database.ServerValue.TIMESTAMP,
           description,
           id,
           name,
           points: rank.name,
           tags,
-        });
+          url,
+        };
+        this.challengesRef.push(challenge);
         this.setState({
-          challenges,
           url: '',
         });
       }

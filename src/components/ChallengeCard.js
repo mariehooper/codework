@@ -115,7 +115,7 @@ export default function ChallengeCard({ challenge }) {
         }}
       />
       <StyledCardBottom>
-        <StyledButton href="" className="view-page">Solve</StyledButton>
+        <StyledButton href="">Solve</StyledButton>
       </StyledCardBottom>
     </StyledChallengeCard>
   );
