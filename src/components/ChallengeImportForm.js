@@ -44,8 +44,8 @@ const StyledInputBar = styled.div`
     }
 
     &:hover {
-      cursor: pointer;
       color: #1ed4d4;
+      cursor: pointer;
     }
 
     &::before {
