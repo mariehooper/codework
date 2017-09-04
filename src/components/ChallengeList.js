@@ -15,7 +15,7 @@ export default function ChallengeList({ challenges }) {
       {challenges
         .sort((a, b) => b.createdAt - a.createdAt)
         .map(challenge => (
-          <ChallengeCard key={challenge.key} challenge={challenge} />
+          <ChallengeCard key={challenge.id} challenge={challenge} />
         ))
       }
     </StyledChallengeList>

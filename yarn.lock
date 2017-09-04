@@ -2356,9 +2356,9 @@ eslint@4.4.1:
     table "^4.0.1"
     text-table "~0.2.0"
 
-eslint@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.5.0.tgz#bb75d3b8bde97fb5e13efcd539744677feb019c3"
+eslint@^4.6.1:
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.6.1.tgz#ddc7fc7fd70bf93205b0b3449bb16a1e9e7d4950"
   dependencies:
     ajv "^5.2.0"
     babel-code-frame "^6.22.0"
@@ -2731,7 +2731,7 @@ find-up@^2.0.0, find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
-firebase@^4.0.0, firebase@^4.3.0:
+firebase@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/firebase/-/firebase-4.3.0.tgz#21d95a92f862c7e406ddf871c173b50f153f8d46"
   dependencies:
@@ -5433,15 +5433,9 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-re-base@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/re-base/-/re-base-3.0.3.tgz#f73a9337c57423e06f779cfdec6e7bcff3354279"
-  dependencies:
-    firebase "^4.0.0"
-
-react-dev-utils@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-4.0.0.tgz#76467b380946197e738aab5683336b5439e979ba"
+react-dev-utils@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-4.0.1.tgz#106ae3d29f811c169d459bb9215a5933b7e11fb6"
   dependencies:
     address "1.0.2"
     babel-code-frame "6.22.0"
@@ -5455,7 +5449,7 @@ react-dev-utils@^4.0.0:
     inquirer "3.2.1"
     is-root "1.0.0"
     opn "5.1.0"
-    react-error-overlay "^2.0.0"
+    react-error-overlay "^2.0.1"
     recursive-readdir "2.2.1"
     shell-quote "1.6.1"
     sockjs-client "1.1.4"
@@ -5471,9 +5465,9 @@ react-dev-utils@^4.0.0:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
-react-error-overlay@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-2.0.0.tgz#0251951eb6315dee45f532f3f59f854086c1462e"
+react-error-overlay@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-2.0.1.tgz#622e3cc85cdfb4bcfc8e93f47ddcddd38e1e176e"
   dependencies:
     anser "1.4.1"
     babel-code-frame "6.22.0"
@@ -5484,9 +5478,9 @@ react-error-overlay@^2.0.0:
     settle-promise "1.0.0"
     source-map "0.5.6"
 
-react-scripts@1.0.12:
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/react-scripts/-/react-scripts-1.0.12.tgz#a08a8214431c45db7424246d6f5510cc19b42927"
+react-scripts@^1.0.13:
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/react-scripts/-/react-scripts-1.0.13.tgz#a51d775a4b195ab2653c562b735735c8f70cba0e"
   dependencies:
     autoprefixer "7.1.2"
     babel-core "6.25.0"
@@ -5515,7 +5509,7 @@ react-scripts@1.0.12:
     postcss-flexbugs-fixes "3.2.0"
     postcss-loader "2.0.6"
     promise "8.0.1"
-    react-dev-utils "^4.0.0"
+    react-dev-utils "^4.0.1"
     style-loader "0.18.2"
     sw-precache-webpack-plugin "0.11.4"
     url-loader "0.5.9"
@@ -6594,6 +6588,10 @@ typescript-eslint-parser@^7.0.0:
   dependencies:
     lodash.unescape "4.0.1"
     semver "5.3.0"
+
+typescript@^2.5.2:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.5.2.tgz#038a95f7d9bbb420b1bf35ba31d4c5c1dd3ffe34"
 
 ua-parser-js@^0.7.9:
   version "0.7.14"
