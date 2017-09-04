@@ -50,10 +50,18 @@ const StyledChallengeName = styled.h2`
   font-size: 1.25rem;
 `;
 
-const StyledDescription = styled.div`
+const StyledDescription = styled.article`
   font-size: 0.9rem;
   font-weight: 300;
   line-height: 1.5;
+
+  h1 {
+    font-size: 1.25rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
 `;
 
 export default function ChallengeCard({ challenge }) {
