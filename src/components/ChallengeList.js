@@ -9,13 +9,17 @@ const StyledChallengeList = styled.ul`
   padding-left: 0;
 `;
 
-export default function ChallengeList({ challenges }) {
+export default function ChallengeList({ challenges, users }) {
   return (
     <StyledChallengeList>
       {challenges
         .sort((a, b) => b.createdAt - a.createdAt)
         .map(challenge => (
-          <ChallengeCard key={challenge.id} challenge={challenge} />
+          <ChallengeCard
+            key={challenge.id}
+            challenge={challenge}
+            user={users[challenge.contributor]}
+          />
         ))
       }
     </StyledChallengeList>
@@ -24,4 +28,5 @@ export default function ChallengeList({ challenges }) {
 
 ChallengeList.propTypes = {
   challenges: PropTypes.array.isRequired,
+  users: PropTypes.object.isRequired,
 };

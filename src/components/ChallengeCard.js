@@ -2,6 +2,7 @@ import marked from 'marked';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
+import format from 'date-fns/format';
 
 const StyledChallengeCard = styled.li`
   background-color: #fff;
@@ -93,17 +94,17 @@ const StyledButton = styled.a`
   }
 `;
 
-export default function ChallengeCard({ challenge }) {
+export default function ChallengeCard({ challenge, user }) {
   return (
     <StyledChallengeCard>
       <StyledCardTop>
         <StyledContributorWrapper>
           <StyledAvatar>
-            <img src="https://unsplash.it/100/200" alt="" />
+            <img src={user.photoURL} alt={user.displayName} />
           </StyledAvatar>
           <div>
-            <p>Marie Hooper</p>
-            <p>August 31, 2017</p>
+            <p>{user.displayName}</p>
+            <p>{format(challenge.createdAt, 'MMMM D, YYYY')}</p>
           </div>
         </StyledContributorWrapper>
         <span>{challenge.points}</span>
@@ -126,5 +127,9 @@ ChallengeCard.propTypes = {
     description: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     points: PropTypes.string.isRequired,
+  }).isRequired,
+  user: PropTypes.shape({
+    displayName: PropTypes.string.isRequired,
+    photoURL: PropTypes.string.isRequired,
   }).isRequired,
 };
