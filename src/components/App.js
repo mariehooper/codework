@@ -30,6 +30,7 @@ export default class App extends React.Component {
     challenges: [],
     url: '',
     user: null,
+    users: {},
   };
 
   setUser(userData) { // eslint-disable-line react/sort-comp
@@ -45,6 +46,10 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this.usersRef = firebase.database().ref('users');
+    this.usersRef.on('value', (snapshot) => {
+      const users = snapshot.val() || {};
+      this.setState({ users });
+    });
 
     this.challengesRef = firebase.database().ref('challenges');
     this.challengesRef.on('value', (snapshot) => {
@@ -102,6 +107,7 @@ export default class App extends React.Component {
           points: rank.name,
           tags,
           url,
+          contributor: this.state.user.uid,
         });
         this.setState({
           url: '',
@@ -149,7 +155,7 @@ export default class App extends React.Component {
             handleSubmit={this.handleSubmit}
             url={this.state.url}
           />
-          <ChallengeList challenges={this.state.challenges} />
+          <ChallengeList challenges={this.state.challenges} users={this.state.users} />
         </Content>
       </div>
     );
