@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
+import { Link } from 'react-router-dom';
 
 const StyledChallengeCard = styled.li`
   background-color: #fff;
@@ -71,7 +72,7 @@ const StyledCardBottom = styled.div`
   text-align: right;
 `;
 
-const StyledButton = styled.a`
+const StyledButton = styled(Link)`
   background: #1ee4b7;
   border-radius: 4px;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -116,7 +117,7 @@ export default function ChallengeCard({ challenge, user }) {
         }}
       />
       <StyledCardBottom>
-        <StyledButton href="">Solve</StyledButton>
+        <StyledButton to={`challenge/${challenge.id}`}>Solve</StyledButton>
       </StyledCardBottom>
     </StyledChallengeCard>
   );

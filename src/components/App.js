@@ -1,9 +1,9 @@
 import firebase from 'firebase';
 import React from 'react';
 import styled from 'styled-components';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import ChallengeImportForm from './ChallengeImportForm';
-import ChallengeList from './ChallengeList';
+import HomePage from './HomePage';
 import Header from './Header';
 import request from '../utils/request';
 
@@ -145,19 +145,26 @@ export default class App extends React.Component {
     return <StyledButtonLink onClick={this.signIn}>Sign in</StyledButtonLink>;
   }
 
+  renderHomePage = () => (
+    <HomePage
+      handleChange={this.handleChange}
+      handleSubmit={this.handleSubmit}
+      url={this.state.url}
+      challenges={this.state.challenges}
+      users={this.state.users}
+    />
+  );
+
   render() {
     return (
-      <div>
-        <Header authLink={this.renderAuthLink()} />
-        <Content>
-          <ChallengeImportForm
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-            url={this.state.url}
-          />
-          <ChallengeList challenges={this.state.challenges} users={this.state.users} />
-        </Content>
-      </div>
+      <Router>
+        <div>
+          <Header authLink={this.renderAuthLink()} />
+          <Content>
+            <Route exact path="/" render={this.renderHomePage} />
+          </Content>
+        </div>
+      </Router>
     );
   }
 }
