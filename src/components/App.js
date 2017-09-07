@@ -95,10 +95,10 @@ export default class App extends React.Component {
 
   async importChallenge() {
     try {
-      const [, slug] = this.state.url.match(/codewars.com\/kata\/([^/]+)/i);
-      const data = await request(`/codewars/code-challenges/${slug}`);
+      const [, path] = this.state.url.match(/codewars.com\/kata\/([^/]+)/i);
+      const data = await request(`/codewars/code-challenges/${path}`);
       if (!this.state.challenges.find(challenge => challenge.id === data.id)) {
-        const { description, id, name, rank, tags, url } = data;
+        const { description, id, name, rank, tags, url, slug } = data;
         this.challengesRef.child(id).set({
           createdAt: firebase.database.ServerValue.TIMESTAMP,
           description,
@@ -107,6 +107,7 @@ export default class App extends React.Component {
           points: rank.name,
           tags,
           url,
+          slug,
           contributor: this.state.user.uid,
         });
         this.setState({

@@ -117,7 +117,7 @@ export default function ChallengeCard({ challenge, user }) {
         }}
       />
       <StyledCardBottom>
-        <StyledButton to={`challenge/${challenge.id}`}>Solve</StyledButton>
+        <StyledButton to={`challenge/${challenge.slug}`}>Solve</StyledButton>
       </StyledCardBottom>
     </StyledChallengeCard>
   );
