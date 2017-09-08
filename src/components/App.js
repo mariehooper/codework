@@ -14,18 +14,6 @@ const Content = styled.main`
   padding-top: 1.5rem;
 `;
 
-const StyledButtonLink = styled.button`
-  background: none;
-  border: none;
-  color: #00bcd4;
-
-  &:hover {
-    color: #1ed4d4;
-    cursor: pointer;
-    text-decoration: underline;
-  }
-`;
-
 export default class App extends React.Component {
   state = {
     challenges: [],
@@ -139,14 +127,6 @@ export default class App extends React.Component {
     });
   }
 
-  renderAuthLink() {
-    if (this.state.user) {
-      return <StyledButtonLink onClick={this.signOut}>Sign out</StyledButtonLink>;
-    }
-
-    return <StyledButtonLink onClick={this.signIn}>Sign in</StyledButtonLink>;
-  }
-
   renderHomePage = () => (
     <HomePage
       handleChange={this.handleChange}
@@ -166,10 +146,12 @@ export default class App extends React.Component {
     return (
       <Router>
         <div>
-          <Header authLink={this.renderAuthLink()} />
+          <Header signOut={this.signOut} signIn={this.signIn} user={this.state.user} />
           <Content>
             <Route exact path="/" render={this.renderHomePage} />
-            <Route path="/challenge/:slug" render={this.renderChallengePage} />
+            {(this.state.challenges.length > 0) &&
+              <Route path="/challenge/:slug" render={this.renderChallengePage} />
+            }
           </Content>
         </div>
       </Router>

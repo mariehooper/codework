@@ -39,9 +39,8 @@ export default function ChallengeList({ challenges, users }) {
       {challenges
         .sort((a, b) => b.createdAt - a.createdAt)
         .map(challenge => (
-          <li>
+          <li key={challenge.id}>
             <ChallengeCard
-              key={challenge.id}
               challenge={challenge}
               link={
                 <StyledButton to={`challenge/${challenge.slug}`}>Solve</StyledButton>

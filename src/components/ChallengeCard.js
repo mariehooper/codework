@@ -4,6 +4,8 @@ import React from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
 
+import Avatar from './Avatar';
+
 const StyledChallengeCard = styled.div`
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.09);
@@ -30,20 +32,6 @@ const StyledContributorWrapper = styled.div`
     &.post-date {
       font-size: 0.7rem;
     }
-  }
-`;
-
-const StyledAvatar = styled.div`
-  border-radius: 50%;
-  margin-right: 0.5rem;
-  overflow: hidden;
-  width: 2.5rem;
-
-  img {
-    display: block;
-    height: 2.5rem;
-    object-fit: cover;
-    width: 100%;
   }
 `;
 
@@ -76,9 +64,7 @@ export default function ChallengeCard({ challenge, link, user }) {
     <StyledChallengeCard>
       <StyledCardTop>
         <StyledContributorWrapper>
-          <StyledAvatar>
-            <img src={user.photoURL} alt={user.displayName} />
-          </StyledAvatar>
+          <Avatar src={user.photoURL} alt={user.displayName} />
           <div>
             <p>{user.displayName}</p>
             <p>{format(challenge.createdAt, 'MMMM D, YYYY')}</p>
