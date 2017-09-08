@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
-import { Link } from 'react-router-dom';
 
-const StyledChallengeCard = styled.li`
+const StyledChallengeCard = styled.div`
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.09);
   border-radius: 3px;
@@ -72,30 +71,7 @@ const StyledCardBottom = styled.div`
   text-align: right;
 `;
 
-const StyledButton = styled(Link)`
-  background: #1ee4b7;
-  border-radius: 4px;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-  color: #fff;
-  display: inline-block;
-  font-size: 15px;
-  font-weight: 600;
-  height: 40px;
-  letter-spacing: 0.025em;
-  line-height: 40px;
-  padding: 0 14px;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: all 0.15s ease;
-  white-space: nowrap;
-
-  &:hover {
-    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
-    transform: translateY(-1px);
-  }
-`;
-
-export default function ChallengeCard({ challenge, user }) {
+export default function ChallengeCard({ challenge, link, user }) {
   return (
     <StyledChallengeCard>
       <StyledCardTop>
@@ -116,9 +92,9 @@ export default function ChallengeCard({ challenge, user }) {
           __html: marked(challenge.description),
         }}
       />
-      <StyledCardBottom>
-        <StyledButton to={`challenge/${challenge.slug}`}>Solve</StyledButton>
-      </StyledCardBottom>
+      {link &&
+        <StyledCardBottom>{link}</StyledCardBottom>
+      }
     </StyledChallengeCard>
   );
 }
@@ -129,8 +105,13 @@ ChallengeCard.propTypes = {
     name: PropTypes.string.isRequired,
     points: PropTypes.string.isRequired,
   }).isRequired,
+  link: PropTypes.element,
   user: PropTypes.shape({
     displayName: PropTypes.string.isRequired,
     photoURL: PropTypes.string.isRequired,
   }).isRequired,
+};
+
+ChallengeCard.defaultProps = {
+  link: null,
 };

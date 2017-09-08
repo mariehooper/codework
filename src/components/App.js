@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import HomePage from './HomePage';
+import ChallengePage from './ChallengePage';
 import Header from './Header';
 import request from '../utils/request';
 
@@ -156,6 +157,11 @@ export default class App extends React.Component {
     />
   );
 
+  renderChallengePage = ({ match }) => {
+    const challenge = this.state.challenges.find(c => c.slug === match.params.slug);
+    return <ChallengePage challenge={challenge} user={this.state.users[challenge.contributor]} />;
+  };
+
   render() {
     return (
       <Router>
@@ -163,6 +169,7 @@ export default class App extends React.Component {
           <Header authLink={this.renderAuthLink()} />
           <Content>
             <Route exact path="/" render={this.renderHomePage} />
+            <Route path="/challenge/:slug" render={this.renderChallengePage} />
           </Content>
         </div>
       </Router>
