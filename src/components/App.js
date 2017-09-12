@@ -1,9 +1,10 @@
 import firebase from 'firebase';
 import React from 'react';
 import styled from 'styled-components';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import ChallengeImportForm from './ChallengeImportForm';
-import ChallengeList from './ChallengeList';
+import HomePage from './HomePage';
+import ChallengePage from './ChallengePage';
 import Header from './Header';
 import request from '../utils/request';
 
@@ -11,18 +12,6 @@ const Content = styled.main`
   margin: 0 auto;
   max-width: 45rem;
   padding-top: 1.5rem;
-`;
-
-const StyledButtonLink = styled.button`
-  background: none;
-  border: none;
-  color: #00bcd4;
-
-  &:hover {
-    color: #1ed4d4;
-    cursor: pointer;
-    text-decoration: underline;
-  }
 `;
 
 export default class App extends React.Component {
@@ -95,10 +84,10 @@ export default class App extends React.Component {
 
   async importChallenge() {
     try {
-      const [, slug] = this.state.url.match(/codewars.com\/kata\/([^/]+)/i);
-      const data = await request(`/codewars/code-challenges/${slug}`);
+      const [, path] = this.state.url.match(/codewars.com\/kata\/([^/]+)/i);
+      const data = await request(`/codewars/code-challenges/${path}`);
       if (!this.state.challenges.find(challenge => challenge.id === data.id)) {
-        const { description, id, name, rank, tags, url } = data;
+        const { description, id, name, rank, tags, url, slug } = data;
         this.challengesRef.child(id).set({
           createdAt: firebase.database.ServerValue.TIMESTAMP,
           description,
@@ -107,6 +96,7 @@ export default class App extends React.Component {
           points: rank.name,
           tags,
           url,
+          slug,
           contributor: this.state.user.uid,
         });
         this.setState({
@@ -137,27 +127,34 @@ export default class App extends React.Component {
     });
   }
 
-  renderAuthLink() {
-    if (this.state.user) {
-      return <StyledButtonLink onClick={this.signOut}>Sign out</StyledButtonLink>;
-    }
+  renderHomePage = () => (
+    <HomePage
+      handleChange={this.handleChange}
+      handleSubmit={this.handleSubmit}
+      url={this.state.url}
+      challenges={this.state.challenges}
+      users={this.state.users}
+    />
+  );
 
-    return <StyledButtonLink onClick={this.signIn}>Sign in</StyledButtonLink>;
-  }
+  renderChallengePage = ({ match }) => {
+    const challenge = this.state.challenges.find(c => c.slug === match.params.slug);
+    return <ChallengePage challenge={challenge} user={this.state.users[challenge.contributor]} />;
+  };
 
   render() {
     return (
-      <div>
-        <Header authLink={this.renderAuthLink()} />
-        <Content>
-          <ChallengeImportForm
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-            url={this.state.url}
-          />
-          <ChallengeList challenges={this.state.challenges} users={this.state.users} />
-        </Content>
-      </div>
+      <Router>
+        <div>
+          <Header signOut={this.signOut} signIn={this.signIn} user={this.state.user} />
+          <Content>
+            <Route exact path="/" render={this.renderHomePage} />
+            {(this.state.challenges.length > 0) &&
+              <Route path="/challenge/:slug" render={this.renderChallengePage} />
+            }
+          </Content>
+        </div>
+      </Router>
     );
   }
 }

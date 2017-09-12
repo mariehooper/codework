@@ -4,7 +4,9 @@ import React from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
 
-const StyledChallengeCard = styled.li`
+import Avatar from './Avatar';
+
+const StyledChallengeCard = styled.div`
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.09);
   border-radius: 3px;
@@ -33,20 +35,6 @@ const StyledContributorWrapper = styled.div`
   }
 `;
 
-const StyledAvatar = styled.div`
-  border-radius: 50%;
-  margin-right: 0.5rem;
-  overflow: hidden;
-  width: 2.5rem;
-
-  img {
-    display: block;
-    height: 2.5rem;
-    object-fit: cover;
-    width: 100%;
-  }
-`;
-
 const StyledChallengeName = styled.h2`
   font-size: 1.25rem;
 `;
@@ -71,37 +59,12 @@ const StyledCardBottom = styled.div`
   text-align: right;
 `;
 
-const StyledButton = styled.a`
-  background: #1ee4b7;
-  border-radius: 4px;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-  color: #fff;
-  display: inline-block;
-  font-size: 15px;
-  font-weight: 600;
-  height: 40px;
-  letter-spacing: 0.025em;
-  line-height: 40px;
-  padding: 0 14px;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: all 0.15s ease;
-  white-space: nowrap;
-
-  &:hover {
-    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
-    transform: translateY(-1px);
-  }
-`;
-
-export default function ChallengeCard({ challenge, user }) {
+export default function ChallengeCard({ challenge, link, user }) {
   return (
     <StyledChallengeCard>
       <StyledCardTop>
         <StyledContributorWrapper>
-          <StyledAvatar>
-            <img src={user.photoURL} alt={user.displayName} />
-          </StyledAvatar>
+          <Avatar src={user.photoURL} alt={user.displayName} />
           <div>
             <p>{user.displayName}</p>
             <p>{format(challenge.createdAt, 'MMMM D, YYYY')}</p>
@@ -115,9 +78,9 @@ export default function ChallengeCard({ challenge, user }) {
           __html: marked(challenge.description),
         }}
       />
-      <StyledCardBottom>
-        <StyledButton href="">Solve</StyledButton>
-      </StyledCardBottom>
+      {link &&
+        <StyledCardBottom>{link}</StyledCardBottom>
+      }
     </StyledChallengeCard>
   );
 }
@@ -128,8 +91,13 @@ ChallengeCard.propTypes = {
     name: PropTypes.string.isRequired,
     points: PropTypes.string.isRequired,
   }).isRequired,
+  link: PropTypes.element,
   user: PropTypes.shape({
     displayName: PropTypes.string.isRequired,
     photoURL: PropTypes.string.isRequired,
   }).isRequired,
+};
+
+ChallengeCard.defaultProps = {
+  link: null,
 };

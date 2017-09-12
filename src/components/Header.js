@@ -1,31 +1,103 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+import Avatar from './Avatar';
+import Dropdown from './Dropdown';
 
 const StyledHeader = styled.header`
+  background: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  padding: 0.75rem;
+`;
+
+const StyledHeaderWrapper = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
-  max-width: 45rem;
-  padding-top: 1rem;
-  text-align: center;
+  max-width: 75rem;
 `;
 
-const StyledPageTitle = styled.h1`
-  font-size: 1.5rem;
-  margin: 0;
+const StyledPageTitle = styled(Link)`
+  text-decoration: none;
+
+  h1 {
+    color: #00bcd4;
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  span {
+    color: #ccc;
+  }
 `;
 
-export default function Header({ authLink }) {
-  return (
-    <StyledHeader>
-      <StyledPageTitle>Programming Challenges</StyledPageTitle>
-      {authLink}
-    </StyledHeader>
-  );
+const StyledButtonLink = styled.button`
+  background: none;
+  border: none;
+  color: #00bcd4;
+
+  &:hover {
+    color: #1ed4d4;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+`;
+
+const StyledAccountDropdown = styled.div`
+  align-items: center;
+  display: flex;
+  font-size: 0.9rem;
+  position: relative;
+`;
+
+export default class Header extends React.Component {
+  renderDropdownTrigger() {
+    const { displayName, photoURL } = this.props.user;
+    return (
+      <StyledAccountDropdown>
+        <Avatar src={photoURL} alt={displayName} size="small" />
+        <span>{displayName}</span>
+      </StyledAccountDropdown>
+    );
+  }
+
+  renderUserMenu() {
+    const { user, signIn, signOut } = this.props;
+    if (user) {
+      return (
+        <Dropdown trigger={this.renderDropdownTrigger()}>
+          <StyledButtonLink onClick={signOut}>Sign out</StyledButtonLink>
+        </Dropdown>
+      );
+    }
+
+    return <StyledButtonLink onClick={signIn}>Sign in</StyledButtonLink>;
+  }
+
+  render() {
+    return (
+      <StyledHeader>
+        <StyledHeaderWrapper>
+          <StyledPageTitle to="/"><h1>Co<span>de</span>work</h1></StyledPageTitle>
+          {this.renderUserMenu()}
+        </StyledHeaderWrapper>
+      </StyledHeader>
+    );
+  }
 }
 
 Header.propTypes = {
-  authLink: PropTypes.element.isRequired,
+  user: PropTypes.shape({
+    displayName: PropTypes.string.isRequired,
+    photoURL: PropTypes.string.isRequired,
+  }),
+  signIn: PropTypes.func.isRequired,
+  signOut: PropTypes.func.isRequired,
+};
+
+Header.defaultProps = {
+  user: null,
 };

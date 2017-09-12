@@ -7,6 +7,7 @@ module.exports = {
     node: true,
   },
   rules: {
+    'no-confusing-arrow': 'off',
     'react/forbid-prop-types': ['error', {
       forbid: ['any'],
     }],
