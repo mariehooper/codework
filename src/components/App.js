@@ -1,18 +1,11 @@
 import firebase from 'firebase';
 import React from 'react';
-import styled from 'styled-components';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import HomePage from './HomePage';
 import ChallengePage from './ChallengePage';
 import Header from './Header';
 import request from '../utils/request';
-
-const Content = styled.main`
-  margin: 0 auto;
-  max-width: 45rem;
-  padding-top: 1.5rem;
-`;
 
 export default class App extends React.Component {
   state = {
@@ -147,12 +140,10 @@ export default class App extends React.Component {
       <Router>
         <div>
           <Header signOut={this.signOut} signIn={this.signIn} user={this.state.user} />
-          <Content>
-            <Route exact path="/" render={this.renderHomePage} />
-            {(this.state.challenges.length > 0) &&
-              <Route path="/challenge/:slug" render={this.renderChallengePage} />
-            }
-          </Content>
+          <Route exact path="/" render={this.renderHomePage} />
+          {(this.state.challenges.length > 0) &&
+            <Route path="/challenge/:slug" render={this.renderChallengePage} />
+          }
         </div>
       </Router>
     );

@@ -3,13 +3,14 @@ import React from 'react';
 
 import ChallengeImportForm from './ChallengeImportForm';
 import ChallengeList from './ChallengeList';
+import { StyledHomeContent } from './Content';
 
 export default function HomePage({ handleChange, handleSubmit, url, challenges, users }) {
   return (
-    <div>
+    <StyledHomeContent>
       <ChallengeImportForm handleChange={handleChange} handleSubmit={handleSubmit} url={url} />
       <ChallengeList challenges={challenges} users={users} />
-    </div>
+    </StyledHomeContent>
   );
 }
 

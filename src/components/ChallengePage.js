@@ -2,14 +2,17 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import ChallengeCard from './ChallengeCard';
+import { StyledChallengeContent } from './Content';
 
 export default function ChallengePage({ challenge, user }) {
   return (
-    <ChallengeCard
-      key={challenge.id}
-      challenge={challenge}
-      user={user}
-    />
+    <StyledChallengeContent>
+      <ChallengeCard
+        key={challenge.id}
+        challenge={challenge}
+        user={user}
+      />
+    </StyledChallengeContent>
   );
 }
 
