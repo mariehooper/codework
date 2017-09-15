@@ -15,12 +15,12 @@ export default class App extends React.Component {
     users: {},
   };
 
-  setUser(userData) { // eslint-disable-line react/sort-comp
+  setUser(userData, onSuccess) { // eslint-disable-line react/sort-comp
     if (/umich\.edu$/i.test(userData.email)) {
       const { displayName, email, photoURL, uid } = userData;
       const user = { displayName, email, photoURL, uid };
       this.usersRef.child(uid).set(user);
-      this.setState({ user });
+      this.setState({ user }, onSuccess);
     } else {
       console.log('You must be part of the "umich.edu" domain to use this app.');
     }
@@ -54,11 +54,11 @@ export default class App extends React.Component {
     this.challengesRef.off();
   }
 
-  signIn = async () => {
+  signIn = async (onSuccess) => {
     try {
       const google = new firebase.auth.GoogleAuthProvider();
       const { user } = await this.auth.signInWithPopup(google);
-      this.setUser(user);
+      this.setUser(user, onSuccess);
     } catch (error) {
       console.log(error.message);
     }
@@ -101,16 +101,13 @@ export default class App extends React.Component {
     }
   }
 
-  handleSubmit = async (event) => {
+  handleSubmit = (event) => {
     event.preventDefault();
 
     if (this.state.user) {
       this.importChallenge();
     } else {
-      await this.signIn();
-      if (this.state.user) {
-        this.importChallenge();
-      }
+      this.signIn(this.importChallenge);
     }
   }
 
@@ -132,7 +129,14 @@ export default class App extends React.Component {
 
   renderChallengePage = ({ match }) => {
     const challenge = this.state.challenges.find(c => c.slug === match.params.slug);
-    return <ChallengePage challenge={challenge} user={this.state.users[challenge.contributor]} />;
+    return (
+      <ChallengePage
+        challenge={challenge}
+        contributor={this.state.users[challenge.contributor]}
+        signIn={this.signIn}
+        user={this.state.user}
+      />
+    );
   };
 
   render() {

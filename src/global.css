@@ -22,7 +22,8 @@ h5 {
 }
 
 button,
-input {
+input,
+textarea {
   font-family: inherit;
 }
 

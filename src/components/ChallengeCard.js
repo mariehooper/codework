@@ -11,8 +11,11 @@ const StyledChallengeCard = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.09);
   border-radius: 3px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-  margin: 0.5rem 0;
   padding: 1.5rem;
+
+  &:not(:last-child) {
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const StyledCardTop = styled.div`
@@ -59,14 +62,14 @@ const StyledCardBottom = styled.div`
   text-align: right;
 `;
 
-export default function ChallengeCard({ challenge, link, user }) {
+export default function ChallengeCard({ challenge, link, contributor }) {
   return (
     <StyledChallengeCard>
       <StyledCardTop>
         <StyledContributorWrapper>
-          <Avatar src={user.photoURL} alt={user.displayName} />
+          <Avatar src={contributor.photoURL} alt={contributor.displayName} />
           <div>
-            <p>{user.displayName}</p>
+            <p>{contributor.displayName}</p>
             <p>{format(challenge.createdAt, 'MMMM D, YYYY')}</p>
           </div>
         </StyledContributorWrapper>
@@ -92,7 +95,7 @@ ChallengeCard.propTypes = {
     points: PropTypes.string.isRequired,
   }).isRequired,
   link: PropTypes.element,
-  user: PropTypes.shape({
+  contributor: PropTypes.shape({
     displayName: PropTypes.string.isRequired,
     photoURL: PropTypes.string.isRequired,
   }).isRequired,

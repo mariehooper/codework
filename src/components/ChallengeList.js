@@ -7,6 +7,7 @@ import ChallengeCard from './ChallengeCard';
 
 const StyledChallengeList = styled.ul`
   list-style-type: none;
+  margin: 0;
   padding-left: 0;
 `;
 
@@ -45,7 +46,7 @@ export default function ChallengeList({ challenges, users }) {
               link={
                 <StyledButton to={`challenge/${challenge.slug}`}>Solve</StyledButton>
               }
-              user={users[challenge.contributor]}
+              contributor={users[challenge.contributor]}
             />
           </li>
         ))

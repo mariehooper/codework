@@ -7,5 +7,6 @@ export const StyledHomeContent = styled.main`
 `;
 
 export const StyledChallengeContent = StyledHomeContent.extend`
+  display: flex;
   max-width: 75rem;
 `;
