@@ -11,11 +11,8 @@ const StyledChallengeCard = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.09);
   border-radius: 3px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  margin-bottom: 1.5rem;
   padding: 1.5rem;
-
-  &:not(:last-child) {
-    margin-bottom: 1.5rem;
-  }
 `;
 
 const StyledCardTop = styled.div`

@@ -135,6 +135,7 @@ export default class App extends React.Component {
         contributor={this.state.users[challenge.contributor]}
         signIn={this.signIn}
         user={this.state.user}
+        users={this.state.users}
       />
     );
   };
