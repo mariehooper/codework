@@ -15,7 +15,7 @@ const StyledColumn = styled.div`
   width: 50%;
 
   &:not(:last-child) {
-    margin-right: 1rem;
+    padding-right: 1rem;
   }
 `;
 
@@ -162,6 +162,7 @@ export default class ChallengePage extends React.Component {
             key={challenge.id}
             challenge={challenge}
             contributor={contributor}
+            tags={challenge.tags}
           />
         </StyledColumn>
         <StyledColumn>

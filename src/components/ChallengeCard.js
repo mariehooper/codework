@@ -51,6 +51,10 @@ const StyledDescription = styled.article`
   h2 {
     font-size: 1.2rem;
   }
+
+  a {
+    word-break: break-word;
+  }
 `;
 
 const StyledCardBottom = styled.div`
@@ -59,7 +63,26 @@ const StyledCardBottom = styled.div`
   text-align: right;
 `;
 
-export default function ChallengeCard({ challenge, link, contributor }) {
+const StyledTagList = styled.ul`
+  list-style-type: none;
+  margin: 2rem 0 0;
+  padding-left: 0;
+`;
+
+const StyledTag = styled.li`
+  background: #b6faff;
+  border-radius: 2px;
+  display: inline-block;
+  font-size: 0.8rem;
+  margin: 0.25rem 0.3rem;
+  padding: 0.3rem 0.5rem;
+
+  &:first-child {
+    margin-left: 0;
+  }
+`;
+
+export default function ChallengeCard({ challenge, link, contributor, tags }) {
   return (
     <StyledChallengeCard>
       <StyledCardTop>
@@ -81,6 +104,11 @@ export default function ChallengeCard({ challenge, link, contributor }) {
       {link &&
         <StyledCardBottom>{link}</StyledCardBottom>
       }
+      {tags &&
+        <StyledTagList>
+          {tags.map(tag => <StyledTag>{tag}</StyledTag>)}
+        </StyledTagList>
+      }
     </StyledChallengeCard>
   );
 }
@@ -92,6 +120,7 @@ ChallengeCard.propTypes = {
     points: PropTypes.string.isRequired,
   }).isRequired,
   link: PropTypes.element,
+  tags: PropTypes.element,
   contributor: PropTypes.shape({
     displayName: PropTypes.string.isRequired,
     photoURL: PropTypes.string.isRequired,
@@ -100,4 +129,5 @@ ChallengeCard.propTypes = {
 
 ChallengeCard.defaultProps = {
   link: null,
+  tags: null,
 };
