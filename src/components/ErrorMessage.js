@@ -15,7 +15,7 @@ const StyledErrorMessage = styled.aside`
 
 export default function ErrorMessage({ message }) {
   return (
-    <StyledErrorMessage>
+    <StyledErrorMessage role="alert">
       <span>{message}</span>
     </StyledErrorMessage>
   );

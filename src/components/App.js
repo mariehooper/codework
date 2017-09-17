@@ -98,34 +98,40 @@ export default class App extends React.Component {
   }
 
   async importChallenge() {
-    try {
-      const [, path] = this.state.url.match(/codewars.com\/kata\/([^/]+)/i);
-      const data = await request(`/codewars/code-challenges/${path}`);
-      if (!this.state.challenges.find(challenge => challenge.id === data.id)) {
-        const { description, id, name, rank, tags, url, slug } = data;
-        this.challengesRef.child(id).set({
-          createdAt: firebase.database.ServerValue.TIMESTAMP,
-          description,
-          id,
-          name,
-          points: rank.name,
-          tags,
-          url,
-          slug,
-          contributor: this.state.user.uid,
-        });
+    const [, path] = this.state.url.match(/codewars.com\/kata\/([^/]+)/i) || [null, null];
+    if (path) {
+      try {
+        const data = await request(`/codewars/code-challenges/${path}`);
+        if (!this.state.challenges.find(challenge => challenge.id === data.id)) {
+          const { description, id, name, rank, tags, url, slug } = data;
+          this.challengesRef.child(id).set({
+            createdAt: firebase.database.ServerValue.TIMESTAMP,
+            description,
+            id,
+            name,
+            points: rank.name,
+            tags,
+            url,
+            slug,
+            contributor: this.state.user.uid,
+          });
+          this.setState({
+            url: '',
+            error: null,
+          });
+        } else {
+          this.setState({
+            error: 'That challenge has already been imported!',
+          });
+        }
+      } catch (error) {
         this.setState({
-          url: '',
-          error: null,
-        });
-      } else {
-        this.setState({
-          error: 'That challenge has already been imported!',
+          error: error.message,
         });
       }
-    } catch (error) {
+    } else {
       this.setState({
-        error: error.message,
+        error: 'Please enter a correctly-formatted Codewars Kata URL.',
       });
     }
   }
