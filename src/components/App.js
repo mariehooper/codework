@@ -13,6 +13,7 @@ export default class App extends React.Component {
     url: '',
     user: undefined,
     users: {},
+    error: null,
   };
 
   setUser(userData, onSuccess) { // eslint-disable-line react/sort-comp
@@ -20,9 +21,14 @@ export default class App extends React.Component {
       const { displayName, email, photoURL, uid } = userData;
       const user = { displayName, email, photoURL, uid };
       this.usersRef.child(uid).set(user);
-      this.setState({ user }, onSuccess);
+      this.setState({
+        user,
+        error: null,
+      }, onSuccess);
     } else {
-      console.log('You must be part of the "umich.edu" domain to use this app.');
+      this.setState({
+        error: 'You must be part of the "umich.edu" domain to use this app.',
+      });
     }
   }
 
@@ -71,7 +77,9 @@ export default class App extends React.Component {
         this.setUser(user);
       }
     } catch (error) {
-      console.log(error.message);
+      this.setState({
+        error: error.message,
+      });
     }
   }
 
@@ -80,9 +88,12 @@ export default class App extends React.Component {
       await this.auth.signOut();
       this.setState({
         user: null,
+        error: null,
       });
     } catch (error) {
-      console.log(error.message);
+      this.setState({
+        error: error.message,
+      });
     }
   }
 
@@ -105,10 +116,17 @@ export default class App extends React.Component {
         });
         this.setState({
           url: '',
+          error: null,
+        });
+      } else {
+        this.setState({
+          error: 'That challenge has already been imported!',
         });
       }
     } catch (error) {
-      console.log(error.message);
+      this.setState({
+        error: error.message,
+      });
     }
   }
 
@@ -132,6 +150,7 @@ export default class App extends React.Component {
     <HomePage
       handleChange={this.handleChange}
       handleSubmit={this.handleSubmit}
+      error={this.state.error}
       url={this.state.url}
       challenges={this.state.challenges}
       users={this.state.users}
@@ -144,6 +163,7 @@ export default class App extends React.Component {
       <ChallengePage
         challenge={challenge}
         contributor={this.state.users[challenge.contributor]}
+        error={this.state.error}
         signIn={this.signIn}
         user={this.state.user}
         users={this.state.users}

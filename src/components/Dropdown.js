@@ -13,12 +13,12 @@ const StyledDropdownMenu = styled.ul`
   border-radius: 4px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   display: none;
+  left: -0.375rem;
   list-style-type: none;
   margin: 0;
   padding-left: 0;
   position: absolute;
   top: 2.3rem;
-  left: -0.375rem;
   width: 100%;
 
   li {
