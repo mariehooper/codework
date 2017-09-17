@@ -58,7 +58,11 @@ export default class App extends React.Component {
     try {
       const google = new firebase.auth.GoogleAuthProvider();
       const { user } = await this.auth.signInWithPopup(google);
-      this.setUser(user, onSuccess);
+      if (typeof onSuccess === 'function') {
+        this.setUser(user, onSuccess);
+      } else {
+        this.setUser(user);
+      }
     } catch (error) {
       console.log(error.message);
     }
