@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
