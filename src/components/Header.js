@@ -74,7 +74,11 @@ export default class Header extends React.Component {
       );
     }
 
-    return <StyledButtonLink onClick={signIn}>Sign in</StyledButtonLink>;
+    if (user === null) {
+      return <StyledButtonLink onClick={signIn}>Sign in</StyledButtonLink>;
+    }
+
+    return null;
   }
 
   render() {
@@ -90,14 +94,10 @@ export default class Header extends React.Component {
 }
 
 Header.propTypes = {
-  user: PropTypes.shape({
+  user: PropTypes.shape({ // eslint-disable-line react/require-default-props
     displayName: PropTypes.string.isRequired,
     photoURL: PropTypes.string.isRequired,
   }),
   signIn: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
-};
-
-Header.defaultProps = {
-  user: null,
 };
