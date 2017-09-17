@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -61,6 +61,9 @@ export default class App extends React.Component {
   signIn = async (onSuccess) => {
     try {
       const google = new firebase.auth.GoogleAuthProvider();
+      google.setCustomParameters({
+        hd: 'umich.edu',
+      });
       const { user } = await this.auth.signInWithPopup(google);
       if (typeof onSuccess === 'function') {
         this.setUser(user, onSuccess);
