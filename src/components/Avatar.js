@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 const StyledAvatar = styled.div`
   border-radius: 50%;
+  flex: ${props => props.size === 'small' ? '0 0 1.5rem' : '0 0 2.5rem'};
   margin-right: 0.5rem;
   overflow: hidden;
   width: ${props => props.size === 'small' ? '1.5rem' : '2.5rem'};

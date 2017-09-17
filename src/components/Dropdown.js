@@ -53,6 +53,7 @@ const StyledButton = styled.button`
   border: none;
   cursor: pointer;
   outline: none;
+  padding: 0;
 `;
 
 class Dropdown extends React.Component {

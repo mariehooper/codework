@@ -11,7 +11,7 @@ const StyledChallengeCard = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.09);
   border-radius: 3px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-  margin: 0.5rem 0;
+  margin-bottom: 1.5rem;
   padding: 1.5rem;
 `;
 
@@ -51,6 +51,10 @@ const StyledDescription = styled.article`
   h2 {
     font-size: 1.2rem;
   }
+
+  a {
+    word-break: break-word;
+  }
 `;
 
 const StyledCardBottom = styled.div`
@@ -59,14 +63,33 @@ const StyledCardBottom = styled.div`
   text-align: right;
 `;
 
-export default function ChallengeCard({ challenge, link, user }) {
+const StyledTagList = styled.ul`
+  list-style-type: none;
+  margin: 2rem 0 0;
+  padding-left: 0;
+`;
+
+const StyledTag = styled.li`
+  background: #b6faff;
+  border-radius: 2px;
+  display: inline-block;
+  font-size: 0.8rem;
+  margin: 0.25rem 0.3rem;
+  padding: 0.3rem 0.5rem;
+
+  &:first-child {
+    margin-left: 0;
+  }
+`;
+
+export default function ChallengeCard({ challenge, link, contributor, tags }) {
   return (
     <StyledChallengeCard>
       <StyledCardTop>
         <StyledContributorWrapper>
-          <Avatar src={user.photoURL} alt={user.displayName} />
+          <Avatar src={contributor.photoURL} alt={contributor.displayName} />
           <div>
-            <p>{user.displayName}</p>
+            <p>{contributor.displayName}</p>
             <p>{format(challenge.createdAt, 'MMMM D, YYYY')}</p>
           </div>
         </StyledContributorWrapper>
@@ -81,6 +104,11 @@ export default function ChallengeCard({ challenge, link, user }) {
       {link &&
         <StyledCardBottom>{link}</StyledCardBottom>
       }
+      {tags &&
+        <StyledTagList>
+          {tags.map(tag => <StyledTag key={tag}>{tag}</StyledTag>)}
+        </StyledTagList>
+      }
     </StyledChallengeCard>
   );
 }
@@ -92,7 +120,8 @@ ChallengeCard.propTypes = {
     points: PropTypes.string.isRequired,
   }).isRequired,
   link: PropTypes.element,
-  user: PropTypes.shape({
+  tags: PropTypes.array,
+  contributor: PropTypes.shape({
     displayName: PropTypes.string.isRequired,
     photoURL: PropTypes.string.isRequired,
   }).isRequired,
@@ -100,4 +129,5 @@ ChallengeCard.propTypes = {
 
 ChallengeCard.defaultProps = {
   link: null,
+  tags: null,
 };

@@ -1,18 +1,11 @@
 import firebase from 'firebase';
 import React from 'react';
-import styled from 'styled-components';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import HomePage from './HomePage';
 import ChallengePage from './ChallengePage';
 import Header from './Header';
 import request from '../utils/request';
-
-const Content = styled.main`
-  margin: 0 auto;
-  max-width: 45rem;
-  padding-top: 1.5rem;
-`;
 
 export default class App extends React.Component {
   state = {
@@ -22,12 +15,12 @@ export default class App extends React.Component {
     users: {},
   };
 
-  setUser(userData) { // eslint-disable-line react/sort-comp
+  setUser(userData, onSuccess) { // eslint-disable-line react/sort-comp
     if (/umich\.edu$/i.test(userData.email)) {
       const { displayName, email, photoURL, uid } = userData;
       const user = { displayName, email, photoURL, uid };
       this.usersRef.child(uid).set(user);
-      this.setState({ user });
+      this.setState({ user }, onSuccess);
     } else {
       console.log('You must be part of the "umich.edu" domain to use this app.');
     }
@@ -61,11 +54,11 @@ export default class App extends React.Component {
     this.challengesRef.off();
   }
 
-  signIn = async () => {
+  signIn = async (onSuccess) => {
     try {
       const google = new firebase.auth.GoogleAuthProvider();
       const { user } = await this.auth.signInWithPopup(google);
-      this.setUser(user);
+      this.setUser(user, onSuccess);
     } catch (error) {
       console.log(error.message);
     }
@@ -108,16 +101,13 @@ export default class App extends React.Component {
     }
   }
 
-  handleSubmit = async (event) => {
+  handleSubmit = (event) => {
     event.preventDefault();
 
     if (this.state.user) {
       this.importChallenge();
     } else {
-      await this.signIn();
-      if (this.state.user) {
-        this.importChallenge();
-      }
+      this.signIn(this.importChallenge);
     }
   }
 
@@ -139,7 +129,15 @@ export default class App extends React.Component {
 
   renderChallengePage = ({ match }) => {
     const challenge = this.state.challenges.find(c => c.slug === match.params.slug);
-    return <ChallengePage challenge={challenge} user={this.state.users[challenge.contributor]} />;
+    return (
+      <ChallengePage
+        challenge={challenge}
+        contributor={this.state.users[challenge.contributor]}
+        signIn={this.signIn}
+        user={this.state.user}
+        users={this.state.users}
+      />
+    );
   };
 
   render() {
@@ -147,12 +145,10 @@ export default class App extends React.Component {
       <Router>
         <div>
           <Header signOut={this.signOut} signIn={this.signIn} user={this.state.user} />
-          <Content>
-            <Route exact path="/" render={this.renderHomePage} />
-            {(this.state.challenges.length > 0) &&
-              <Route path="/challenge/:slug" render={this.renderChallengePage} />
-            }
-          </Content>
+          <Route exact path="/" render={this.renderHomePage} />
+          {(this.state.challenges.length > 0) &&
+            <Route path="/challenge/:slug" render={this.renderChallengePage} />
+          }
         </div>
       </Router>
     );
