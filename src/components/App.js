@@ -11,7 +11,7 @@ export default class App extends React.Component {
   state = {
     challenges: [],
     url: '',
-    user: null,
+    user: undefined,
     users: {},
   };
 
@@ -45,6 +45,10 @@ export default class App extends React.Component {
     this.auth.onAuthStateChanged((user) => {
       if (user) {
         this.setUser(user);
+      } else {
+        this.setState({
+          user: null,
+        });
       }
     });
   }
