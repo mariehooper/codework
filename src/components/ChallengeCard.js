@@ -106,7 +106,7 @@ export default function ChallengeCard({ challenge, link, contributor, tags }) {
       }
       {tags &&
         <StyledTagList>
-          {tags.map(tag => <StyledTag>{tag}</StyledTag>)}
+          {tags.map(tag => <StyledTag key={tag}>{tag}</StyledTag>)}
         </StyledTagList>
       }
     </StyledChallengeCard>
@@ -120,7 +120,7 @@ ChallengeCard.propTypes = {
     points: PropTypes.string.isRequired,
   }).isRequired,
   link: PropTypes.element,
-  tags: PropTypes.element,
+  tags: PropTypes.array,
   contributor: PropTypes.shape({
     displayName: PropTypes.string.isRequired,
     photoURL: PropTypes.string.isRequired,
