@@ -7,14 +7,26 @@ import ChallengeCard from './ChallengeCard';
 import { StyledChallengeContent } from './Content';
 import SubmissionList from './SubmissionList';
 import SubmissionForm from './SubmissionForm';
+import ErrorMessage from './ErrorMessage';
 
 const StyledColumn = styled.div`
   flex: 1;
   width: 50%;
+  @media (max-width: 680px) {
+    width: 100%;
+  }
 
   &:not(:last-child) {
     padding-right: 1rem;
+    @media (max-width: 680px) {
+      padding-right: 0;
+    }
   }
+`;
+
+const StickySubmissions = styled.div`
+  position: sticky;
+  top: 20px;
 `;
 
 export default class ChallengePage extends React.Component {
@@ -61,7 +73,7 @@ export default class ChallengePage extends React.Component {
   }
 
   render() {
-    const { challenge, contributor } = this.props;
+    const { challenge, contributor, error } = this.props;
     return (
       <StyledChallengeContent>
         <StyledColumn>
@@ -73,7 +85,12 @@ export default class ChallengePage extends React.Component {
           />
         </StyledColumn>
         <StyledColumn>
-          {this.renderSubmissions()}
+          <StickySubmissions>
+            {error &&
+              <ErrorMessage message={error} />
+            }
+            {this.renderSubmissions()}
+          </StickySubmissions>
         </StyledColumn>
       </StyledChallengeContent>
     );
@@ -96,8 +113,10 @@ ChallengePage.propTypes = {
   }),
   signIn: PropTypes.func.isRequired,
   users: PropTypes.object.isRequired,
+  error: PropTypes.string,
 };
 
 ChallengePage.defaultProps = {
   user: null,
+  error: null,
 };
