@@ -6,6 +6,7 @@ import 'normalize.css';
 import prism from 'prismjs';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import './global.css';
 import App from './components/App';
@@ -27,5 +28,10 @@ marked.setOptions({
   langPrefix: 'language-',
 });
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(
+  <Router>
+    <App />
+  </Router>,
+  document.getElementById('app'),
+);
 registerServiceWorker();

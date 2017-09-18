@@ -1,13 +1,14 @@
 import firebase from 'firebase/app';
+import PropTypes from 'prop-types';
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 
 import HomePage from './HomePage';
 import ChallengePage from './ChallengePage';
 import Header from './Header';
 import request from '../utils/request';
 
-export default class App extends React.Component {
+class App extends React.Component {
   state = {
     challenges: [],
     url: '',
@@ -57,11 +58,16 @@ export default class App extends React.Component {
         });
       }
     });
+
+    this.stopListening = this.props.history.listen(() => {
+      window.scrollTo(0, 0);
+    });
   }
 
   componentWillUnmount() {
     this.usersRef.off();
     this.challengesRef.off();
+    this.stopListening();
   }
 
   signIn = async (onSuccess) => {
@@ -179,15 +185,21 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <Router>
-        <div>
-          <Header signOut={this.signOut} signIn={this.signIn} user={this.state.user} />
-          <Route exact path="/" render={this.renderHomePage} />
-          {(this.state.challenges.length > 0) &&
-            <Route path="/challenge/:slug" render={this.renderChallengePage} />
-          }
-        </div>
-      </Router>
+      <div>
+        <Header signOut={this.signOut} signIn={this.signIn} user={this.state.user} />
+        <Route exact path="/" render={this.renderHomePage} />
+        {(this.state.challenges.length > 0) &&
+          <Route path="/challenge/:slug" render={this.renderChallengePage} />
+        }
+      </div>
     );
   }
 }
+
+export default withRouter(App);
+
+App.propTypes = {
+  history: PropTypes.shape({
+    listen: PropTypes.func.isRequired,
+  }).isRequired,
+};
