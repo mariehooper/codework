@@ -20,6 +20,7 @@ const StyledDropdownMenu = styled.ul`
   position: absolute;
   top: 2.3rem;
   width: 100%;
+  z-index: 1;
 
   li {
     padding: 0.5rem;
