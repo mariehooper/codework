@@ -2,7 +2,6 @@
   "name": "codework",
   "version": "0.1.0",
   "description": "",
-  "homepage": "https://github.com/hoopr/codework#readme",
   "bugs": {
     "url": "https://github.com/hoopr/codework/issues"
   },
@@ -16,6 +15,7 @@
   },
   "scripts": {
     "build": "react-scripts build",
+    "postbuild": "node 'scripts/createRedirects.js'",
     "clean": "rimraf build",
     "deploy": "npm-run-all lint build",
     "eject": "react-scripts eject",
@@ -61,10 +61,10 @@
   },
   "private": true,
   "proxy": {
-    "/codewars": {
+    "/api/codewars": {
       "changeOrigin": true,
       "pathRewrite": {
-        "^/codewars": ""
+        "^/api/codewars": ""
       },
       "target": "https://www.codewars.com/api/v1"
     }
