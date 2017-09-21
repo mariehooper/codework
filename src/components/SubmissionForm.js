@@ -20,6 +20,23 @@ const StyledTextArea = styled.textarea`
   }
 `;
 
+const StyledFormFooter = styled.div`
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+
+  a {
+    color: #fff;
+    font-size: 0.9rem;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
 const StyledWhiteButton = styled.button`
   background: #fff;
   border: none;
@@ -29,8 +46,6 @@ const StyledWhiteButton = styled.button`
   display: block;
   font-size: 15px;
   letter-spacing: 0.025em;
-  margin-left: auto;
-  margin-top: 1rem;
   padding: 0.5rem 0.625rem;
   text-decoration: none;
   transition: all 0.15s ease;
@@ -95,7 +110,16 @@ export default class SubmissionForm extends React.Component {
           onChange={this.handleChange}
           value={this.state.solution}
         />
-        <StyledWhiteButton type="submit">Submit</StyledWhiteButton>
+        <StyledFormFooter>
+          <a
+            href="https://guides.github.com/features/mastering-markdown/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            You can write your solution in Markdown!
+          </a>
+          <StyledWhiteButton type="submit">Submit</StyledWhiteButton>
+        </StyledFormFooter>
       </StyledForm>
     );
   }
