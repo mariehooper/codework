@@ -32,6 +32,7 @@ const StickySubmissions = styled.div`
 export default class ChallengePage extends React.Component {
   state = {
     submissions: [],
+    isLoading: true,
   };
 
   componentDidMount() {
@@ -43,6 +44,7 @@ export default class ChallengePage extends React.Component {
           ...submission,
           id: key,
         })),
+        isLoading: false,
       });
     });
   }
@@ -63,13 +65,17 @@ export default class ChallengePage extends React.Component {
       );
     }
 
-    return (
-      <SubmissionForm
-        user={user}
-        submissionsRef={this.submissionsRef}
-        signIn={signIn}
-      />
-    );
+    if (!this.state.isLoading) {
+      return (
+        <SubmissionForm
+          user={user}
+          submissionsRef={this.submissionsRef}
+          signIn={signIn}
+        />
+      );
+    }
+
+    return null;
   }
 
   render() {
