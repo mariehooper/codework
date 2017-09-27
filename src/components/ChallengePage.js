@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import ChallengeCard from './ChallengeCard';
 import { StyledChallengeContent } from './Content';
+import { StyledExternalLink } from './StyledButton';
 import SubmissionList from './SubmissionList';
 import SubmissionForm from './SubmissionForm';
 import ErrorMessage from './ErrorMessage';
@@ -88,6 +89,9 @@ export default class ChallengePage extends React.Component {
             challenge={challenge}
             contributor={contributor}
             tags={challenge.tags}
+            link={
+              <StyledExternalLink href={`${challenge.url}`}>View Problem</StyledExternalLink>
+            }
           />
         </StyledColumn>
         <StyledColumn>

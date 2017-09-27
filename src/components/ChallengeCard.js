@@ -101,14 +101,12 @@ export default function ChallengeCard({ challenge, link, contributor, tags }) {
           __html: marked(challenge.description),
         }}
       />
-      {link &&
-        <StyledCardBottom>{link}</StyledCardBottom>
-      }
       {tags &&
         <StyledTagList>
           {tags.map(tag => <StyledTag key={tag}>{tag}</StyledTag>)}
         </StyledTagList>
       }
+      <StyledCardBottom>{link}</StyledCardBottom>
     </StyledChallengeCard>
   );
 }
