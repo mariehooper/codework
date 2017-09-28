@@ -166,6 +166,7 @@ class App extends React.Component {
       url={this.state.url}
       challenges={this.state.challenges}
       users={this.state.users}
+      user={this.state.user}
     />
   );
 

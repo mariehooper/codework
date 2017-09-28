@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const StyledButton = styled(Link)`
+const StyledButton = styled(Link)`
   background: #1ee4b7;
   border-radius: 4px;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -24,4 +24,18 @@ export const StyledButton = styled(Link)`
   }
 `;
 
+export default StyledButton;
+
 export const StyledExternalLink = StyledButton.withComponent('a');
+
+export const StyledButtonLink = styled.button`
+  background: none;
+  border: none;
+  color: #00bcd4;
+
+  &:hover {
+    color: #1ed4d4;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+`;
