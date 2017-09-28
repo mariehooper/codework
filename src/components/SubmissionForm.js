@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import StyledForm from './StyledForm';
+import StyledMessage from './StyledMessage';
 
 const StyledTextArea = styled.textarea`
   border: none;
@@ -99,27 +100,43 @@ export default class SubmissionForm extends React.Component {
     event.target.classList.remove('active');
   }
 
+  renderFields() {
+    if (this.props.user) {
+      return (
+        <div>
+          <StyledTextArea
+            name="solution"
+            placeholder="Add your solution"
+            onBlur={this.handleBlur}
+            onFocus={this.handleFocus}
+            onChange={this.handleChange}
+            value={this.state.solution}
+          />
+          <StyledFormFooter>
+            <a
+              href="https://guides.github.com/features/mastering-markdown/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              You can write your solution in Markdown!
+            </a>
+            <StyledWhiteButton type="submit">Submit</StyledWhiteButton>
+          </StyledFormFooter>
+        </div>
+      );
+    }
+    if (this.props.user === null) {
+      return (
+        <StyledMessage>Sign in to submit a solution!</StyledMessage>
+      );
+    }
+    return null;
+  }
+
   render() {
     return (
       <StyledForm onSubmit={this.handleSubmit}>
-        <StyledTextArea
-          name="solution"
-          placeholder="Add your solution"
-          onBlur={this.handleBlur}
-          onFocus={this.handleFocus}
-          onChange={this.handleChange}
-          value={this.state.solution}
-        />
-        <StyledFormFooter>
-          <a
-            href="https://guides.github.com/features/mastering-markdown/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            You can write your solution in Markdown!
-          </a>
-          <StyledWhiteButton type="submit">Submit</StyledWhiteButton>
-        </StyledFormFooter>
+        {this.renderFields()}
       </StyledForm>
     );
   }

@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import StyledForm from './StyledForm';
+import StyledMessage from './StyledMessage';
 
 const StyledInputBar = styled.div`
   border-radius: 4px;
@@ -53,13 +54,6 @@ const StyledInputBar = styled.div`
       width: 2px;
     }
   }
-`;
-
-const StyledMessage = styled.p`
-  color: #fff;
-  font-size: 1.5rem;
-  margin: 0.475rem 0;
-  text-align: center;
 `;
 
 export default class ChallengeImportForm extends React.Component {
