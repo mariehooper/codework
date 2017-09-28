@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import ChallengeCard from './ChallengeCard';
-import { StyledButton } from './StyledButton';
+import StyledButton from './StyledButton';
 
 const StyledChallengeList = styled.ul`
   list-style-type: none;

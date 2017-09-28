@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
-import { StyledForm } from './ChallengeImportForm';
+import StyledForm from './StyledForm';
 
 const StyledTextArea = styled.textarea`
   border: none;
