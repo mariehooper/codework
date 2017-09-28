@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import Avatar from './Avatar';
 import Dropdown from './Dropdown';
+import { StyledButtonLink } from './StyledButton';
 
 const StyledHeader = styled.header`
   background: white;
@@ -31,18 +32,6 @@ const StyledPageTitle = styled(Link)`
 
   span {
     color: #ccc;
-  }
-`;
-
-const StyledButtonLink = styled.button`
-  background: none;
-  border: none;
-  color: #00bcd4;
-
-  &:hover {
-    color: #1ed4d4;
-    cursor: pointer;
-    text-decoration: underline;
   }
 `;
 

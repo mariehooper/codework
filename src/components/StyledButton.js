@@ -27,3 +27,15 @@ const StyledButton = styled(Link)`
 export default StyledButton;
 
 export const StyledExternalLink = StyledButton.withComponent('a');
+
+export const StyledButtonLink = styled.button`
+  background: none;
+  border: none;
+  color: #00bcd4;
+
+  &:hover {
+    color: #1ed4d4;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+`;

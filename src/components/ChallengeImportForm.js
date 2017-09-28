@@ -55,6 +55,13 @@ const StyledInputBar = styled.div`
   }
 `;
 
+const StyledMessage = styled.p`
+  color: #fff;
+  font-size: 1.5rem;
+  margin: 0.475rem 0;
+  text-align: center;
+`;
+
 export default class ChallengeImportForm extends React.Component {
   handleFocus = (event) => {
     event.target.parentNode.parentNode.classList.add('active');
@@ -64,10 +71,10 @@ export default class ChallengeImportForm extends React.Component {
     event.target.parentNode.parentNode.classList.remove('active');
   }
 
-  render() {
-    const { handleChange, handleSubmit, url } = this.props;
-    return (
-      <StyledForm onSubmit={handleSubmit}>
+  renderFields() {
+    const { handleChange, url, user } = this.props;
+    if (user) {
+      return (
         <StyledInputBar>
           <label htmlFor="challenge-url">
             <input
@@ -83,6 +90,20 @@ export default class ChallengeImportForm extends React.Component {
           </label>
           <button type="submit">Import</button>
         </StyledInputBar>
+      );
+    }
+    if (user === null) {
+      return (
+        <StyledMessage>Sign in to import a challenge!</StyledMessage>
+      );
+    }
+    return null;
+  }
+
+  render() {
+    return (
+      <StyledForm onSubmit={this.props.handleSubmit}>
+        {this.renderFields()}
       </StyledForm>
     );
   }
@@ -92,4 +113,5 @@ ChallengeImportForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   url: PropTypes.string.isRequired,
+  user: PropTypes.object, // eslint-disable-line react/require-default-props
 };
