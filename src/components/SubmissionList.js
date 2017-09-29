@@ -64,7 +64,7 @@ export default function SubmissionList({ users, submissions }) {
               />
               <div>
                 <p className="author-name">{users[submission.author].displayName}</p>
-                <p className="author-date">{format(submission.createdAt, 'MMMM D, YYYY h:ma')}</p>
+                <p className="author-date">{format(submission.createdAt, 'MMMM D, YYYY h:mma')}</p>
               </div>
             </StyledAuthorWrapper>
             <StyledSolution
