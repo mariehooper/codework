@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import StyledForm from './StyledForm';
 import StyledMessage from './StyledMessage';
-import { StyledToggleButtons, StyledToggleButton } from './StyledButton';
+import { StyledToggleButtons, StyledToggleButton, StyledWhiteButton } from './StyledButton';
 
 const StyledTextArea = styled.textarea`
   border: none;
@@ -40,27 +40,6 @@ const StyledFormFooter = styled.div`
     &:hover {
       text-decoration: underline;
     }
-  }
-`;
-
-const StyledWhiteButton = styled.button`
-  background: #fff;
-  border: none;
-  border-radius: 4px;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-  color: #00bcd4;
-  cursor: pointer;
-  display: block;
-  font-size: 15px;
-  letter-spacing: 0.025em;
-  padding: 0.5rem 0.625rem;
-  text-decoration: none;
-  transition: all 0.15s ease;
-  white-space: nowrap;
-
-  &:hover {
-    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
-    transform: translateY(-1px);
   }
 `;
 
