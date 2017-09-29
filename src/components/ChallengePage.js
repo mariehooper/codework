@@ -90,7 +90,7 @@ export default class ChallengePage extends React.Component {
             contributor={contributor}
             tags={challenge.tags}
             link={
-              <StyledExternalLink href={`${challenge.url}`}>View Problem</StyledExternalLink>
+              <StyledExternalLink href={`${challenge.url}`}>Start Solving</StyledExternalLink>
             }
           />
         </StyledColumn>
