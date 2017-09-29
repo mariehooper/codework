@@ -13,6 +13,9 @@ const StyledTextArea = styled.textarea`
   border-radius: 0 4px 4px;
   box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02);
   display: block;
+  font-family: monospace, monospace; /* stylelint-disable-line font-family-no-duplicate-names */
+  font-size: 0.9rem;
+  line-height: 1.3;
   min-height: 8rem;
   outline: none;
   padding: 1rem;
@@ -66,6 +69,8 @@ const StyledSubmissionPreview = styled.div`
   border-radius: 0 4px 4px;
   box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02);
   display: block;
+  font-size: 0.9rem;
+  line-height: 1.3;
   min-height: 8rem;
   padding: 1rem;
   width: 100%;
