@@ -1,19 +1,21 @@
 import firebase from 'firebase/app';
+import marked from 'marked';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
 import StyledForm from './StyledForm';
 import StyledMessage from './StyledMessage';
+import { StyledToggleButtons, StyledToggleButton } from './StyledButton';
 
 const StyledTextArea = styled.textarea`
   border: none;
-  border-radius: 4px;
+  border-radius: 0 4px 4px;
   box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02);
   display: block;
   min-height: 8rem;
   outline: none;
-  padding: 0.5rem;
+  padding: 1rem;
   width: 100%;
 
   &.active {
@@ -44,6 +46,7 @@ const StyledWhiteButton = styled.button`
   border-radius: 4px;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
   color: #00bcd4;
+  cursor: pointer;
   display: block;
   font-size: 15px;
   letter-spacing: 0.025em;
@@ -58,9 +61,20 @@ const StyledWhiteButton = styled.button`
   }
 `;
 
+const StyledSubmissionPreview = styled.div`
+  background: #fff;
+  border-radius: 0 4px 4px;
+  box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02);
+  display: block;
+  min-height: 8rem;
+  padding: 1rem;
+  width: 100%;
+`;
+
 export default class SubmissionForm extends React.Component {
   state = {
     solution: '',
+    mode: 'write',
   };
 
   saveSubmission = () => {
@@ -100,18 +114,65 @@ export default class SubmissionForm extends React.Component {
     event.target.classList.remove('active');
   }
 
-  renderFields() {
+  toggleView = (event) => {
+    event.preventDefault();
+    this.setState({
+      mode: event.target.dataset.mode,
+    });
+  }
+
+  renderSolution() {
+    if (this.state.mode === 'write') {
+      return (
+        <StyledTextArea
+          name="solution"
+          placeholder="Add your solution"
+          onBlur={this.handleBlur}
+          onFocus={this.handleFocus}
+          onChange={this.handleChange}
+          value={this.state.solution}
+        />
+      );
+    }
+
+    return (
+      <StyledSubmissionPreview
+        dangerouslySetInnerHTML={{
+          __html: marked(this.state.solution),
+        }}
+      />
+    );
+  }
+
+  renderContent() {
     if (this.props.user) {
       return (
         <div>
-          <StyledTextArea
-            name="solution"
-            placeholder="Add your solution"
-            onBlur={this.handleBlur}
-            onFocus={this.handleFocus}
-            onChange={this.handleChange}
-            value={this.state.solution}
-          />
+          <StyledToggleButtons>
+            <li>
+              <StyledToggleButton
+                type="button"
+                className={this.state.mode === 'write' ? 'active' : null}
+                data-mode="write"
+                onClick={this.toggleView}
+              >
+              Write
+              </StyledToggleButton>
+            </li>
+            <li>
+              <StyledToggleButton
+                type="button"
+                className={this.state.mode === 'preview' ? 'active' : null}
+                data-mode="preview"
+                onClick={this.toggleView}
+              >
+                Preview
+              </StyledToggleButton>
+            </li>
+          </StyledToggleButtons>
+
+          {this.renderSolution()}
+
           <StyledFormFooter>
             <a
               href="https://guides.github.com/features/mastering-markdown/"
@@ -125,18 +186,18 @@ export default class SubmissionForm extends React.Component {
         </div>
       );
     }
+
     if (this.props.user === null) {
-      return (
-        <StyledMessage>Sign in to submit a solution!</StyledMessage>
-      );
+      return <StyledMessage>Sign in to submit a solution!</StyledMessage>;
     }
+
     return null;
   }
 
   render() {
     return (
       <StyledForm onSubmit={this.handleSubmit}>
-        {this.renderFields()}
+        {this.renderContent()}
       </StyledForm>
     );
   }
