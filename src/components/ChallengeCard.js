@@ -55,6 +55,10 @@ const StyledDescription = styled.article`
   a {
     word-break: break-word;
   }
+
+  img {
+    max-width: 100%;
+  }
 `;
 
 const StyledCardBottom = styled.div`
