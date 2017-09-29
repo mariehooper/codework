@@ -62,6 +62,7 @@ export const StyledToggleButton = styled.button`
   border: none;
   min-width: 70px;
   opacity: 0.5;
+  outline: none;
   padding: 0.6rem;
 
   &.active {
