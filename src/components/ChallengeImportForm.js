@@ -31,9 +31,11 @@ const StyledInputBar = styled.div`
     border: none;
     color: #00bcd4;
     font-size: 0.875rem;
+    font-weight: 600;
     outline: none;
     padding: 0.75rem 1rem;
     position: relative;
+    text-transform: uppercase;
 
     &:focus {
       background-color: #f6f9fc;
