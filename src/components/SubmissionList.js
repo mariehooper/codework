@@ -38,7 +38,6 @@ const StyledAuthorWrapper = styled.div`
 
 const StyledSolution = styled.article`
   font-size: 0.9rem;
-  font-weight: 300;
   line-height: 1.5;
 
   h1 {
