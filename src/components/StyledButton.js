@@ -39,3 +39,43 @@ export const StyledButtonLink = styled.button`
     text-decoration: underline;
   }
 `;
+
+export const StyledToggleButtons = styled.ul`
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+
+  li {
+    border-radius: 0 4px 0 0;
+    font-size: 0.8rem;
+    overflow: hidden;
+
+    &:first-child {
+      border-radius: 4px 0 0;
+    }
+  }
+`;
+
+export const StyledToggleButton = styled.button`
+  background: #fff;
+  border: none;
+  min-width: 70px;
+  opacity: 0.5;
+  outline: none;
+  padding: 0.6rem;
+
+  &.active {
+    opacity: 1;
+
+    &:hover {
+      cursor: default;
+      opacity: 1;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+`;
