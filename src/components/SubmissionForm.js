@@ -26,6 +26,11 @@ const StyledTextArea = styled.textarea`
   }
 `;
 
+const StickyWrapper = styled.div`
+  position: sticky;
+  top: 20px;
+`;
+
 const StyledFormFooter = styled.div`
   align-items: flex-end;
   display: flex;
@@ -180,9 +185,11 @@ export default class SubmissionForm extends React.Component {
 
   render() {
     return (
-      <StyledForm onSubmit={this.handleSubmit}>
-        {this.renderContent()}
-      </StyledForm>
+      <StickyWrapper>
+        <StyledForm onSubmit={this.handleSubmit}>
+          {this.renderContent()}
+        </StyledForm>
+      </StickyWrapper>
     );
   }
 }

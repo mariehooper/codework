@@ -25,11 +25,6 @@ const StyledColumn = styled.div`
   }
 `;
 
-const StickySubmissions = styled.div`
-  position: sticky;
-  top: 20px;
-`;
-
 export default class ChallengePage extends React.Component {
   state = {
     submissions: [],
@@ -101,12 +96,10 @@ export default class ChallengePage extends React.Component {
           />
         </StyledColumn>
         <StyledColumn>
-          <StickySubmissions>
-            {error &&
-              <ErrorMessage message={error} />
-            }
-            {this.renderSubmissions()}
-          </StickySubmissions>
+          {error &&
+            <ErrorMessage message={error} />
+          }
+          {this.renderSubmissions()}
         </StyledColumn>
       </StyledChallengeContent>
     );
