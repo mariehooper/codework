@@ -16,7 +16,6 @@
   "scripts": {
     "build": "react-scripts build",
     "postbuild": "node 'scripts/createRedirects.js'",
-    "clean": "rimraf build",
     "deploy": "npm-run-all lint build",
     "eject": "react-scripts eject",
     "lint": "npm-run-all --parallel 'lint:*'",
