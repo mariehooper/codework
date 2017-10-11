@@ -1,7 +1,7 @@
 {
   "name": "codework",
-  "version": "0.1.0",
-  "description": "",
+  "version": "1.0.0-beta.1",
+  "description": "Daily programming challenge turns into an interactive programming reference guide.",
   "bugs": {
     "url": "https://github.com/hoopr/codework/issues"
   },
