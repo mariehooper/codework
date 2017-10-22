@@ -9,7 +9,6 @@ import { StyledExternalLink } from './StyledButton';
 import SubmissionList from './SubmissionList';
 import SubmissionForm from './SubmissionForm';
 import ErrorMessage from './ErrorMessage';
-import addIdToItems from '../utils/addIdToItems';
 
 const StyledColumn = styled.div`
   flex: 1;
@@ -33,10 +32,12 @@ export default class ChallengePage extends React.Component {
   };
 
   componentDidMount() {
-    this.submissionsRef = firebase.database().ref(`submissions/${this.props.challenge.id}`);
-    this.submissionsRef.on('value', (snapshot) => {
+    const { addIdAndUserDataToItems, challenge } = this.props;
+    this.submissionsRef = firebase.database().ref(`submissions/${challenge.id}`);
+    this.submissionsRef.on('value', (submissionsSnapshot) => {
+      const submissions = submissionsSnapshot.val() || {};
       this.setState({
-        submissions: addIdToItems(snapshot.val() || {}),
+        submissions: addIdAndUserDataToItems(submissions, 'author'),
         isLoading: false,
       });
     });
@@ -47,15 +48,9 @@ export default class ChallengePage extends React.Component {
   }
 
   renderSubmissions() {
-    const { users, user, signIn, contributor } = this.props;
-    if (user && this.state.submissions.find(submission => submission.author === user.id)) {
-      return (
-        <SubmissionList
-          users={users}
-          contributor={contributor}
-          submissions={this.state.submissions}
-        />
-      );
+    const { user, signIn } = this.props;
+    if (user && this.state.submissions.find(submission => submission.author.id === user.id)) {
+      return <SubmissionList submissions={this.state.submissions} />;
     }
 
     if (!this.state.isLoading) {
@@ -72,14 +67,13 @@ export default class ChallengePage extends React.Component {
   }
 
   render() {
-    const { challenge, contributor, error } = this.props;
+    const { challenge, error } = this.props;
     return (
       <StyledChallengeContent>
         <StyledColumn>
           <ChallengeCard
             key={challenge.id}
             challenge={challenge}
-            contributor={contributor}
             tags={challenge.tags}
             link={
               <StyledExternalLink
@@ -104,25 +98,20 @@ export default class ChallengePage extends React.Component {
 }
 
 ChallengePage.propTypes = {
+  addIdAndUserDataToItems: PropTypes.func.isRequired,
   challenge: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    points: PropTypes.string.isRequired,
+    tags: PropTypes.array.isRequired,
+    url: PropTypes.string.isRequired,
   }).isRequired,
-  contributor: PropTypes.shape({
-    displayName: PropTypes.string.isRequired,
-    photoURL: PropTypes.string.isRequired,
-  }).isRequired,
+  error: PropTypes.string,
+  signIn: PropTypes.func.isRequired,
   user: PropTypes.shape({
     id: PropTypes.string.isRequired,
   }),
-  signIn: PropTypes.func.isRequired,
-  users: PropTypes.object.isRequired,
-  error: PropTypes.string,
 };
 
 ChallengePage.defaultProps = {
-  user: null,
   error: null,
+  user: null,
 };

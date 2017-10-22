@@ -85,14 +85,17 @@ const StyledTag = styled.li`
   }
 `;
 
-export default function ChallengeCard({ challenge, link, contributor, tags }) {
+export default function ChallengeCard({ challenge, link, tags }) {
   return (
     <StyledChallengeCard>
       <StyledCardTop>
         <StyledContributorWrapper>
-          <Avatar src={contributor.photoURL} alt={contributor.displayName} />
+          <Avatar
+            src={challenge.contributor.photoURL}
+            alt={challenge.contributor.displayName}
+          />
           <div>
-            <p>{contributor.displayName}</p>
+            <p>{challenge.contributor.displayName}</p>
             <p>{format(challenge.createdAt, 'MMMM D, YYYY')}</p>
           </div>
         </StyledContributorWrapper>
@@ -116,16 +119,17 @@ export default function ChallengeCard({ challenge, link, contributor, tags }) {
 
 ChallengeCard.propTypes = {
   challenge: PropTypes.shape({
+    contributor: PropTypes.shape({
+      displayName: PropTypes.string.isRequired,
+      photoURL: PropTypes.string.isRequired,
+    }).isRequired,
+    createdAt: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     points: PropTypes.string.isRequired,
   }).isRequired,
   link: PropTypes.element,
-  tags: PropTypes.array,
-  contributor: PropTypes.shape({
-    displayName: PropTypes.string.isRequired,
-    photoURL: PropTypes.string.isRequired,
-  }).isRequired,
+  tags: PropTypes.arrayOf(PropTypes.string),
 };
 
 ChallengeCard.defaultProps = {

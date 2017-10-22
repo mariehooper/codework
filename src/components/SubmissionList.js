@@ -49,7 +49,7 @@ const StyledSolution = styled.article`
   }
 `;
 
-export default function SubmissionList({ users, submissions }) {
+export default function SubmissionList({ submissions }) {
   return (
     <StyledSubmissionList>
       {submissions
@@ -58,11 +58,11 @@ export default function SubmissionList({ users, submissions }) {
           <StyledSubmission key={submission.id}>
             <StyledAuthorWrapper>
               <Avatar
-                src={users[submission.author].photoURL}
-                alt={users[submission.author].displayName}
+                src={submission.author.photoURL}
+                alt={submission.author.displayName}
               />
               <div>
-                <p className="author-name">{users[submission.author].displayName}</p>
+                <p className="author-name">{submission.author.displayName}</p>
                 <p className="author-date">{format(submission.createdAt, 'MMMM D, YYYY h:mma')}</p>
               </div>
             </StyledAuthorWrapper>
@@ -79,8 +79,15 @@ export default function SubmissionList({ users, submissions }) {
 }
 
 SubmissionList.propTypes = {
-  users: PropTypes.object.isRequired,
-  submissions: PropTypes.array,
+  submissions: PropTypes.arrayOf(PropTypes.shape({
+    author: PropTypes.shape({
+      displayName: PropTypes.string.isRequired,
+      photoURL: PropTypes.string.isRequired,
+    }).isRequired,
+    createdAt: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
+    solution: PropTypes.string.isRequired,
+  })),
 };
 
 SubmissionList.defaultProps = {

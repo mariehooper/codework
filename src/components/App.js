@@ -6,7 +6,6 @@ import { Route, withRouter } from 'react-router-dom';
 import HomePage from './HomePage';
 import ChallengePage from './ChallengePage';
 import Header from './Header';
-import addIdToItems from '../utils/addIdToItems';
 import request from '../utils/request';
 
 class App extends React.Component {
@@ -20,16 +19,15 @@ class App extends React.Component {
 
   componentDidMount() {
     this.usersRef = firebase.database().ref('users');
-    this.usersRef.on('value', (snapshot) => {
-      this.setState({
-        users: snapshot.val() || {},
-      });
-    });
-
-    this.challengesRef = firebase.database().ref('challenges');
-    this.challengesRef.on('value', (snapshot) => {
-      this.setState({
-        challenges: addIdToItems(snapshot.val() || {}),
+    this.usersRef.on('value', (usersSnapshot) => {
+      this.challengesRef = firebase.database().ref('challenges');
+      this.challengesRef.on('value', (challengesSnapshot) => {
+        const challenges = challengesSnapshot.val() || {};
+        const users = usersSnapshot.val() || {};
+        this.setState({
+          challenges: this.addIdAndUserDataToItems(challenges, 'contributor', users),
+          users,
+        });
       });
     });
 
@@ -73,6 +71,19 @@ class App extends React.Component {
       });
     }
   }
+
+  addIdAndUserDataToItems = (items, userKey, users = this.state.users) =>
+    Object.entries(items).map(([id, item]) => {
+      const userId = item[userKey];
+      return {
+        ...item,
+        id,
+        [userKey]: {
+          ...users[userId],
+          id: userId,
+        },
+      };
+    });
 
   signIn = async (onSuccess) => {
     try {
@@ -168,7 +179,6 @@ class App extends React.Component {
       error={this.state.error}
       url={this.state.url}
       challenges={this.state.challenges}
-      users={this.state.users}
       user={this.state.user}
     />
   );
@@ -177,12 +187,11 @@ class App extends React.Component {
     const challenge = this.state.challenges.find(c => c.slug === match.params.slug);
     return (
       <ChallengePage
+        addIdAndUserDataToItems={this.addIdAndUserDataToItems}
         challenge={challenge}
-        contributor={this.state.users[challenge.contributor]}
         error={this.state.error}
         signIn={this.signIn}
         user={this.state.user}
-        users={this.state.users}
       />
     );
   };

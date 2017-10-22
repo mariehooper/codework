@@ -11,7 +11,7 @@ const StyledChallengeList = styled.ul`
   padding-left: 0;
 `;
 
-export default function ChallengeList({ challenges, users }) {
+export default function ChallengeList({ challenges }) {
   return (
     <StyledChallengeList>
       {challenges
@@ -23,7 +23,6 @@ export default function ChallengeList({ challenges, users }) {
               link={
                 <StyledButton to={`challenge/${challenge.slug}`}>Solve</StyledButton>
               }
-              contributor={users[challenge.contributor]}
             />
           </li>
         ))
@@ -33,6 +32,9 @@ export default function ChallengeList({ challenges, users }) {
 }
 
 ChallengeList.propTypes = {
-  challenges: PropTypes.array.isRequired,
-  users: PropTypes.object.isRequired,
+  challenges: PropTypes.arrayOf(PropTypes.shape({
+    createdAt: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+  })).isRequired,
 };
