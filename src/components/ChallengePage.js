@@ -48,7 +48,7 @@ export default class ChallengePage extends React.Component {
 
   renderSubmissions() {
     const { users, user, signIn, contributor } = this.props;
-    if (user && this.state.submissions.find(submission => submission.author === user.uid)) {
+    if (user && this.state.submissions.find(submission => submission.author === user.id)) {
       return (
         <SubmissionList
           users={users}
@@ -115,7 +115,7 @@ ChallengePage.propTypes = {
     photoURL: PropTypes.string.isRequired,
   }).isRequired,
   user: PropTypes.shape({
-    uid: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
   }),
   signIn: PropTypes.func.isRequired,
   users: PropTypes.object.isRequired,

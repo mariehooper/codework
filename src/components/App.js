@@ -61,7 +61,10 @@ class App extends React.Component {
       const user = { displayName, email, photoURL };
       this.usersRef.child(uid).set(user);
       this.setState({
-        user: { ...user, uid },
+        user: {
+          ...user,
+          id: uid,
+        },
         error: null,
       }, onSuccess);
     } else {
@@ -119,7 +122,7 @@ class App extends React.Component {
             tags,
             url,
             slug,
-            contributor: this.state.user.uid,
+            contributor: this.state.user.id,
           });
           this.setState({
             url: '',
