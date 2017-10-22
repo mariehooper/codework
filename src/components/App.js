@@ -6,6 +6,7 @@ import { Route, withRouter } from 'react-router-dom';
 import HomePage from './HomePage';
 import ChallengePage from './ChallengePage';
 import Header from './Header';
+import addIdToItems from '../utils/addIdToItems';
 import request from '../utils/request';
 
 class App extends React.Component {
@@ -17,34 +18,18 @@ class App extends React.Component {
     error: null,
   };
 
-  setUser(userData, onSuccess) { // eslint-disable-line react/sort-comp
-    if (/umich\.edu$/i.test(userData.email)) {
-      const { displayName, email, photoURL, uid } = userData;
-      const user = { displayName, email, photoURL, uid };
-      this.usersRef.child(uid).set(user);
-      this.setState({
-        user,
-        error: null,
-      }, onSuccess);
-    } else {
-      this.setState({
-        error: 'You must be part of the "umich.edu" domain to use this app.',
-      });
-    }
-  }
-
   componentDidMount() {
     this.usersRef = firebase.database().ref('users');
     this.usersRef.on('value', (snapshot) => {
-      const users = snapshot.val() || {};
-      this.setState({ users });
+      this.setState({
+        users: snapshot.val() || {},
+      });
     });
 
     this.challengesRef = firebase.database().ref('challenges');
     this.challengesRef.on('value', (snapshot) => {
-      const challenges = snapshot.val() || {};
       this.setState({
-        challenges: Object.values(challenges),
+        challenges: addIdToItems(snapshot.val() || {}),
       });
     });
 
@@ -68,6 +53,22 @@ class App extends React.Component {
     this.usersRef.off();
     this.challengesRef.off();
     this.stopListening();
+  }
+
+  setUser(userData, onSuccess) {
+    if (/umich\.edu$/i.test(userData.email)) {
+      const { displayName, email, photoURL, uid } = userData;
+      const user = { displayName, email, photoURL };
+      this.usersRef.child(uid).set(user);
+      this.setState({
+        user: { ...user, uid },
+        error: null,
+      }, onSuccess);
+    } else {
+      this.setState({
+        error: 'You must be part of the "umich.edu" domain to use this app.',
+      });
+    }
   }
 
   signIn = async (onSuccess) => {
@@ -113,7 +114,6 @@ class App extends React.Component {
           this.challengesRef.child(id).set({
             createdAt: firebase.database.ServerValue.TIMESTAMP,
             description,
-            id,
             name,
             points: rank.name,
             tags,
