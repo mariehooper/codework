@@ -54,6 +54,12 @@ class App extends React.Component {
     this.stopListening();
   }
 
+  setError = (errorMessage) => {
+    this.setState({
+      error: errorMessage,
+    });
+  }
+
   setUser(userData, onSuccess) {
     if (/umich\.edu$/i.test(userData.email)) {
       const { displayName, email, photoURL, uid } = userData;
@@ -67,9 +73,7 @@ class App extends React.Component {
         error: null,
       }, onSuccess);
     } else {
-      this.setState({
-        error: 'You must be part of the "umich.edu" domain to use this app.',
-      });
+      this.setError('You must be part of the "umich.edu" domain to use this app.');
     }
   }
 
@@ -99,9 +103,7 @@ class App extends React.Component {
         this.setUser(user);
       }
     } catch (error) {
-      this.setState({
-        error: error.message,
-      });
+      this.setError(error.message);
     }
   }
 
@@ -113,9 +115,7 @@ class App extends React.Component {
         error: null,
       });
     } catch (error) {
-      this.setState({
-        error: error.message,
-      });
+      this.setError(error.message);
     }
   }
 
@@ -141,19 +141,13 @@ class App extends React.Component {
             error: null,
           });
         } else {
-          this.setState({
-            error: 'That challenge has already been imported!',
-          });
+          this.setError('That challenge has already been imported!');
         }
       } catch (error) {
-        this.setState({
-          error: error.message,
-        });
+        this.setError(error.message);
       }
     } else {
-      this.setState({
-        error: 'Please enter a correctly-formatted Codewars Kata URL.',
-      });
+      this.setError('Please enter a correctly-formatted Codewars Kata URL.');
     }
   }
 
