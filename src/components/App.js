@@ -17,34 +17,17 @@ class App extends React.Component {
     error: null,
   };
 
-  setUser(userData, onSuccess) { // eslint-disable-line react/sort-comp
-    if (/umich\.edu$/i.test(userData.email)) {
-      const { displayName, email, photoURL, uid } = userData;
-      const user = { displayName, email, photoURL, uid };
-      this.usersRef.child(uid).set(user);
-      this.setState({
-        user,
-        error: null,
-      }, onSuccess);
-    } else {
-      this.setState({
-        error: 'You must be part of the "umich.edu" domain to use this app.',
-      });
-    }
-  }
-
   componentDidMount() {
     this.usersRef = firebase.database().ref('users');
-    this.usersRef.on('value', (snapshot) => {
-      const users = snapshot.val() || {};
-      this.setState({ users });
-    });
-
-    this.challengesRef = firebase.database().ref('challenges');
-    this.challengesRef.on('value', (snapshot) => {
-      const challenges = snapshot.val() || {};
-      this.setState({
-        challenges: Object.values(challenges),
+    this.usersRef.on('value', (usersSnapshot) => {
+      this.challengesRef = firebase.database().ref('challenges');
+      this.challengesRef.on('value', (challengesSnapshot) => {
+        const challenges = challengesSnapshot.val() || {};
+        const users = usersSnapshot.val() || {};
+        this.setState({
+          challenges: this.addIdAndUserDataToItems(challenges, 'contributor', users),
+          users,
+        });
       });
     });
 
@@ -69,6 +52,38 @@ class App extends React.Component {
     this.challengesRef.off();
     this.stopListening();
   }
+
+  setUser(userData, onSuccess) {
+    if (/umich\.edu$/i.test(userData.email)) {
+      const { displayName, email, photoURL, uid } = userData;
+      const user = { displayName, email, photoURL };
+      this.usersRef.child(uid).set(user);
+      this.setState({
+        user: {
+          ...user,
+          id: uid,
+        },
+        error: null,
+      }, onSuccess);
+    } else {
+      this.setState({
+        error: 'You must be part of the "umich.edu" domain to use this app.',
+      });
+    }
+  }
+
+  addIdAndUserDataToItems = (items, userKey, users = this.state.users) =>
+    Object.entries(items).map(([id, item]) => {
+      const userId = item[userKey];
+      return {
+        ...item,
+        id,
+        [userKey]: {
+          ...users[userId],
+          id: userId,
+        },
+      };
+    });
 
   signIn = async (onSuccess) => {
     try {
@@ -113,13 +128,12 @@ class App extends React.Component {
           this.challengesRef.child(id).set({
             createdAt: firebase.database.ServerValue.TIMESTAMP,
             description,
-            id,
             name,
             points: rank.name,
             tags,
             url,
             slug,
-            contributor: this.state.user.uid,
+            contributor: this.state.user.id,
           });
           this.setState({
             url: '',
@@ -165,7 +179,6 @@ class App extends React.Component {
       error={this.state.error}
       url={this.state.url}
       challenges={this.state.challenges}
-      users={this.state.users}
       user={this.state.user}
     />
   );
@@ -174,12 +187,11 @@ class App extends React.Component {
     const challenge = this.state.challenges.find(c => c.slug === match.params.slug);
     return (
       <ChallengePage
+        addIdAndUserDataToItems={this.addIdAndUserDataToItems}
         challenge={challenge}
-        contributor={this.state.users[challenge.contributor]}
         error={this.state.error}
         signIn={this.signIn}
         user={this.state.user}
-        users={this.state.users}
       />
     );
   };

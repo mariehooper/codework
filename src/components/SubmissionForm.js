@@ -71,7 +71,7 @@ export default class SubmissionForm extends React.Component {
     submissionsRef.push({
       createdAt: firebase.database.ServerValue.TIMESTAMP,
       solution: this.state.solution,
-      author: user.uid,
+      author: user.id,
     });
     this.setState({
       solution: '',
@@ -196,7 +196,7 @@ export default class SubmissionForm extends React.Component {
 
 SubmissionForm.propTypes = {
   user: PropTypes.shape({
-    uid: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
   }),
   signIn: PropTypes.func.isRequired,
   submissionsRef: PropTypes.object,
