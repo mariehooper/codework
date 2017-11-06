@@ -80,13 +80,7 @@ export default class SubmissionForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-
-    const { user, signIn } = this.props;
-    if (user) {
-      this.saveSubmission();
-    } else {
-      signIn(this.saveSubmission);
-    }
+    this.saveSubmission();
   }
 
   handleChange = (event) => {
@@ -134,7 +128,13 @@ export default class SubmissionForm extends React.Component {
   }
 
   renderContent() {
-    if (this.props.user) {
+    const { user, userIsLoading } = this.props;
+
+    if (userIsLoading) {
+      return null;
+    }
+
+    if (user) {
       return (
         <div>
           <StyledToggleButtons>
@@ -176,11 +176,7 @@ export default class SubmissionForm extends React.Component {
       );
     }
 
-    if (this.props.user === null) {
-      return <StyledMessage>Sign in to submit a solution!</StyledMessage>;
-    }
-
-    return null;
+    return <StyledMessage>Sign in to submit a solution!</StyledMessage>;
   }
 
   render() {
@@ -198,7 +194,7 @@ SubmissionForm.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.string.isRequired,
   }),
-  signIn: PropTypes.func.isRequired,
+  userIsLoading: PropTypes.bool.isRequired,
   submissionsRef: PropTypes.object,
 };
 

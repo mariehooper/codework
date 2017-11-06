@@ -54,7 +54,12 @@ export default class Header extends React.Component {
   }
 
   renderUserMenu() {
-    const { user, signIn, signOut } = this.props;
+    const { user, userIsLoading, signIn, signOut } = this.props;
+
+    if (userIsLoading) {
+      return null;
+    }
+
     if (user) {
       return (
         <Dropdown trigger={this.renderDropdownTrigger()}>
@@ -63,11 +68,7 @@ export default class Header extends React.Component {
       );
     }
 
-    if (user === null) {
-      return <StyledButtonLink onClick={signIn}>Sign in</StyledButtonLink>;
-    }
-
-    return null;
+    return <StyledButtonLink onClick={signIn}>Sign in</StyledButtonLink>;
   }
 
   render() {
@@ -83,10 +84,15 @@ export default class Header extends React.Component {
 }
 
 Header.propTypes = {
-  user: PropTypes.shape({ // eslint-disable-line react/require-default-props
+  user: PropTypes.shape({
     displayName: PropTypes.string.isRequired,
     photoURL: PropTypes.string.isRequired,
   }),
+  userIsLoading: PropTypes.bool.isRequired,
   signIn: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
+};
+
+Header.defaultProps = {
+  user: null,
 };

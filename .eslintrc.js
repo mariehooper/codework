@@ -14,5 +14,18 @@ module.exports = {
     'react/jsx-filename-extension': ['error', {
       extensions: ['.js'],
     }],
+    'react/sort-comp': ['error', {
+      order: [
+        'static-methods',
+        'lifecycle',
+        '/^on.+$/',
+        'getters',
+        'setters',
+        '/^(get|set|clear)(?!(InitialState$|DefaultProps$|ChildContext$)).+$/',
+        'everything-else',
+        '/^render.+$/',
+        'render',
+      ],
+    }],
   },
 };

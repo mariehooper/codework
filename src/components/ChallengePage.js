@@ -28,7 +28,7 @@ const StyledColumn = styled.div`
 export default class ChallengePage extends React.Component {
   state = {
     submissions: [],
-    isLoading: true,
+    submissionsAreLoading: true,
   };
 
   componentDidMount() {
@@ -38,7 +38,7 @@ export default class ChallengePage extends React.Component {
       const submissions = submissionsSnapshot.val() || {};
       this.setState({
         submissions: addIdAndUserDataToItems(submissions, 'author'),
-        isLoading: false,
+        submissionsAreLoading: false,
       });
     });
   }
@@ -48,22 +48,23 @@ export default class ChallengePage extends React.Component {
   }
 
   renderSubmissions() {
-    const { user, signIn } = this.props;
+    const { user, userIsLoading } = this.props;
+
+    if (this.state.submissionsAreLoading) {
+      return null;
+    }
+
     if (user && this.state.submissions.find(submission => submission.author.id === user.id)) {
       return <SubmissionList submissions={this.state.submissions} />;
     }
 
-    if (!this.state.isLoading) {
-      return (
-        <SubmissionForm
-          user={user}
-          submissionsRef={this.submissionsRef}
-          signIn={signIn}
-        />
-      );
-    }
-
-    return null;
+    return (
+      <SubmissionForm
+        user={user}
+        userIsLoading={userIsLoading}
+        submissionsRef={this.submissionsRef}
+      />
+    );
   }
 
   render() {
@@ -105,10 +106,10 @@ ChallengePage.propTypes = {
     url: PropTypes.string.isRequired,
   }).isRequired,
   error: PropTypes.string,
-  signIn: PropTypes.func.isRequired,
   user: PropTypes.shape({
     id: PropTypes.string.isRequired,
   }),
+  userIsLoading: PropTypes.bool.isRequired,
 };
 
 ChallengePage.defaultProps = {
