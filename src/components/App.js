@@ -5,6 +5,7 @@ import { Route, withRouter } from 'react-router-dom';
 
 import HomePage from './HomePage';
 import ChallengePage from './ChallengePage';
+import ErrorPage from './ErrorPage';
 import Header from './Header';
 import request from '../utils/request';
 
@@ -185,14 +186,19 @@ class App extends React.Component {
 
   renderChallengePage = ({ match }) => {
     const challenge = this.state.challenges.find(c => c.slug === match.params.slug);
+    if (challenge) {
+      return (
+        <ChallengePage
+          addIdAndUserDataToItems={this.addIdAndUserDataToItems}
+          challenge={challenge}
+          error={this.state.error}
+          signIn={this.signIn}
+          user={this.state.user}
+        />
+      );
+    }
     return (
-      <ChallengePage
-        addIdAndUserDataToItems={this.addIdAndUserDataToItems}
-        challenge={challenge}
-        error={this.state.error}
-        signIn={this.signIn}
-        user={this.state.user}
-      />
+      <ErrorPage />
     );
   };
 
