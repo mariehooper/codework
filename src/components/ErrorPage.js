@@ -9,7 +9,7 @@ const StyledErrorMessage = styled.div`
   padding: 3rem;
   text-align: center;
 
-  .message-content {
+  p {
     margin-bottom: 2rem;
   }
 `;
@@ -19,8 +19,8 @@ export default function ErrorPage() {
   return (
     <StyledErrorMessage>
       <h2>Page not found!</h2>
-      <p className="message-content">Sorry, but the page you were looking for could not be found.</p>
-      <StyledButton to={'/'}>Go Home</StyledButton>
+      <p>Sorry, but the page you were looking for could not be found.</p>
+      <StyledButton to="/">Go Home</StyledButton>
     </StyledErrorMessage>
   );
 }
