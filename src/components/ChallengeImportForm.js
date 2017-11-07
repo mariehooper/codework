@@ -68,7 +68,12 @@ export default class ChallengeImportForm extends React.Component {
   }
 
   renderFields() {
-    const { handleChange, url, user } = this.props;
+    const { handleChange, url, user, userIsLoading } = this.props;
+
+    if (userIsLoading) {
+      return null;
+    }
+
     if (user) {
       return (
         <StyledInputBar>
@@ -88,12 +93,8 @@ export default class ChallengeImportForm extends React.Component {
         </StyledInputBar>
       );
     }
-    if (user === null) {
-      return (
-        <StyledMessage>Sign in to import a challenge!</StyledMessage>
-      );
-    }
-    return null;
+
+    return <StyledMessage>Sign in to import a challenge!</StyledMessage>;
   }
 
   render() {
@@ -109,5 +110,10 @@ ChallengeImportForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   url: PropTypes.string.isRequired,
-  user: PropTypes.object, // eslint-disable-line react/require-default-props
+  user: PropTypes.object,
+  userIsLoading: PropTypes.bool.isRequired,
+};
+
+ChallengeImportForm.defaultProps = {
+  user: null,
 };

@@ -6,7 +6,15 @@ import ChallengeList from './ChallengeList';
 import { StyledHomeContent } from './Content';
 import ErrorMessage from './ErrorMessage';
 
-export default function HomePage({ handleChange, handleSubmit, url, challenges, error, user }) {
+export default function HomePage({
+  handleChange,
+  handleSubmit,
+  url,
+  challenges,
+  error,
+  user,
+  userIsLoading,
+}) {
   return (
     <StyledHomeContent>
       {error &&
@@ -17,6 +25,7 @@ export default function HomePage({ handleChange, handleSubmit, url, challenges, 
         handleSubmit={handleSubmit}
         url={url}
         user={user}
+        userIsLoading={userIsLoading}
       />
       <ChallengeList challenges={challenges} />
     </StyledHomeContent>
@@ -29,9 +38,11 @@ HomePage.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   url: PropTypes.string.isRequired,
-  user: PropTypes.object, // eslint-disable-line react/require-default-props
+  user: PropTypes.object,
+  userIsLoading: PropTypes.bool.isRequired,
 };
 
 HomePage.defaultProps = {
   error: null,
+  user: null,
 };

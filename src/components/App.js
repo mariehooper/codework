@@ -13,7 +13,8 @@ class App extends React.Component {
   state = {
     challenges: [],
     url: '',
-    user: undefined,
+    user: null,
+    userIsLoading: true,
     users: {},
     error: null,
   };
@@ -37,9 +38,7 @@ class App extends React.Component {
       if (user) {
         this.setUser(user);
       } else {
-        this.setState({
-          user: null,
-        });
+        this.clearUser();
       }
     });
 
@@ -54,6 +53,13 @@ class App extends React.Component {
     this.stopListening();
   }
 
+  setError(errorMessage) {
+    this.setState({
+      userIsLoading: false,
+      error: errorMessage,
+    });
+  }
+
   setUser(userData, onSuccess) {
     if (/umich\.edu$/i.test(userData.email)) {
       const { displayName, email, photoURL, uid } = userData;
@@ -64,13 +70,20 @@ class App extends React.Component {
           ...user,
           id: uid,
         },
+        userIsLoading: false,
         error: null,
       }, onSuccess);
     } else {
-      this.setState({
-        error: 'You must be part of the "umich.edu" domain to use this app.',
-      });
+      this.signOut('You must be part of the "umich.edu" domain to use this app.');
     }
+  }
+
+  clearUser(errorMessage = null) {
+    this.setState({
+      user: null,
+      userIsLoading: false,
+      error: errorMessage,
+    });
   }
 
   addIdAndUserDataToItems = (items, userKey, users = this.state.users) =>
@@ -86,36 +99,29 @@ class App extends React.Component {
       };
     });
 
-  signIn = async (onSuccess) => {
+  signIn = async () => {
     try {
       const google = new firebase.auth.GoogleAuthProvider();
       google.setCustomParameters({
         hd: 'umich.edu',
       });
       const { user } = await this.auth.signInWithPopup(google);
-      if (typeof onSuccess === 'function') {
-        this.setUser(user, onSuccess);
-      } else {
-        this.setUser(user);
-      }
+      this.setUser(user);
     } catch (error) {
-      this.setState({
-        error: error.message,
-      });
+      this.setError(error.message);
     }
   }
 
-  signOut = async () => {
+  signOut = async (errorMessage = null) => {
     try {
       await this.auth.signOut();
-      this.setState({
-        user: null,
-        error: null,
-      });
+      if (typeof errorMessage === 'string') {
+        this.clearUser(errorMessage);
+      } else {
+        this.clearUser();
+      }
     } catch (error) {
-      this.setState({
-        error: error.message,
-      });
+      this.setError(error.message);
     }
   }
 
@@ -141,30 +147,19 @@ class App extends React.Component {
             error: null,
           });
         } else {
-          this.setState({
-            error: 'That challenge has already been imported!',
-          });
+          this.setError('That challenge has already been imported!');
         }
       } catch (error) {
-        this.setState({
-          error: error.message,
-        });
+        this.setError(error.message);
       }
     } else {
-      this.setState({
-        error: 'Please enter a correctly-formatted Codewars Kata URL.',
-      });
+      this.setError('Please enter a correctly-formatted Codewars Kata URL.');
     }
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-
-    if (this.state.user) {
-      this.importChallenge();
-    } else {
-      this.signIn(this.importChallenge);
-    }
+    this.importChallenge();
   }
 
   handleChange = (event) => {
@@ -181,6 +176,7 @@ class App extends React.Component {
       url={this.state.url}
       challenges={this.state.challenges}
       user={this.state.user}
+      userIsLoading={this.state.userIsLoading}
     />
   );
 
@@ -192,20 +188,24 @@ class App extends React.Component {
           addIdAndUserDataToItems={this.addIdAndUserDataToItems}
           challenge={challenge}
           error={this.state.error}
-          signIn={this.signIn}
           user={this.state.user}
+          userIsLoading={this.state.userIsLoading}
         />
       );
     }
-    return (
-      <ErrorPage />
-    );
+
+    return <ErrorPage />;
   };
 
   render() {
     return (
       <div>
-        <Header signOut={this.signOut} signIn={this.signIn} user={this.state.user} />
+        <Header
+          signOut={this.signOut}
+          signIn={this.signIn}
+          user={this.state.user}
+          userIsLoading={this.state.userIsLoading}
+        />
         <Route exact path="/" render={this.renderHomePage} />
         {(this.state.challenges.length > 0) &&
           <Route path="/challenge/:slug" render={this.renderChallengePage} />
