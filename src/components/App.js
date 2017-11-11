@@ -141,6 +141,7 @@ class App extends React.Component {
             url,
             slug,
             contributor: this.state.user.id,
+            numSubmissions: 0,
           });
           this.setState({
             url: '',

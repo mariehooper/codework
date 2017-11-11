@@ -66,16 +66,24 @@ export default class SubmissionForm extends React.Component {
     mode: 'write',
   };
 
-  saveSubmission = () => {
-    const { user, submissionsRef } = this.props;
-    submissionsRef.push({
-      createdAt: firebase.database.ServerValue.TIMESTAMP,
-      solution: this.state.solution,
-      author: user.id,
-    });
-    this.setState({
-      solution: '',
-    });
+  saveSubmission = async () => {
+    const { user, submissionsRef, challenge } = this.props;
+    try {
+      await submissionsRef.push({
+        createdAt: firebase.database.ServerValue.TIMESTAMP,
+        solution: this.state.solution,
+        author: user.id,
+      });
+      firebase
+        .database()
+        .ref(`challenges/${challenge.id}/numSubmissions`)
+        .set(challenge.numSubmissions + 1);
+      this.setState({
+        solution: '',
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   handleSubmit = (event) => {
@@ -191,6 +199,10 @@ export default class SubmissionForm extends React.Component {
 }
 
 SubmissionForm.propTypes = {
+  challenge: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    numSubmissions: PropTypes.number.isRequired,
+  }).isRequired,
   user: PropTypes.shape({
     id: PropTypes.string.isRequired,
   }),
