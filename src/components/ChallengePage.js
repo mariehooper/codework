@@ -48,7 +48,7 @@ export default class ChallengePage extends React.Component {
   }
 
   renderSubmissions() {
-    const { user, userIsLoading } = this.props;
+    const { user, userIsLoading, challenge } = this.props;
 
     if (this.state.submissionsAreLoading) {
       return null;
@@ -63,6 +63,7 @@ export default class ChallengePage extends React.Component {
         user={user}
         userIsLoading={userIsLoading}
         submissionsRef={this.submissionsRef}
+        challenge={challenge}
       />
     );
   }
