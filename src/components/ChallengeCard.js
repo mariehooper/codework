@@ -61,9 +61,16 @@ const StyledDescription = styled.article`
 `;
 
 const StyledCardBottom = styled.div`
-  display: block;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
   margin-top: 1rem;
-  text-align: right;
+
+  span {
+    color: #8898aa;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
 `;
 
 const StyledTagList = styled.ul`
@@ -112,7 +119,10 @@ export default function ChallengeCard({ challenge, link, tags }) {
           {tags.map(tag => <StyledTag key={tag}>{tag}</StyledTag>)}
         </StyledTagList>
       }
-      <StyledCardBottom>{link}</StyledCardBottom>
+      <StyledCardBottom>
+        <span>{challenge.numSubmissions} solutions</span>
+        {link}
+      </StyledCardBottom>
     </StyledChallengeCard>
   );
 }
