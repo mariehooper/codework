@@ -28,19 +28,17 @@ const StyledColumn = styled.div`
 export default class ChallengePage extends React.Component {
   state = {
     submissions: [],
-    isLoading: true,
+    submissionsAreLoading: true,
   };
 
   componentDidMount() {
-    this.submissionsRef = firebase.database().ref(`submissions/${this.props.challenge.id}`);
-    this.submissionsRef.on('value', (snapshot) => {
-      const submissions = snapshot.val() || {};
+    const { addIdAndUserDataToItems, challenge } = this.props;
+    this.submissionsRef = firebase.database().ref(`submissions/${challenge.id}`);
+    this.submissionsRef.on('value', (submissionsSnapshot) => {
+      const submissions = submissionsSnapshot.val() || {};
       this.setState({
-        submissions: Object.entries(submissions).map(([key, submission]) => ({
-          ...submission,
-          id: key,
-        })),
-        isLoading: false,
+        submissions: addIdAndUserDataToItems(submissions, 'author'),
+        submissionsAreLoading: false,
       });
     });
   }
@@ -50,39 +48,34 @@ export default class ChallengePage extends React.Component {
   }
 
   renderSubmissions() {
-    const { users, user, signIn, contributor } = this.props;
-    if (user && this.state.submissions.find(submission => submission.author === user.uid)) {
-      return (
-        <SubmissionList
-          users={users}
-          contributor={contributor}
-          submissions={this.state.submissions}
-        />
-      );
+    const { user, userIsLoading, challenge } = this.props;
+
+    if (this.state.submissionsAreLoading) {
+      return null;
     }
 
-    if (!this.state.isLoading) {
-      return (
-        <SubmissionForm
-          user={user}
-          submissionsRef={this.submissionsRef}
-          signIn={signIn}
-        />
-      );
+    if (user && this.state.submissions.find(submission => submission.author.id === user.id)) {
+      return <SubmissionList submissions={this.state.submissions} />;
     }
 
-    return null;
+    return (
+      <SubmissionForm
+        user={user}
+        userIsLoading={userIsLoading}
+        submissionsRef={this.submissionsRef}
+        challenge={challenge}
+      />
+    );
   }
 
   render() {
-    const { challenge, contributor, error } = this.props;
+    const { challenge, error } = this.props;
     return (
       <StyledChallengeContent>
         <StyledColumn>
           <ChallengeCard
             key={challenge.id}
             challenge={challenge}
-            contributor={contributor}
             tags={challenge.tags}
             link={
               <StyledExternalLink
@@ -107,25 +100,20 @@ export default class ChallengePage extends React.Component {
 }
 
 ChallengePage.propTypes = {
+  addIdAndUserDataToItems: PropTypes.func.isRequired,
   challenge: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    points: PropTypes.string.isRequired,
+    tags: PropTypes.array.isRequired,
+    url: PropTypes.string.isRequired,
   }).isRequired,
-  contributor: PropTypes.shape({
-    displayName: PropTypes.string.isRequired,
-    photoURL: PropTypes.string.isRequired,
-  }).isRequired,
-  user: PropTypes.shape({
-    uid: PropTypes.string.isRequired,
-  }),
-  signIn: PropTypes.func.isRequired,
-  users: PropTypes.object.isRequired,
   error: PropTypes.string,
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }),
+  userIsLoading: PropTypes.bool.isRequired,
 };
 
 ChallengePage.defaultProps = {
-  user: null,
   error: null,
+  user: null,
 };

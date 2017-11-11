@@ -11,9 +11,9 @@ export default function HomePage({
   handleSubmit,
   url,
   challenges,
-  users,
   error,
   user,
+  userIsLoading,
 }) {
   return (
     <StyledHomeContent>
@@ -25,22 +25,24 @@ export default function HomePage({
         handleSubmit={handleSubmit}
         url={url}
         user={user}
+        userIsLoading={userIsLoading}
       />
-      <ChallengeList challenges={challenges} users={users} />
+      <ChallengeList challenges={challenges} />
     </StyledHomeContent>
   );
 }
 
 HomePage.propTypes = {
+  challenges: PropTypes.array.isRequired,
+  error: PropTypes.string,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   url: PropTypes.string.isRequired,
-  challenges: PropTypes.array.isRequired,
-  users: PropTypes.object.isRequired,
-  error: PropTypes.string,
-  user: PropTypes.object, // eslint-disable-line react/require-default-props
+  user: PropTypes.object,
+  userIsLoading: PropTypes.bool.isRequired,
 };
 
 HomePage.defaultProps = {
   error: null,
+  user: null,
 };

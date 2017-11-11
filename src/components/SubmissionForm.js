@@ -66,27 +66,29 @@ export default class SubmissionForm extends React.Component {
     mode: 'write',
   };
 
-  saveSubmission = () => {
-    const { user, submissionsRef } = this.props;
-    submissionsRef.push({
-      createdAt: firebase.database.ServerValue.TIMESTAMP,
-      solution: this.state.solution,
-      author: user.uid,
-    });
-    this.setState({
-      solution: '',
-    });
+  saveSubmission = async () => {
+    const { user, submissionsRef, challenge } = this.props;
+    try {
+      await submissionsRef.push({
+        createdAt: firebase.database.ServerValue.TIMESTAMP,
+        solution: this.state.solution,
+        author: user.id,
+      });
+      firebase
+        .database()
+        .ref(`challenges/${challenge.id}/numSubmissions`)
+        .set(challenge.numSubmissions + 1);
+      this.setState({
+        solution: '',
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-
-    const { user, signIn } = this.props;
-    if (user) {
-      this.saveSubmission();
-    } else {
-      signIn(this.saveSubmission);
-    }
+    this.saveSubmission();
   }
 
   handleChange = (event) => {
@@ -134,7 +136,13 @@ export default class SubmissionForm extends React.Component {
   }
 
   renderContent() {
-    if (this.props.user) {
+    const { user, userIsLoading } = this.props;
+
+    if (userIsLoading) {
+      return null;
+    }
+
+    if (user) {
       return (
         <div>
           <StyledToggleButtons>
@@ -176,11 +184,7 @@ export default class SubmissionForm extends React.Component {
       );
     }
 
-    if (this.props.user === null) {
-      return <StyledMessage>Sign in to submit a solution!</StyledMessage>;
-    }
-
-    return null;
+    return <StyledMessage>Sign in to submit a solution!</StyledMessage>;
   }
 
   render() {
@@ -195,10 +199,14 @@ export default class SubmissionForm extends React.Component {
 }
 
 SubmissionForm.propTypes = {
+  challenge: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    numSubmissions: PropTypes.number.isRequired,
+  }).isRequired,
   user: PropTypes.shape({
-    uid: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
   }),
-  signIn: PropTypes.func.isRequired,
+  userIsLoading: PropTypes.bool.isRequired,
   submissionsRef: PropTypes.object,
 };
 
