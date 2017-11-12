@@ -14,9 +14,8 @@ const StyledSubmissionList = styled.ul`
 
 const StyledSubmission = styled.li`
   background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.09);
   border-radius: 3px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 6px 8px rgba(102, 119, 136, 0.03), 0 1px 2px rgba(102, 119, 136, 0.3);
   margin-bottom: 0.5rem;
   padding: 1rem;
 `;
