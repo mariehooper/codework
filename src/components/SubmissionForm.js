@@ -78,9 +78,6 @@ export default class SubmissionForm extends React.Component {
         .database()
         .ref(`challenges/${challenge.id}/numSubmissions`)
         .set(challenge.numSubmissions + 1);
-      this.setState({
-        solution: '',
-      });
     } catch (error) {
       console.log(error);
     }

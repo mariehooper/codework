@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
-import ChallengeCard from './ChallengeCard';
+import Challenge from './Challenge';
 import { StyledChallengeContent } from './Content';
 import { StyledExternalLink } from './StyledButton';
 import SubmissionList from './SubmissionList';
@@ -73,7 +73,7 @@ export default class ChallengePage extends React.Component {
     return (
       <StyledChallengeContent>
         <StyledColumn>
-          <ChallengeCard
+          <Challenge
             key={challenge.id}
             challenge={challenge}
             tags={challenge.tags}

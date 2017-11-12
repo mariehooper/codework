@@ -25,6 +25,10 @@ h5 {
   font-family: 'Roboto Slab', serif;
 }
 
+p {
+  margin-bottom: 0;
+}
+
 button,
 input,
 textarea {
@@ -40,6 +44,7 @@ pre {
   border-radius: 5px;
   color: #424770;
   line-height: normal;
+  margin-bottom: 0;
   overflow-x: auto;
   padding: 11px 14px;
   position: relative;
