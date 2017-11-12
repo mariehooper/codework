@@ -8,16 +8,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import config from './config';
 import './global.css';
 import App from './components/App';
 import registerServiceWorker from './utils/registerServiceWorker';
 
-firebase.initializeApp({
-  apiKey: 'AIzaSyAZ7UqAP3jO6DF6TGtGyFu2iGbcZWilWto',
-  authDomain: 'letscodework.firebaseapp.com',
-  databaseURL: 'https://letscodework.firebaseio.com',
-  projectId: 'letscodework',
-});
+firebase.initializeApp(config[process.env.NODE_ENV]);
 
 prism.languages.js = prism.languages.javascript;
 marked.setOptions({
