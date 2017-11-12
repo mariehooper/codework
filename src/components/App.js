@@ -7,6 +7,7 @@ import HomePage from './HomePage';
 import ChallengePage from './ChallengePage';
 import ErrorPage from './ErrorPage';
 import Header from './Header';
+import addIdToItems from '../utils/addIdToItems';
 import request from '../utils/request';
 
 class App extends React.Component {
@@ -27,7 +28,7 @@ class App extends React.Component {
         const challenges = challengesSnapshot.val() || {};
         const users = usersSnapshot.val() || {};
         this.setState({
-          challenges: this.addIdAndUserDataToItems(challenges, 'contributor', users),
+          challenges: addIdToItems(challenges),
           users,
         });
       });
@@ -85,19 +86,6 @@ class App extends React.Component {
       error: errorMessage,
     });
   }
-
-  addIdAndUserDataToItems = (items, userKey, users = this.state.users) =>
-    Object.entries(items).map(([id, item]) => {
-      const userId = item[userKey];
-      return {
-        ...item,
-        id,
-        [userKey]: {
-          ...users[userId],
-          id: userId,
-        },
-      };
-    });
 
   signIn = async () => {
     try {
@@ -186,7 +174,6 @@ class App extends React.Component {
     if (challenge) {
       return (
         <ChallengePage
-          addIdAndUserDataToItems={this.addIdAndUserDataToItems}
           challenge={challenge}
           error={this.state.error}
           user={this.state.user}

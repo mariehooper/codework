@@ -9,6 +9,7 @@ import { StyledExternalLink } from './StyledButton';
 import SubmissionList from './SubmissionList';
 import SubmissionForm from './SubmissionForm';
 import ErrorMessage from './ErrorMessage';
+import addIdToItems from '../utils/addIdToItems';
 
 const StyledColumn = styled.div`
   flex: 1;
@@ -32,12 +33,11 @@ export default class ChallengePage extends React.Component {
   };
 
   componentDidMount() {
-    const { addIdAndUserDataToItems, challenge } = this.props;
-    this.submissionsRef = firebase.database().ref(`submissions/${challenge.id}`);
+    this.submissionsRef = firebase.database().ref(`submissions/${this.props.challenge.id}`);
     this.submissionsRef.on('value', (submissionsSnapshot) => {
       const submissions = submissionsSnapshot.val() || {};
       this.setState({
-        submissions: addIdAndUserDataToItems(submissions, 'author'),
+        submissions: addIdToItems(submissions),
         submissionsAreLoading: false,
       });
     });
@@ -100,7 +100,6 @@ export default class ChallengePage extends React.Component {
 }
 
 ChallengePage.propTypes = {
-  addIdAndUserDataToItems: PropTypes.func.isRequired,
   challenge: PropTypes.shape({
     id: PropTypes.string.isRequired,
     tags: PropTypes.array.isRequired,
