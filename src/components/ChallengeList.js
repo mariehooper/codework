@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
-import ChallengeCard from './ChallengeCard';
+import Challenge from './Challenge';
 import StyledButton from './StyledButton';
 
 const StyledChallengeList = styled.ul`
@@ -18,7 +18,7 @@ export default function ChallengeList({ challenges }) {
         .sort((a, b) => b.createdAt - a.createdAt)
         .map(challenge => (
           <li key={challenge.id}>
-            <ChallengeCard
+            <Challenge
               challenge={challenge}
               link={
                 <StyledButton to={`challenge/${challenge.slug}`}>Solve</StyledButton>
