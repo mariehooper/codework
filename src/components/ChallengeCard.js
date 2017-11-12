@@ -5,12 +5,12 @@ import styled from 'styled-components';
 import format from 'date-fns/format';
 
 import Avatar from './Avatar';
+import LevelIndicator from './LevelIndicator';
 
 const StyledChallengeCard = styled.div`
   background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.09);
   border-radius: 3px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 6px 8px rgba(102, 119, 136, 0.03), 0 1px 2px rgba(102, 119, 136, 0.3);
   margin-bottom: 1.5rem;
   padding: 1.5rem;
 `;
@@ -106,7 +106,7 @@ export default function ChallengeCard({ challenge, link, tags }) {
             <p>{format(challenge.createdAt, 'MMMM D, YYYY')}</p>
           </div>
         </StyledContributorWrapper>
-        <span>{challenge.points}</span>
+        <LevelIndicator points={challenge.points} />
       </StyledCardTop>
       <StyledChallengeName>{challenge.name}</StyledChallengeName>
       <StyledDescription
