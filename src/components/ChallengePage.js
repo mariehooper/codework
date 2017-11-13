@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
+import { addIdToItems } from '../utils';
 import Challenge from './Challenge';
 import { StyledChallengeContent } from './Content';
 import { StyledExternalLink } from './StyledButton';
 import SubmissionList from './SubmissionList';
 import SubmissionForm from './SubmissionForm';
 import ErrorMessage from './ErrorMessage';
-import addIdToItems from '../utils/addIdToItems';
 
 const StyledColumn = styled.div`
   flex: 1;

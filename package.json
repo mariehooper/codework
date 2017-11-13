@@ -20,7 +20,7 @@
     "eject": "react-scripts eject",
     "lint": "npm-run-all --parallel 'lint:*'",
     "lint:css": "stylelint 'src/**/*.css'",
-    "lint:js": "eslint --ignore-pattern '!.*' --ignore-pattern '/build/' --ignore-pattern '/node_modules/' --ignore-pattern '/src/utils/registerServiceWorker.js' .",
+    "lint:js": "eslint --ignore-pattern '!.*' --ignore-pattern '/build/' --ignore-pattern '/node_modules/' --ignore-pattern '/src/registerServiceWorker.js' .",
     "lint:sc": "cross-env STYLELINT_ENV=sc stylelint 'src/**/*.js'",
     "prepush": "npm run deploy",
     "start": "react-scripts start",

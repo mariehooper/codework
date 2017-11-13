@@ -10,8 +10,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import config from './config';
 import './global.css';
+import { unregister } from './registerServiceWorker';
 import App from './components/App';
-import { unregister } from './utils/registerServiceWorker';
 
 unregister();
 
