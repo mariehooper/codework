@@ -34,10 +34,9 @@ export default class ChallengePage extends React.Component {
 
   componentDidMount() {
     this.submissionsRef = firebase.database().ref(`submissions/${this.props.challenge.id}`);
-    this.submissionsRef.on('value', (submissionsSnapshot) => {
-      const submissions = submissionsSnapshot.val() || {};
+    this.submissionsRef.on('value', (snapshot) => {
       this.setState({
-        submissions: addIdToItems(submissions),
+        submissions: addIdToItems(snapshot.val() || {}),
         submissionsAreLoading: false,
       });
     });
@@ -54,7 +53,7 @@ export default class ChallengePage extends React.Component {
       return null;
     }
 
-    if (user && this.state.submissions.find(submission => submission.author.id === user.id)) {
+    if (user && this.state.submissions.find(submission => submission.author === user.id)) {
       return <SubmissionList submissions={this.state.submissions} />;
     }
 
