@@ -24,7 +24,7 @@ export default function Challenge({ challenge, link, tags }) {
         <TagList tags={tags} />
       }
       <CardFooter>
-        <span>{challenge.numSubmissions} solutions</span>
+        <span>{challenge.numSolutions} solutions</span>
         {link}
       </CardFooter>
     </Card>
@@ -35,8 +35,8 @@ Challenge.propTypes = {
   challenge: PropTypes.shape({
     description: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    numSubmissions: PropTypes.number.isRequired,
-    points: PropTypes.string.isRequired,
+    numSolutions: PropTypes.number.isRequired,
+    points: PropTypes.number.isRequired,
   }).isRequired,
   link: PropTypes.element,
   tags: PropTypes.array,

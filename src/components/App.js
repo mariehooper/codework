@@ -121,12 +121,12 @@ class App extends React.Component {
             createdAt: firebase.database.ServerValue.TIMESTAMP,
             description,
             name,
-            points: rank.name,
+            points: parseInt(rank.name, 10),
             tags,
             url,
             slug,
-            contributor: this.state.user.id,
-            numSubmissions: 0,
+            submittedBy: this.state.user.id,
+            numSolutions: 0,
           });
           this.setState({
             url: '',

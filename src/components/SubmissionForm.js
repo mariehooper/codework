@@ -76,8 +76,8 @@ export default class SubmissionForm extends React.Component {
       });
       firebase
         .database()
-        .ref(`challenges/${challenge.id}/numSubmissions`)
-        .set(challenge.numSubmissions + 1);
+        .ref(`challenges/${challenge.id}/numSolutions`)
+        .set(challenge.numSolutions + 1);
     } catch (error) {
       console.log(error);
     }
@@ -198,7 +198,7 @@ export default class SubmissionForm extends React.Component {
 SubmissionForm.propTypes = {
   challenge: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    numSubmissions: PropTypes.number.isRequired,
+    numSolutions: PropTypes.number.isRequired,
   }).isRequired,
   user: PropTypes.shape({
     id: PropTypes.string.isRequired,
