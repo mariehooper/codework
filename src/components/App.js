@@ -60,14 +60,11 @@ class App extends React.Component {
 
   setUser(userData, onSuccess) {
     if (/umich\.edu$/i.test(userData.email)) {
-      const { displayName, email, photoURL, uid } = userData;
-      const user = { displayName, email, photoURL };
-      firebase.database().ref(`/users/${uid}`).set(user);
+      const { displayName: name, email, photoURL: photoUrl, uid: id } = userData;
+      const user = { name, email, photoUrl };
+      firebase.database().ref(`/users/${id}`).set(user);
       this.setState({
-        user: {
-          ...user,
-          id: uid,
-        },
+        user: { ...user, id },
         userIsLoading: false,
         error: null,
       }, onSuccess);

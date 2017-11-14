@@ -23,15 +23,15 @@ const CreatedAt = styled.p`
 
 export default class Metadata extends React.Component {
   state = {
-    displayName: '',
-    photoURL: '',
+    name: '',
+    photoUrl: '',
   };
 
   componentDidMount() {
     this.userRef = firebase.database().ref(`/users/${this.props.data.submittedBy}`);
     this.userRef.on('value', (snapshot) => {
-      const { displayName, photoURL } = snapshot.val() || {};
-      this.setState({ displayName, photoURL });
+      const { name, photoUrl } = snapshot.val() || {};
+      this.setState({ name, photoUrl });
     });
   }
 
@@ -44,9 +44,9 @@ export default class Metadata extends React.Component {
     const dateFormat = showTime ? 'MMMM D, YYYY h:mma' : 'MMMM D, YYYY';
     return (
       <MetadataWrapper>
-        <Avatar alt={this.state.displayName} src={this.state.photoURL} />
+        <Avatar alt={this.state.name} src={this.state.photoUrl} />
         <div>
-          <Name>{this.state.displayName || <span>&nbsp;</span>}</Name>
+          <Name>{this.state.name || <span>&nbsp;</span>}</Name>
           <CreatedAt>{format(data.createdAt, dateFormat)}</CreatedAt>
         </div>
       </MetadataWrapper>
