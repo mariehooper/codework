@@ -33,7 +33,9 @@ export default class ChallengePage extends React.Component {
   };
 
   componentDidMount() {
-    this.submissionsRef = firebase.database().ref(`submissions/${this.props.challenge.id}`);
+    const { challenge, clearError } = this.props;
+    clearError();
+    this.submissionsRef = firebase.database().ref(`submissions/${challenge.id}`);
     this.submissionsRef.on('value', (snapshot) => {
       this.setState({
         submissions: addIdToItems(snapshot.val() || {}),
@@ -43,6 +45,7 @@ export default class ChallengePage extends React.Component {
   }
 
   componentWillUnmount() {
+    this.props.clearError();
     this.submissionsRef.off();
   }
 
@@ -104,6 +107,7 @@ ChallengePage.propTypes = {
     tags: PropTypes.array.isRequired,
     url: PropTypes.string.isRequired,
   }).isRequired,
+  clearError: PropTypes.func.isRequired,
   error: PropTypes.string,
   user: PropTypes.shape({
     id: PropTypes.string.isRequired,

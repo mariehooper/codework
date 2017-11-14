@@ -52,6 +52,12 @@ class App extends React.Component {
     });
   }
 
+  clearError = () => {
+    this.setState({
+      error: null,
+    });
+  }
+
   setUser(userData, onSuccess) {
     if (/umich\.edu$/i.test(userData.email)) {
       const { displayName, email, photoURL, uid } = userData;
@@ -166,6 +172,7 @@ class App extends React.Component {
       return (
         <ChallengePage
           challenge={challenge}
+          clearError={this.clearError}
           error={this.state.error}
           user={this.state.user}
           userIsLoading={this.state.userIsLoading}
