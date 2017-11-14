@@ -5,21 +5,21 @@ import React from 'react';
 import Card, { CardBody } from './Card';
 import Metadata from './Metadata';
 
-export default function Submission({ submission }) {
+export default function Solution({ solution }) {
   return (
     <Card margin="0.5rem" padding="1rem">
-      <Metadata data={submission} showTime />
+      <Metadata data={solution} showTime />
       <CardBody
         dangerouslySetInnerHTML={{
-          __html: marked(submission.solution),
+          __html: marked(solution.content),
         }}
       />
     </Card>
   );
 }
 
-Submission.propTypes = {
-  submission: PropTypes.shape({
-    solution: PropTypes.string.isRequired,
+Solution.propTypes = {
+  solution: PropTypes.shape({
+    content: PropTypes.string.isRequired,
   }).isRequired,
 };

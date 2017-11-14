@@ -28,8 +28,7 @@ export default class Metadata extends React.Component {
   };
 
   componentDidMount() {
-    const { data } = this.props;
-    this.userRef = firebase.database().ref(`/users/${data.author || data.submittedBy}`);
+    this.userRef = firebase.database().ref(`/users/${this.props.data.submittedBy}`);
     this.userRef.on('value', (snapshot) => {
       const { displayName, photoURL } = snapshot.val() || {};
       this.setState({ displayName, photoURL });
@@ -57,7 +56,6 @@ export default class Metadata extends React.Component {
 
 Metadata.propTypes = {
   data: PropTypes.shape({
-    author: PropTypes.string,
     submittedBy: PropTypes.string,
     createdAt: PropTypes.number.isRequired,
   }).isRequired,
