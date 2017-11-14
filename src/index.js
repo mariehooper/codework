@@ -10,11 +10,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import config from './config';
 import './global.css';
+import { unregister } from './registerServiceWorker';
 import App from './components/App';
-import registerServiceWorker from './utils/registerServiceWorker';
+
+unregister();
 
 firebase.initializeApp(config[process.env.NODE_ENV]);
-
 prism.languages.js = prism.languages.javascript;
 marked.setOptions({
   highlight(code, language) {
@@ -30,4 +31,3 @@ ReactDOM.render(
   </Router>,
   document.getElementById('app'),
 );
-registerServiceWorker();

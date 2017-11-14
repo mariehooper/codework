@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Route, withRouter } from 'react-router-dom';
 
+import { addIdToItems, getCodewarsChallenge } from '../utils';
 import HomePage from './HomePage';
 import ChallengePage from './ChallengePage';
 import ErrorPage from './ErrorPage';
 import Header from './Header';
-import addIdToItems from '../utils/addIdToItems';
-import request from '../utils/request';
 
 class App extends React.Component {
   state = {
@@ -50,6 +49,12 @@ class App extends React.Component {
     this.setState({
       userIsLoading: false,
       error: errorMessage,
+    });
+  }
+
+  clearError = () => {
+    this.setState({
+      error: null,
     });
   }
 
@@ -106,10 +111,10 @@ class App extends React.Component {
   }
 
   async importChallenge() {
-    const [, path] = this.state.url.match(/codewars.com\/kata\/([^/]+)/i) || [null, null];
-    if (path) {
+    const [, idOrSlug] = this.state.url.match(/codewars.com\/kata\/([^/]+)/i) || [null, null];
+    if (idOrSlug) {
       try {
-        const data = await request(`/api/codewars/code-challenges/${path}`);
+        const data = await getCodewarsChallenge(idOrSlug);
         if (!this.state.challenges.find(challenge => challenge.id === data.id)) {
           const { description, id, name, rank, tags, url, slug } = data;
           this.challengesRef.child(id).set({
@@ -167,6 +172,7 @@ class App extends React.Component {
       return (
         <ChallengePage
           challenge={challenge}
+          clearError={this.clearError}
           error={this.state.error}
           user={this.state.user}
           userIsLoading={this.state.userIsLoading}

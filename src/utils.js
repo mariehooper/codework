@@ -1,5 +1,9 @@
-export default async function request(url) {
-  const response = await fetch(url);
+export function addIdToItems(items) {
+  return Object.entries(items).map(([id, item]) => ({ ...item, id }));
+}
+
+export async function getCodewarsChallenge(idOrSlug) {
+  const response = await fetch(`/api/codewars/code-challenges/${idOrSlug}`);
   if (!response.ok) {
     if (response.status === 404) {
       throw new Error("We can't find a challenge with that URL!");
