@@ -36,6 +36,9 @@ class App extends React.Component {
     });
 
     this.stopListening = this.props.history.listen(() => {
+      this.setState({
+        error: null,
+      });
       window.scrollTo(0, 0);
     });
   }
@@ -49,12 +52,6 @@ class App extends React.Component {
     this.setState({
       userIsLoading: false,
       error: errorMessage,
-    });
-  }
-
-  clearError = () => {
-    this.setState({
-      error: null,
     });
   }
 
@@ -169,7 +166,6 @@ class App extends React.Component {
       return (
         <ChallengePage
           challenge={challenge}
-          clearError={this.clearError}
           error={this.state.error}
           user={this.state.user}
           userIsLoading={this.state.userIsLoading}
