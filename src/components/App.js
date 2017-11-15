@@ -36,6 +36,9 @@ class App extends React.Component {
     });
 
     this.stopListening = this.props.history.listen(() => {
+      this.setState({
+        error: null,
+      });
       window.scrollTo(0, 0);
     });
   }
@@ -52,22 +55,13 @@ class App extends React.Component {
     });
   }
 
-  clearError = () => {
-    this.setState({
-      error: null,
-    });
-  }
-
   setUser(userData, onSuccess) {
     if (/umich\.edu$/i.test(userData.email)) {
-      const { displayName, email, photoURL, uid } = userData;
-      const user = { displayName, email, photoURL };
-      firebase.database().ref(`/users/${uid}`).set(user);
+      const { displayName: name, email, photoURL: photoUrl, uid: id } = userData;
+      const user = { name, email, photoUrl };
+      firebase.database().ref(`/users/${id}`).set(user);
       this.setState({
-        user: {
-          ...user,
-          id: uid,
-        },
+        user: { ...user, id },
         userIsLoading: false,
         error: null,
       }, onSuccess);
@@ -121,12 +115,12 @@ class App extends React.Component {
             createdAt: firebase.database.ServerValue.TIMESTAMP,
             description,
             name,
-            points: rank.name,
+            points: parseInt(rank.name, 10),
             tags,
             url,
             slug,
-            contributor: this.state.user.id,
-            numSubmissions: 0,
+            submittedBy: this.state.user.id,
+            numSolutions: 0,
           });
           this.setState({
             url: '',
@@ -172,7 +166,6 @@ class App extends React.Component {
       return (
         <ChallengePage
           challenge={challenge}
-          clearError={this.clearError}
           error={this.state.error}
           user={this.state.user}
           userIsLoading={this.state.userIsLoading}

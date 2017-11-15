@@ -31,7 +31,7 @@ const StyledLevelIndicator = styled.span`
 `;
 
 export default function LevelIndicator({ points }) {
-  const { text, color } = getLevel(parseInt(points, 10));
+  const { text, color } = getLevel(points);
   return (
     <StyledLevelIndicator color={color}>
       <span>{text}</span>
@@ -40,5 +40,5 @@ export default function LevelIndicator({ points }) {
 }
 
 LevelIndicator.propTypes = {
-  points: PropTypes.string.isRequired,
+  points: PropTypes.number.isRequired,
 };

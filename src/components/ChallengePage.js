@@ -7,8 +7,8 @@ import { addIdToItems } from '../utils';
 import Challenge from './Challenge';
 import { StyledChallengeContent } from './Content';
 import { StyledExternalLink } from './StyledButton';
-import SubmissionList from './SubmissionList';
-import SubmissionForm from './SubmissionForm';
+import SolutionList from './SolutionList';
+import SolutionForm from './SolutionForm';
 import ErrorMessage from './ErrorMessage';
 
 const StyledColumn = styled.div`
@@ -28,43 +28,40 @@ const StyledColumn = styled.div`
 
 export default class ChallengePage extends React.Component {
   state = {
-    submissions: [],
-    submissionsAreLoading: true,
+    solutions: [],
+    solutionsAreLoading: true,
   };
 
   componentDidMount() {
-    const { challenge, clearError } = this.props;
-    clearError();
-    this.submissionsRef = firebase.database().ref(`submissions/${challenge.id}`);
-    this.submissionsRef.on('value', (snapshot) => {
+    this.solutionsRef = firebase.database().ref(`solutions/${this.props.challenge.id}`);
+    this.solutionsRef.on('value', (snapshot) => {
       this.setState({
-        submissions: addIdToItems(snapshot.val() || {}),
-        submissionsAreLoading: false,
+        solutions: addIdToItems(snapshot.val() || {}),
+        solutionsAreLoading: false,
       });
     });
   }
 
   componentWillUnmount() {
-    this.props.clearError();
-    this.submissionsRef.off();
+    this.solutionsRef.off();
   }
 
-  renderSubmissions() {
+  renderSolutions() {
     const { user, userIsLoading, challenge } = this.props;
 
-    if (this.state.submissionsAreLoading) {
+    if (this.state.solutionsAreLoading) {
       return null;
     }
 
-    if (user && this.state.submissions.find(submission => submission.author === user.id)) {
-      return <SubmissionList submissions={this.state.submissions} />;
+    if (user && this.state.solutions.find(solution => solution.submittedBy === user.id)) {
+      return <SolutionList solutions={this.state.solutions} />;
     }
 
     return (
-      <SubmissionForm
+      <SolutionForm
         user={user}
         userIsLoading={userIsLoading}
-        submissionsRef={this.submissionsRef}
+        solutionsRef={this.solutionsRef}
         challenge={challenge}
       />
     );
@@ -94,7 +91,7 @@ export default class ChallengePage extends React.Component {
           {error &&
             <ErrorMessage message={error} />
           }
-          {this.renderSubmissions()}
+          {this.renderSolutions()}
         </StyledColumn>
       </StyledChallengeContent>
     );
@@ -107,7 +104,6 @@ ChallengePage.propTypes = {
     tags: PropTypes.array.isRequired,
     url: PropTypes.string.isRequired,
   }).isRequired,
-  clearError: PropTypes.func.isRequired,
   error: PropTypes.string,
   user: PropTypes.shape({
     id: PropTypes.string.isRequired,
