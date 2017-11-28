@@ -48,7 +48,7 @@ const StyledFormFooter = styled.div`
   }
 `;
 
-const StyledSubmissionPreview = styled.div`
+const StyledSolutionPreview = styled.div`
   background: #fff;
   border-radius: 0 4px 4px;
   box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02);
@@ -60,27 +60,24 @@ const StyledSubmissionPreview = styled.div`
   width: 100%;
 `;
 
-export default class SubmissionForm extends React.Component {
+export default class SolutionForm extends React.Component {
   state = {
     solution: '',
     mode: 'write',
   };
 
-  saveSubmission = async () => {
-    const { user, submissionsRef, challenge } = this.props;
+  saveSolution = async () => {
+    const { user, solutionsRef, challenge } = this.props;
     try {
-      await submissionsRef.push({
+      await solutionsRef.push({
         createdAt: firebase.database.ServerValue.TIMESTAMP,
-        solution: this.state.solution,
-        author: user.id,
+        content: this.state.solution,
+        submittedBy: user.id,
       });
       firebase
         .database()
-        .ref(`challenges/${challenge.id}/numSubmissions`)
-        .set(challenge.numSubmissions + 1);
-      this.setState({
-        solution: '',
-      });
+        .ref(`challenges/${challenge.id}/numSolutions`)
+        .set(challenge.numSolutions + 1);
     } catch (error) {
       console.log(error);
     }
@@ -88,7 +85,7 @@ export default class SubmissionForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.saveSubmission();
+    this.saveSolution();
   }
 
   handleChange = (event) => {
@@ -127,7 +124,7 @@ export default class SubmissionForm extends React.Component {
     }
 
     return (
-      <StyledSubmissionPreview
+      <StyledSolutionPreview
         dangerouslySetInnerHTML={{
           __html: marked(this.state.solution),
         }}
@@ -198,19 +195,19 @@ export default class SubmissionForm extends React.Component {
   }
 }
 
-SubmissionForm.propTypes = {
+SolutionForm.propTypes = {
   challenge: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    numSubmissions: PropTypes.number.isRequired,
+    numSolutions: PropTypes.number.isRequired,
   }).isRequired,
   user: PropTypes.shape({
     id: PropTypes.string.isRequired,
   }),
   userIsLoading: PropTypes.bool.isRequired,
-  submissionsRef: PropTypes.object,
+  solutionsRef: PropTypes.object,
 };
 
-SubmissionForm.defaultProps = {
+SolutionForm.defaultProps = {
   user: null,
-  submissionsRef: {},
+  solutionsRef: {},
 };

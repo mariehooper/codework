@@ -44,11 +44,11 @@ const StyledAccountDropdown = styled.div`
 
 export default class Header extends React.Component {
   renderDropdownTrigger() {
-    const { displayName, photoURL } = this.props.user;
+    const { name, photoUrl } = this.props.user;
     return (
       <StyledAccountDropdown>
-        <Avatar src={photoURL} alt={displayName} size="small" />
-        <span>{displayName}</span>
+        <Avatar src={photoUrl} alt={name} size="small" />
+        <span>{name}</span>
       </StyledAccountDropdown>
     );
   }
@@ -85,8 +85,8 @@ export default class Header extends React.Component {
 
 Header.propTypes = {
   user: PropTypes.shape({
-    displayName: PropTypes.string.isRequired,
-    photoURL: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    photoUrl: PropTypes.string.isRequired,
   }),
   userIsLoading: PropTypes.bool.isRequired,
   signIn: PropTypes.func.isRequired,

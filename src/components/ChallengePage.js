@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
-import ChallengeCard from './ChallengeCard';
+import { addIdToItems } from '../utils';
+import Challenge from './Challenge';
 import { StyledChallengeContent } from './Content';
 import { StyledExternalLink } from './StyledButton';
-import SubmissionList from './SubmissionList';
-import SubmissionForm from './SubmissionForm';
+import SolutionList from './SolutionList';
+import SolutionForm from './SolutionForm';
 import ErrorMessage from './ErrorMessage';
 
 const StyledColumn = styled.div`
@@ -27,42 +28,40 @@ const StyledColumn = styled.div`
 
 export default class ChallengePage extends React.Component {
   state = {
-    submissions: [],
-    submissionsAreLoading: true,
+    solutions: [],
+    solutionsAreLoading: true,
   };
 
   componentDidMount() {
-    const { addIdAndUserDataToItems, challenge } = this.props;
-    this.submissionsRef = firebase.database().ref(`submissions/${challenge.id}`);
-    this.submissionsRef.on('value', (submissionsSnapshot) => {
-      const submissions = submissionsSnapshot.val() || {};
+    this.solutionsRef = firebase.database().ref(`solutions/${this.props.challenge.id}`);
+    this.solutionsRef.on('value', (snapshot) => {
       this.setState({
-        submissions: addIdAndUserDataToItems(submissions, 'author'),
-        submissionsAreLoading: false,
+        solutions: addIdToItems(snapshot.val() || {}),
+        solutionsAreLoading: false,
       });
     });
   }
 
   componentWillUnmount() {
-    this.submissionsRef.off();
+    this.solutionsRef.off();
   }
 
-  renderSubmissions() {
+  renderSolutions() {
     const { user, userIsLoading, challenge } = this.props;
 
-    if (this.state.submissionsAreLoading) {
+    if (this.state.solutionsAreLoading) {
       return null;
     }
 
-    if (user && this.state.submissions.find(submission => submission.author.id === user.id)) {
-      return <SubmissionList submissions={this.state.submissions} />;
+    if (user && this.state.solutions.find(solution => solution.submittedBy === user.id)) {
+      return <SolutionList solutions={this.state.solutions} />;
     }
 
     return (
-      <SubmissionForm
+      <SolutionForm
         user={user}
         userIsLoading={userIsLoading}
-        submissionsRef={this.submissionsRef}
+        solutionsRef={this.solutionsRef}
         challenge={challenge}
       />
     );
@@ -73,7 +72,7 @@ export default class ChallengePage extends React.Component {
     return (
       <StyledChallengeContent>
         <StyledColumn>
-          <ChallengeCard
+          <Challenge
             key={challenge.id}
             challenge={challenge}
             tags={challenge.tags}
@@ -92,7 +91,7 @@ export default class ChallengePage extends React.Component {
           {error &&
             <ErrorMessage message={error} />
           }
-          {this.renderSubmissions()}
+          {this.renderSolutions()}
         </StyledColumn>
       </StyledChallengeContent>
     );
@@ -100,7 +99,6 @@ export default class ChallengePage extends React.Component {
 }
 
 ChallengePage.propTypes = {
-  addIdAndUserDataToItems: PropTypes.func.isRequired,
   challenge: PropTypes.shape({
     id: PropTypes.string.isRequired,
     tags: PropTypes.array.isRequired,

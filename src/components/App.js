@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Route, withRouter } from 'react-router-dom';
 
+import { addIdToItems, getCodewarsChallenge } from '../utils';
 import HomePage from './HomePage';
 import ChallengePage from './ChallengePage';
 import ErrorPage from './ErrorPage';
 import Header from './Header';
-import request from '../utils/request';
 
 class App extends React.Component {
   state = {
@@ -15,21 +15,14 @@ class App extends React.Component {
     url: '',
     user: null,
     userIsLoading: true,
-    users: {},
     error: null,
   };
 
   componentDidMount() {
-    this.usersRef = firebase.database().ref('users');
-    this.usersRef.on('value', (usersSnapshot) => {
-      this.challengesRef = firebase.database().ref('challenges');
-      this.challengesRef.on('value', (challengesSnapshot) => {
-        const challenges = challengesSnapshot.val() || {};
-        const users = usersSnapshot.val() || {};
-        this.setState({
-          challenges: this.addIdAndUserDataToItems(challenges, 'contributor', users),
-          users,
-        });
+    this.challengesRef = firebase.database().ref('challenges');
+    this.challengesRef.on('value', (snapshot) => {
+      this.setState({
+        challenges: addIdToItems(snapshot.val() || {}),
       });
     });
 
@@ -43,12 +36,14 @@ class App extends React.Component {
     });
 
     this.stopListening = this.props.history.listen(() => {
+      this.setState({
+        error: null,
+      });
       window.scrollTo(0, 0);
     });
   }
 
   componentWillUnmount() {
-    this.usersRef.off();
     this.challengesRef.off();
     this.stopListening();
   }
@@ -62,14 +57,11 @@ class App extends React.Component {
 
   setUser(userData, onSuccess) {
     if (/umich\.edu$/i.test(userData.email)) {
-      const { displayName, email, photoURL, uid } = userData;
-      const user = { displayName, email, photoURL };
-      this.usersRef.child(uid).set(user);
+      const { displayName: name, email, photoURL: photoUrl, uid: id } = userData;
+      const user = { name, email, photoUrl };
+      firebase.database().ref(`/users/${id}`).set(user);
       this.setState({
-        user: {
-          ...user,
-          id: uid,
-        },
+        user: { ...user, id },
         userIsLoading: false,
         error: null,
       }, onSuccess);
@@ -85,19 +77,6 @@ class App extends React.Component {
       error: errorMessage,
     });
   }
-
-  addIdAndUserDataToItems = (items, userKey, users = this.state.users) =>
-    Object.entries(items).map(([id, item]) => {
-      const userId = item[userKey];
-      return {
-        ...item,
-        id,
-        [userKey]: {
-          ...users[userId],
-          id: userId,
-        },
-      };
-    });
 
   signIn = async () => {
     try {
@@ -126,22 +105,22 @@ class App extends React.Component {
   }
 
   async importChallenge() {
-    const [, path] = this.state.url.match(/codewars.com\/kata\/([^/]+)/i) || [null, null];
-    if (path) {
+    const [, idOrSlug] = this.state.url.match(/codewars.com\/kata\/([^/]+)/i) || [null, null];
+    if (idOrSlug) {
       try {
-        const data = await request(`/api/codewars/code-challenges/${path}`);
+        const data = await getCodewarsChallenge(idOrSlug);
         if (!this.state.challenges.find(challenge => challenge.id === data.id)) {
           const { description, id, name, rank, tags, url, slug } = data;
           this.challengesRef.child(id).set({
             createdAt: firebase.database.ServerValue.TIMESTAMP,
             description,
             name,
-            points: rank.name,
+            points: parseInt(rank.name, 10),
             tags,
             url,
             slug,
-            contributor: this.state.user.id,
-            numSubmissions: 0,
+            submittedBy: this.state.user.id,
+            numSolutions: 0,
           });
           this.setState({
             url: '',
@@ -186,7 +165,6 @@ class App extends React.Component {
     if (challenge) {
       return (
         <ChallengePage
-          addIdAndUserDataToItems={this.addIdAndUserDataToItems}
           challenge={challenge}
           error={this.state.error}
           user={this.state.user}

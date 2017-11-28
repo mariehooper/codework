@@ -1,6 +1,6 @@
 {
   "name": "codework",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "Daily programming challenge turns into an interactive programming reference guide.",
   "bugs": {
     "url": "https://github.com/hoopr/codework/issues"
@@ -20,7 +20,7 @@
     "eject": "react-scripts eject",
     "lint": "npm-run-all --parallel 'lint:*'",
     "lint:css": "stylelint 'src/**/*.css'",
-    "lint:js": "eslint --ignore-pattern '!.*' --ignore-pattern '/build/' --ignore-pattern '/node_modules/' --ignore-pattern '/src/utils/registerServiceWorker.js' .",
+    "lint:js": "eslint --ignore-pattern '!.*' --ignore-pattern '/build/' --ignore-pattern '/node_modules/' --ignore-pattern '/src/registerServiceWorker.js' .",
     "lint:sc": "cross-env STYLELINT_ENV=sc stylelint 'src/**/*.js'",
     "prepush": "npm run deploy",
     "start": "react-scripts start",
