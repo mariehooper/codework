@@ -83,6 +83,7 @@ export const StyledToggleButtons = styled.ul`
 export const StyledToggleButton = styled.button`
   background: #fff;
   border: none;
+  border-radius: 0;
   min-width: 70px;
   opacity: 0.5;
   outline: none;

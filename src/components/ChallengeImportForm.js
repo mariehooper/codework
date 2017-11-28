@@ -29,6 +29,7 @@ const StyledInputBar = styled.div`
   button {
     background: white;
     border: none;
+    border-radius: 0;
     color: #00bcd4;
     font-size: 0.875rem;
     font-weight: 600;
