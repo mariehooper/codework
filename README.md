@@ -12,7 +12,7 @@ Contributions from the community are welcome and encouraged! If you have any ide
 
 ## Releases
 
-This project uses [Semantic Versioning](http://semver.org/). All releases are documented on the GitHub [releases page](https://github.com/hoopr/codework/releases) and in the [change log](CHANGELOG.md).
+This project uses [Semantic Versioning](http://semver.org/). All releases are documented on the GitHub [releases page](https://github.com/letscodework/codework/releases) and in the [change log](CHANGELOG.md).
 
 ## License
 

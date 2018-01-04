@@ -3,7 +3,7 @@
   "version": "1.0.0-beta.3",
   "description": "Daily programming challenge turns into an interactive programming reference guide.",
   "bugs": {
-    "url": "https://github.com/hoopr/codework/issues"
+    "url": "https://github.com/letscodework/codework/issues"
   },
   "contributors": [
     "Marie Hooper <marie.ashtari@gmail.com> (https://mariehooper.me)",
@@ -11,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/hoopr/codework"
+    "url": "https://github.com/letscodework/codework"
   },
   "scripts": {
     "build": "react-scripts build",
