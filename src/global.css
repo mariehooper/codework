@@ -144,6 +144,7 @@ code.language-html .token.attr-value > .punctuation:not(:first-child),
 code.language-markup .token.attr-value > .punctuation:not(:first-child),
 code .token.attr-value,
 code .token.macro,
+code .token.regex,
 code .token.string,
 code .token.stripe,
 code .token.value {
