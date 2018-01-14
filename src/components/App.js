@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Route, withRouter } from 'react-router-dom';
 
-import { addIdToItems, getCodewarsChallenge } from '../utils';
+import { addIdToItems, emailIsWhitelisted, getCodewarsChallenge } from '../utils';
 import HomePage from './HomePage';
 import ChallengePage from './ChallengePage';
 import ErrorPage from './ErrorPage';
@@ -56,7 +56,7 @@ class App extends React.Component {
   }
 
   setUser(userData, onSuccess) {
-    if (/umich\.edu$/i.test(userData.email)) {
+    if (emailIsWhitelisted(userData.email)) {
       const { displayName: name, email, photoURL: photoUrl, uid: id } = userData;
       const user = { name, email, photoUrl };
       firebase.database().ref(`/users/${id}`).set(user);
