@@ -2,6 +2,10 @@
 
 This project uses [Semantic Versioning](http://semver.org/). All releases are documented both on the GitHub [releases page](https://github.com/letscodework/codework/releases) and in this file.
 
+## v1.0.0-beta.4 (January 14, 2018)
+
+- Add syntax highlighting to regular expressions in code blocks ([#81](https://github.com/letscodework/codework/pull/81))
+
 ## v1.0.0-beta.3 (November 28, 2017)
 
 - Add a visual difficulty indicator to each challenge based on its KYU point value ([#73](https://github.com/letscodework/codework/pull/73))
