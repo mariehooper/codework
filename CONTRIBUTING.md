@@ -26,13 +26,13 @@ For more info, check out [*How to Contribute to an Open Source Project on GitHub
 
 ## Project Overview
 
-This project was started using [Create React App](https://github.com/facebookincubator/create-react-app). The documentation is really thorough if you're ever looking for more in-depth information about what's under the hood.
+This project was started using the [vue-cli webpack template](http://vuejs-templates.github.io/webpack/).
 
-The frontend is powered by [React](https://reactjs.org/). Styles (CSS) are added with [styled-components](https://www.styled-components.com/). Routing is handled by [React Router](https://reacttraining.com/react-router/).
+The frontend is powered by [Vue](https://vuejs.org/). Styles are written in [Sass (SCSS)](http://sass-lang.com/). Routing is handled by [vue-router](https://router.vuejs.org/en/). [Vuex](https://vuex.vuejs.org/en/intro.html) is used for state management.
 
 The backend uses [Firebase](https://firebase.google.com/).
 
-The folder structure is [defined by Create React App](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#folder-structure). Other notable tooling is [Babel](http://babeljs.io/) for the ability to write nextgen JavaScript, and [ESLint](https://eslint.org/) + [stylelint](https://stylelint.io/) for checking the code style.
+The folder structure is defined by [vue-cli webpack template](http://vuejs-templates.github.io/webpack/structure.html). Other notable tooling is [Babel](http://babeljs.io/) for the ability to write nextgen JavaScript, and [ESLint](https://eslint.org/) + [stylelint](https://stylelint.io/) for checking the code style.
 
 This project uses additional libraries as necessary for tasks like date handling, parsing Markdown, and more. Those aren't listed in this guide in order to keep the length reasonable, but you can find them in the project's [`package.json`](package.json) file.
 
@@ -42,16 +42,7 @@ All development will probably start by forking your own copy of the repository a
 
 After cloning your repo, you'll first want to navigate into the folder and run `yarn install` to download the project's dependencies. We recommend using [Yarn](https://yarnpkg.com/en/), but [npm](https://www.npmjs.com/) works, too.
 
-Once you have the dependencies, you can make use of a variety of npm scripts while you're developing:
-
-- `yarn start` boots an auto-reloading development server and opens a web page to the local project URL.
-- `yarn run lint` checks the code style of all source code.
-  - `yarn run lint:css` checks the code style of traditional CSS files.
-  - `yarn run lint:sc` checks the code style of styled-component CSS.
-  - `yarn run lint:js` checks the code style of JavaScript files.
-- `yarn run test` runs any tests in the test suite.
-- `yarn run build` creates a production version of the app in the `build` folder.
-- `yarn run deploy` lints the codebase and builds a production version of the app to verify that the everything is ready for deployment.
+Once you have the dependencies, you can make use of the npm scripts available to you via the [vue-cli webpack template](http://vuejs-templates.github.io/webpack/commands.html) or others in the [`package.json`](package.json) file.
 
 ## Thanks
 

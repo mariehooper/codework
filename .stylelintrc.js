@@ -1,4 +1,8 @@
-const config = {
+// https://stylelint.io/user-guide/configuration/
+
+module.exports = {
+  syntax: 'scss',
+  processors: ['stylelint-processor-html'],
   extends: ['stylelint-config-standard'],
   plugins: ['stylelint-order'],
   rules: {
@@ -6,13 +10,5 @@ const config = {
     'max-nesting-depth': 2,
     'string-quotes': 'single',
     'order/properties-alphabetical-order': true,
-  },
-};
-
-if (process.env.STYLELINT_ENV === 'sc') {
-  config.processors = ['stylelint-processor-styled-components'];
-  config.extends.push('stylelint-config-styled-components');
-  config.syntax = 'scss';
+  }
 }
-
-module.exports = config;
