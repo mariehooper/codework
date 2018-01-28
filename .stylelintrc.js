@@ -10,5 +10,6 @@ module.exports = {
     'max-nesting-depth': 2,
     'string-quotes': 'single',
     'order/properties-alphabetical-order': true,
+    'no-empty-source': null,
   }
 }
