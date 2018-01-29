@@ -34,26 +34,18 @@ export default new Vuex.Store({
         dispatch('signOut', 'You must be part of the "umich.edu" domain to use this app.');
       }
     },
-    async signIn({ commit, dispatch }) {
-      try {
-        const google = new firebase.auth.GoogleAuthProvider();
-        google.setCustomParameters({
-          hd: 'umich.edu',
-        });
-        const { user } = await firebase.auth().signInWithPopup(google);
-        dispatch('validateUser', user);
-      } catch (error) {
-        commit('setError', error.message);
-      }
+    signIn({ dispatch }) {
+      const google = new firebase.auth.GoogleAuthProvider();
+      google.setCustomParameters({ hd: 'umich.edu' });
+      firebase.auth()
+        .signInWithPopup(google)
+        .then(({ user }) => { dispatch('validateUser', user); })
+        .catch(() => {});
     },
-    async signOut({ commit }, payload) {
-      try {
-        await firebase.auth().signOut();
-        commit('setUser', null);
-        commit('setError', payload || null);
-      } catch (error) {
-        commit('setError', error.message);
-      }
+    signOut({ commit }, payload) {
+      firebase.auth().signOut();
+      commit('setUser', null);
+      commit('setError', payload || null);
     },
   },
 });
