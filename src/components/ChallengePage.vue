@@ -3,7 +3,9 @@
     <div class="column">
       <challenge :challenge="challenge" />
     </div>
-    <div class="column" />
+    <div class="column">
+      <solution-list :challenge-id="challenge.id"/>
+    </div>
   </div>
   <error-page v-else-if="!challengesAreLoading && !challenge" />
 </template>
@@ -11,12 +13,14 @@
 <script>
 import Challenge from './Challenge';
 import ErrorPage from './ErrorPage';
+import SolutionList from './SolutionList';
 
 export default {
   name: 'ChallengePage',
   components: {
     Challenge,
     ErrorPage,
+    SolutionList,
   },
   computed: {
     challenge() {
