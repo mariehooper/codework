@@ -1,23 +1,29 @@
 <template>
-  <div class="content">
+  <div v-if="!challengesAreLoading && challenge" class="content">
     <div class="column">
       <challenge :challenge="challenge" />
     </div>
     <div class="column" />
   </div>
+  <error-page v-else-if="!challengesAreLoading && !challenge" />
 </template>
 
 <script>
 import Challenge from './Challenge';
+import ErrorPage from './ErrorPage';
 
 export default {
   name: 'ChallengePage',
   components: {
     Challenge,
+    ErrorPage,
   },
   computed: {
     challenge() {
-      return this.$store.state.challenges.find(c => this.$route.params.slug === c.slug);
+      return this.$store.state.challenges.items.find(c => this.$route.params.slug === c.slug);
+    },
+    challengesAreLoading() {
+      return this.$store.state.challenges.areLoading;
     },
   },
 };

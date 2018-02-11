@@ -9,11 +9,14 @@ export default new Vuex.Store({
   state: {
     user: null,
     error: null,
-    challenges: [],
+    challenges: {
+      areLoading: true,
+      items: [],
+    },
   },
   getters: {
     user: state => state.user,
-    challenges: state => [...state.challenges].sort((a, b) => b.createdAt - a.createdAt),
+    challenges: state => [...state.challenges.items].sort((a, b) => b.createdAt - a.createdAt),
   },
   mutations: {
     setUser(state, payload) {
@@ -53,7 +56,10 @@ export default new Vuex.Store({
     },
     loadChallenges({ commit }) {
       firebase.database().ref('challenges').on('value', (snapshot) => {
-        commit('setChallenges', addIdToItems(snapshot.val() || {}));
+        commit('setChallenges', {
+          items: addIdToItems(snapshot.val() || {}),
+          areLoading: false,
+        });
       });
     },
   },
