@@ -2,7 +2,7 @@
   <main>
     <ul class="challenge-list">
       <li v-for="challenge in challenges" :key="challenge.id">
-        <challenge :challenge="challenge" :level="getLevel(challenge.points)"/>
+        <challenge :challenge="challenge" internal-link />
       </li>
     </ul>
   </main>
@@ -19,19 +19,6 @@ export default {
   },
   computed: {
     ...mapGetters(['challenges']),
-  },
-  methods: {
-    getLevel(points) {
-      switch (points) {
-        case 8:
-          return { text: 'Beginner', color: '#58D68D' };
-        case 7:
-        case 6:
-          return { text: 'Intermediate', color: '#ffeb3b' };
-        default:
-          return { text: 'Advanced', color: '#f44336' };
-      }
-    },
   },
 };
 </script>

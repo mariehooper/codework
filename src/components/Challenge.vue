@@ -17,7 +17,12 @@
     <article class="card-body" v-html="getHtml(challenge.description)"/>
     <div class="card-footer">
       <span>{{ challenge.numSolutions }} solutions</span>
-      <router-link class="button" :to="`challenge/${challenge.slug}`">Solve</router-link>
+      <router-link v-if="internalLink" class="button" :to="`challenge/${challenge.slug}`">
+        Solve
+      </router-link>
+      <a v-else class="button" :href="challenge.url" target="_blank" rel="noopener noreferrer">
+        Start Solving
+      </a>
     </div>
   </div>
 </template>
@@ -37,9 +42,9 @@ export default {
       type: Object,
       required: true,
     },
-    level: {
-      type: Object,
-      required: true,
+    internalLink: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -50,6 +55,19 @@ export default {
         photoUrl: '',
       },
     };
+  },
+  computed: {
+    level() {
+      switch (this.challenge.points) {
+        case 8:
+          return { text: 'Beginner', color: '#58D68D' };
+        case 7:
+        case 6:
+          return { text: 'Intermediate', color: '#ffeb3b' };
+        default:
+          return { text: 'Advanced', color: '#f44336' };
+      }
+    },
   },
   mounted() {
     this.userRef = firebase.database().ref(`/users/${this.challenge.submittedBy}`);
