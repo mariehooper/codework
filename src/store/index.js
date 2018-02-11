@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import firebase from 'firebase';
-
-import { emailIsWhitelisted } from '../utils';
+import { emailIsWhitelisted, addIdToItems } from '../utils';
 
 Vue.use(Vuex);
 
@@ -10,9 +9,11 @@ export default new Vuex.Store({
   state: {
     user: null,
     error: null,
+    challenges: [],
   },
   getters: {
     user: state => state.user,
+    challenges: state => [...state.challenges].sort((a, b) => b.createdAt - a.createdAt),
   },
   mutations: {
     setUser(state, payload) {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     setError(state, payload) {
       state.error = payload;
+    },
+    setChallenges(state, payload) {
+      state.challenges = payload;
     },
   },
   actions: {
@@ -46,6 +50,11 @@ export default new Vuex.Store({
       firebase.auth().signOut();
       commit('setUser', null);
       commit('setError', payload || null);
+    },
+    loadChallenges({ commit }) {
+      firebase.database().ref('challenges').on('value', (snapshot) => {
+        commit('setChallenges', addIdToItems(snapshot.val() || {}));
+      });
     },
   },
 });

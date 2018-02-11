@@ -28,7 +28,9 @@
   },
   "dependencies": {
     "firebase": "^4.9.0",
+    "marked": "^0.3.12",
     "normalize.css": "^7.0.0",
+    "prismjs": "^1.10.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
