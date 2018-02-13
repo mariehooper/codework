@@ -7,7 +7,7 @@
         display-time
       />
     </div>
-    <article class="card-body" v-html="getHtml(solution.content)"/>
+    <article class="card-body" v-html="contentHtml"/>
   </div>
 </template>
 
@@ -26,9 +26,9 @@ export default {
       required: true,
     },
   },
-  methods: {
-    getHtml(markdown) {
-      return marked(markdown);
+  computed: {
+    contentHtml() {
+      return marked(this.solution.content);
     },
   },
 };

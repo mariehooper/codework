@@ -8,7 +8,7 @@
       </span>
     </div>
     <h2 class="card-title">{{ challenge.name }}</h2>
-    <article class="card-body" v-html="getHtml(challenge.description)"/>
+    <article class="card-body" v-html="descriptionHtml"/>
     <div class="card-footer">
       <span>{{ challenge.numSolutions }} solutions</span>
       <router-link v-if="internalLink" class="button" :to="`challenge/${challenge.slug}`">
@@ -61,10 +61,8 @@ export default {
           return { text: 'Advanced', color: '#f44336' };
       }
     },
-  },
-  methods: {
-    getHtml(markdown) {
-      return marked(markdown);
+    descriptionHtml() {
+      return marked(this.challenge.description);
     },
   },
 };
