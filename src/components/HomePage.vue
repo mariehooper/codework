@@ -1,24 +1,16 @@
 <template>
   <main>
-    <ul class="challenge-list">
-      <li v-for="challenge in challenges" :key="challenge.id">
-        <challenge :challenge="challenge" internal-link />
-      </li>
-    </ul>
+    <challenge-list />
   </main>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import Challenge from './Challenge';
+import ChallengeList from './ChallengeList';
 
 export default {
   name: 'HomePage',
   components: {
-    Challenge,
-  },
-  computed: {
-    ...mapGetters(['challenges']),
+    ChallengeList,
   },
 };
 </script>
@@ -31,11 +23,5 @@ main {
   @media (max-width: 680px) {
     padding: 1rem;
   }
-}
-
-.challenge-list {
-  list-style-type: none;
-  margin: 0;
-  padding-left: 0;
 }
 </style>
