@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import Avatar from './Avatar';
 
 export default {
@@ -35,7 +35,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['user']),
+    ...mapState(['user']),
   },
   methods: {
     ...mapActions(['signIn', 'signOut']),

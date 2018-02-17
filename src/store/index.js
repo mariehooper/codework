@@ -16,7 +16,6 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    user: state => state.user,
     challenges: state => [...state.challenges.items].sort((a, b) => b.createdAt - a.createdAt),
   },
   mutations: {
