@@ -21,3 +21,7 @@ export async function getCodewarsChallenge(idOrSlug) {
   const json = await response.json();
   return json;
 }
+
+export function pluralize(word, count) {
+  return `${count} ${word}${count === 1 ? '' : 's'}`;
+}

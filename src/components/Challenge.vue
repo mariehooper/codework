@@ -10,7 +10,7 @@
     <h2 class="card-title">{{ challenge.name }}</h2>
     <article class="card-body" v-html="descriptionHtml"/>
     <div class="card-footer">
-      <span>{{ challenge.numSolutions }} solutions</span>
+      <span>{{ numSolutions }}</span>
       <router-link v-if="internalLink" class="button" :to="`challenge/${challenge.slug}`">
         Solve
       </router-link>
@@ -24,6 +24,7 @@
 <script>
 import marked from 'marked';
 import UserData from './UserData';
+import { pluralize } from '../utils';
 
 export default {
   name: 'Challenge',
@@ -40,15 +41,6 @@ export default {
       default: false,
     },
   },
-  data() {
-    return {
-      userRef: null,
-      user: {
-        name: '',
-        photoUrl: '',
-      },
-    };
-  },
   computed: {
     level() {
       switch (this.challenge.points) {
@@ -64,6 +56,9 @@ export default {
     descriptionHtml() {
       return marked(this.challenge.description);
     },
+    numSolutions() {
+      return pluralize('solution', this.challenge.numSolutions);
+    }
   },
 };
 </script>
