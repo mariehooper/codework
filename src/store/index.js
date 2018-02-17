@@ -12,6 +12,7 @@ export default new Vuex.Store({
     challenges: {
       areLoading: true,
       items: [],
+      ref: null,
     },
   },
   getters: {
@@ -55,10 +56,12 @@ export default new Vuex.Store({
       commit('setError', payload || null);
     },
     loadChallenges({ commit }) {
-      firebase.database().ref('challenges').on('value', (snapshot) => {
+      const ref = firebase.database().ref('challenges');
+      ref.on('value', (snapshot) => {
         commit('setChallenges', {
           items: addIdToItems(snapshot.val() || {}),
           areLoading: false,
+          ref,
         });
       });
     },

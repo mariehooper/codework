@@ -79,7 +79,6 @@ export default {
     content: ' ';
     display: inline-block;
     height: 10px;
-    margin-right: 0.25rem;
     width: 10px;
   }
 }

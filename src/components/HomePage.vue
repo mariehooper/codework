@@ -1,15 +1,18 @@
 <template>
   <main>
+    <challenge-import-form />
     <challenge-list />
   </main>
 </template>
 
 <script>
+import ChallengeImportForm from './ChallengeImportForm';
 import ChallengeList from './ChallengeList';
 
 export default {
   name: 'HomePage',
   components: {
+    ChallengeImportForm,
     ChallengeList,
   },
 };
