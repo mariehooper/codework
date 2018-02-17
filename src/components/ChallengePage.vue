@@ -4,7 +4,7 @@
       <challenge :challenge="challenge" />
     </div>
     <div class="column" v-if="!solutions.areLoading">
-      <solution-list v-if="userHasSubmitted" :challenge-id="challenge.id" />
+      <solution-list v-if="userHasSubmitted" :challenge="challenge" />
       <solution-form v-else :challenge="challenge" />
     </div>
   </div>

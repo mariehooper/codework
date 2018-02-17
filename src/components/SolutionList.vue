@@ -1,7 +1,7 @@
 <template>
   <ul class="solutions">
     <li v-for="solution in solutions" :key="solution.id">
-      <solution :solution="solution" />
+      <solution :solution="solution" :challenge="challenge" />
     </li>
   </ul>
 </template>
@@ -16,8 +16,8 @@ export default {
     Solution,
   },
   props: {
-    challengeId: {
-      type: String,
+    challenge: {
+      type: Object,
       required: true,
     },
   },

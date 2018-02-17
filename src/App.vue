@@ -222,6 +222,22 @@ code .token.secret-key.enabled {
   }
 }
 
+.button-link {
+  background: none;
+  border: none;
+  color: #00bcd4;
+
+  &:hover {
+    color: #1ed4d4;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  &.delete {
+    color: #f65568;
+  }
+}
+
 .card {
   background-color: #fff;
   border-radius: 3px;
