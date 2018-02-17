@@ -2,20 +2,23 @@
   <div>
     <error-message v-if="error" :message="error"/>
     <form @submit.prevent="handleSubmit">
-      <div class="styled-input-bar">
-        <label htmlFor="challenge-url">
-          <input
-            id="challenge-url"
-            name="url"
-            @blur="handleBlur"
-            @focus="handleFocus"
-            placeholder="Codewars Kata URL"
-            type="text"
-            v-model="url"
-          >
-        </label>
-        <button type="submit">Import</button>
+      <div v-if="user">
+        <div class="styled-input-bar">
+          <label htmlFor="challenge-url">
+            <input
+              id="challenge-url"
+              name="url"
+              @blur="handleBlur"
+              @focus="handleFocus"
+              placeholder="Codewars Kata URL"
+              type="text"
+              v-model="url"
+            >
+          </label>
+          <button type="submit">Import</button>
+        </div>
       </div>
+      <p v-else class="message">Sign in to import a challenge!</p>
     </form>
   </div>
 </template>

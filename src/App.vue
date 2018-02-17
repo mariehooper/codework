@@ -282,4 +282,11 @@ form {
   padding: 1.5rem;
 }
 
+.message {
+  color: #fff;
+  font-size: 1.5rem;
+  margin: 0.475rem 0;
+  text-align: center;
+}
+
 </style>

@@ -2,48 +2,51 @@
   <div class="sticky-wrapper">
     <error-message v-if="error" :message="error"/>
     <form @submit.prevent="handleSubmit">
-      <ul class="toggle-buttons">
-        <li>
-          <button
-            :class="`toggle-button ${mode === 'write' ? 'active' : null}`"
-            type="button"
-            data-mode="write"
-            @click.prevent="toggleView"
+      <div v-if="user">
+        <ul class="toggle-buttons">
+          <li>
+            <button
+              :class="`toggle-button ${mode === 'write' ? 'active' : null}`"
+              type="button"
+              data-mode="write"
+              @click.prevent="toggleView"
+            >
+              Write
+            </button>
+          </li>
+          <li>
+            <button
+              :class="`toggle-button ${mode === 'preview' ? 'active' : null}`"
+              type="button"
+              data-mode="preview"
+              @click.prevent="toggleView"
+            >
+              Preview
+            </button>
+          </li>
+        </ul>
+        <textarea
+          v-if="mode === 'write'"
+          class="styled-text-area"
+          name="solution"
+          placeholder="Add your solution"
+          @blur="handleBlur"
+          @focus="handleFocus"
+          v-model="solution"
+        />
+        <div v-if="mode === 'preview'" class="solution-preview" v-html="solutionHtml"/>
+        <div class="form-footer">
+          <a
+            href="https://guides.github.com/features/mastering-markdown/"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            Write
-          </button>
-        </li>
-        <li>
-          <button
-            :class="`toggle-button ${mode === 'preview' ? 'active' : null}`"
-            type="button"
-            data-mode="preview"
-            @click.prevent="toggleView"
-          >
-            Preview
-          </button>
-        </li>
-      </ul>
-      <textarea
-        v-if="mode === 'write'"
-        class="styled-text-area"
-        name="solution"
-        placeholder="Add your solution"
-        @blur="handleBlur"
-        @focus="handleFocus"
-        v-model="solution"
-      />
-      <div v-if="mode === 'preview'" class="solution-preview" v-html="solutionHtml"/>
-      <div class="form-footer">
-        <a
-          href="https://guides.github.com/features/mastering-markdown/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          You can write your solution in Markdown!
-        </a>
-        <button class="white-button" type="submit">Submit</button>
+            You can write your solution in Markdown!
+          </a>
+          <button class="white-button" type="submit">Submit</button>
+        </div>
       </div>
+      <p v-else class="message">Sign in to submit a solution!</p>
     </form>
   </div>
 </template>
