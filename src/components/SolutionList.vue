@@ -4,12 +4,10 @@
       <solution :solution="solution" />
     </li>
   </ul>
-
 </template>
 
 <script>
-import firebase from 'firebase';
-import { addIdToItems } from '../utils';
+import { mapGetters } from 'vuex';
 import Solution from './Solution';
 
 export default {
@@ -23,20 +21,8 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      solutionsRef: null,
-      solutions: [],
-    };
-  },
-  mounted() {
-    this.solutionsRef = firebase.database().ref(`solutions/${this.challengeId}`);
-    this.solutionsRef.on('value', (snapshot) => {
-      this.solutions = addIdToItems(snapshot.val() || {});
-    });
-  },
-  beforeDestroy() {
-    this.solutionsRef.off();
+  computed: {
+    ...mapGetters(['solutions']),
   },
 };
 </script>

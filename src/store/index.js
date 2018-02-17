@@ -14,9 +14,15 @@ export default new Vuex.Store({
       items: [],
       ref: null,
     },
+    solutions: {
+      areLoading: true,
+      items: [],
+      ref: null,
+    },
   },
   getters: {
     challenges: state => [...state.challenges.items].sort((a, b) => b.createdAt - a.createdAt),
+    solutions: state => [...state.solutions.items].sort((a, b) => a.createdAt - b.createdAt),
   },
   mutations: {
     setUser(state, payload) {
@@ -27,6 +33,17 @@ export default new Vuex.Store({
     },
     setChallenges(state, payload) {
       state.challenges = payload;
+    },
+    setSolutions(state, payload) {
+      state.solutions = payload;
+    },
+    clearSolutions(state) {
+      state.solutions.ref.off();
+      state.solutions = {
+        areLoading: true,
+        items: [],
+        ref: null,
+      };
     },
   },
   actions: {
@@ -58,6 +75,16 @@ export default new Vuex.Store({
       const ref = firebase.database().ref('challenges');
       ref.on('value', (snapshot) => {
         commit('setChallenges', {
+          items: addIdToItems(snapshot.val() || {}),
+          areLoading: false,
+          ref,
+        });
+      });
+    },
+    loadSolutions({ commit }, challengeId) {
+      const ref = firebase.database().ref(`solutions/${challengeId}`);
+      ref.on('value', (snapshot) => {
+        commit('setSolutions', {
           items: addIdToItems(snapshot.val() || {}),
           areLoading: false,
           ref,

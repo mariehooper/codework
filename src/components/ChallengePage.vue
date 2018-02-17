@@ -3,16 +3,19 @@
     <div class="column">
       <challenge :challenge="challenge" />
     </div>
-    <div class="column">
-      <solution-list :challenge-id="challenge.id"/>
+    <div class="column" v-if="!solutions.areLoading">
+      <solution-list v-if="userHasSubmitted" :challenge-id="challenge.id" />
+      <solution-form v-else :challenge="challenge" />
     </div>
   </div>
   <error-page v-else-if="!challengesAreLoading && !challenge" />
 </template>
 
 <script>
+import { mapState, mapActions, mapMutations } from 'vuex';
 import Challenge from './Challenge';
 import ErrorPage from './ErrorPage';
+import SolutionForm from './SolutionForm';
 import SolutionList from './SolutionList';
 
 export default {
@@ -20,15 +23,42 @@ export default {
   components: {
     Challenge,
     ErrorPage,
+    SolutionForm,
     SolutionList,
   },
   computed: {
+    ...mapState(['challenges', 'solutions', 'user']),
     challenge() {
-      return this.$store.state.challenges.items.find(c => this.$route.params.slug === c.slug);
+      return this.challenges.items.find(c => this.$route.params.slug === c.slug);
     },
     challengesAreLoading() {
-      return this.$store.state.challenges.areLoading;
+      return this.challenges.areLoading;
     },
+    userHasSubmitted() {
+      return (
+        this.user &&
+        this.solutions.items.find(solution => solution.submittedBy === this.user.id)
+      );
+    },
+  },
+  watch: {
+    challenge() {
+      this.loadSolutions(this.challenge.id);
+    },
+  },
+  mounted() {
+    if (this.challenge) {
+      this.loadSolutions(this.challenge.id);
+    }
+  },
+  beforeDestroy() {
+    if (this.solutions.ref) {
+      this.clearSolutions();
+    }
+  },
+  methods: {
+    ...mapActions(['loadSolutions']),
+    ...mapMutations(['clearSolutions']),
   },
 };
 </script>
@@ -46,9 +76,9 @@ export default {
 
 .column {
   flex: 1;
-  width: 50%;
+  max-width: 50%;
   @media (max-width: 680px) {
-    width: 100%;
+    max-width: 100%;
   }
 
   &:not(:last-child) {

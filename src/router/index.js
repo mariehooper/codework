@@ -25,4 +25,7 @@ export default new Router({
       component: ErrorPage,
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    return savedPosition || { x: 0, y: 0 };
+  },
 });
