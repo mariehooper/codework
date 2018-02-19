@@ -58,7 +58,7 @@ export default {
     },
     numSolutions() {
       return pluralize('solution', this.challenge.numSolutions);
-    }
+    },
   },
 };
 </script>

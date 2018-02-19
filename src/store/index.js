@@ -60,7 +60,6 @@ export default new Vuex.Store({
     },
     signIn({ dispatch }) {
       const google = new firebase.auth.GoogleAuthProvider();
-      google.setCustomParameters({ hd: 'umich.edu' });
       firebase.auth()
         .signInWithPopup(google)
         .then(({ user }) => { dispatch('validateUser', user); })
@@ -69,7 +68,8 @@ export default new Vuex.Store({
     signOut({ commit }, payload) {
       firebase.auth().signOut();
       commit('setUser', null);
-      commit('setError', payload || null);
+      const error = typeof payload === 'string' ? payload : null;
+      commit('setError', error);
     },
     loadChallenges({ commit }) {
       const ref = firebase.database().ref('challenges');
