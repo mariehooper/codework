@@ -1,17 +1,25 @@
 <template>
   <div id="app">
     <app-header />
+    <error-message v-if="error" :message="error" />
     <router-view />
   </div>
 </template>
 
 <script>
 import Header from '@/components/Header';
+import ErrorMessage from '@/components/ErrorMessage';
 
 export default {
   name: 'App',
   components: {
     'app-header': Header,
+    ErrorMessage,
+  },
+  computed: {
+    error() {
+      return this.$store.state.error;
+    },
   },
 };
 </script>
