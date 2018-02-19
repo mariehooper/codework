@@ -60,7 +60,6 @@ export default new Vuex.Store({
     },
     signIn({ dispatch }) {
       const google = new firebase.auth.GoogleAuthProvider();
-      google.setCustomParameters({ hd: 'umich.edu' });
       firebase.auth()
         .signInWithPopup(google)
         .then(({ user }) => { dispatch('validateUser', user); })
