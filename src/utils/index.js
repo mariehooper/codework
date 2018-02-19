@@ -25,3 +25,20 @@ export async function getCodewarsChallenge(idOrSlug) {
 export function pluralize(word, count) {
   return `${count} ${word}${count === 1 ? '' : 's'}`;
 }
+
+export function getFirebaseConfig(env) {
+  if (env === 'production') {
+    return {
+      apiKey: 'AIzaSyAZ7UqAP3jO6DF6TGtGyFu2iGbcZWilWto',
+      authDomain: 'letscodework.firebaseapp.com',
+      databaseURL: 'https://letscodework.firebaseio.com',
+      projectId: 'letscodework',
+    };
+  }
+  return {
+    apiKey: 'AIzaSyDaUN3Jw6zowmzt5xEq0jiMX-H184EjH28',
+    authDomain: 'letscodework-dev.firebaseapp.com',
+    databaseURL: 'https://letscodework-dev.firebaseio.com',
+    projectId: 'letscodework-dev',
+  };
+}

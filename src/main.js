@@ -6,16 +6,11 @@ import prism from 'prismjs';
 import App from './App';
 import router from './router';
 import store from './store';
+import { getFirebaseConfig } from './utils';
 
 Vue.config.productionTip = false;
 
-firebase.initializeApp({
-  apiKey: 'AIzaSyDaUN3Jw6zowmzt5xEq0jiMX-H184EjH28',
-  authDomain: 'letscodework-dev.firebaseapp.com',
-  databaseURL: 'https://letscodework-dev.firebaseio.com',
-  projectId: 'letscodework-dev',
-});
-
+firebase.initializeApp(getFirebaseConfig(process.env.NODE_ENV));
 prism.languages.js = prism.languages.javascript;
 marked.setOptions({
   highlight(code, language) {
