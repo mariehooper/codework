@@ -2,6 +2,10 @@
 
 This project uses [Semantic Versioning](http://semver.org/). All releases are documented both on the GitHub [releases page](https://github.com/letscodework/codework/releases) and in this file.
 
+## v1.0.0-rc.1 (February 19, 2018)
+
+- Port app from React to Vue and add ability to delete own solutions ([#85](https://github.com/letscodework/codework/pull/85), [#86](https://github.com/letscodework/codework/pull/86))
+
 ## v1.0.0-beta.4 (January 14, 2018)
 
 - Add syntax highlighting to regular expressions in code blocks ([#81](https://github.com/letscodework/codework/pull/81))
