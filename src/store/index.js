@@ -49,8 +49,8 @@ export default new Vuex.Store({
   actions: {
     validateUser({ commit, dispatch }, payload) {
       if (emailIsWhitelisted(payload.email)) {
-        const { displayName: name, email, photoURL: photoUrl, uid: id } = payload;
-        const user = { name, email, photoUrl };
+        const { displayName: name, photoURL: photoUrl, uid: id } = payload;
+        const user = { name, photoUrl };
         firebase.database().ref(`/users/${id}`).set(user);
         commit('setUser', { ...user, id });
         commit('setError', null);
