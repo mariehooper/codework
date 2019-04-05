@@ -2,6 +2,10 @@
 
 This project uses [Semantic Versioning](http://semver.org/). All releases are documented both on the GitHub [releases page](https://github.com/letscodework/codework/releases) and in this file.
 
+## v1.0.0 (April 5, 2019)
+
+- Finalize v1.0.0
+
 ## v1.0.0-rc.3 (September 3, 2018)
 
 - Stop saving a user's email to the database because it's not needed anywhere ([#90](https://github.com/letscodework/codework/pull/90))
