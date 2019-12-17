@@ -6,16 +6,16 @@
 </template>
 
 <script>
-import ChallengeImportForm from './ChallengeImportForm';
-import ChallengeList from './ChallengeList';
+import ChallengeImportForm from './ChallengeImportForm'
+import ChallengeList from './ChallengeList'
 
 export default {
   name: 'HomePage',
   components: {
     ChallengeImportForm,
-    ChallengeList,
-  },
-};
+    ChallengeList
+  }
+}
 </script>
 
 <style lang="scss" scoped>

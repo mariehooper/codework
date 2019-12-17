@@ -1,5 +1,7 @@
 <template>
-  <p class="error-message" role="alert">{{ message }}</p>
+  <p class="error-message" role="alert">
+    {{ message }}
+  </p>
 </template>
 
 <script>
@@ -8,10 +10,10 @@ export default {
   props: {
     message: {
       type: String,
-      required: true,
-    },
-  },
-};
+      required: true
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

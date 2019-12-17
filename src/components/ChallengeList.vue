@@ -7,18 +7,18 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import Challenge from './Challenge';
+import { mapGetters } from 'vuex'
+import Challenge from './Challenge'
 
 export default {
   name: 'ChallengeList',
   components: {
-    Challenge,
+    Challenge
   },
   computed: {
-    ...mapGetters(['challenges']),
-  },
-};
+    ...mapGetters(['challenges'])
+  }
+}
 </script>
 
 <style lang="scss" scoped>

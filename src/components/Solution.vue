@@ -15,54 +15,54 @@
         <trash-icon />
       </button>
     </div>
-    <article class="card-body" v-html="contentHtml"/>
+    <article class="card-body" v-html="contentHtml" />
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import firebase from 'firebase';
-import marked from 'marked';
-import UserData from './UserData';
-import TrashIcon from './TrashIcon';
+import { mapState } from 'vuex'
+import firebase from 'firebase/app'
+import marked from 'marked'
+import UserData from './UserData'
+import TrashIcon from './TrashIcon'
 
 export default {
   name: 'Solution',
   components: {
     UserData,
-    TrashIcon,
+    TrashIcon
   },
   props: {
     solution: {
       type: Object,
-      required: true,
+      required: true
     },
     challenge: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
     ...mapState(['user', 'solutions']),
     contentHtml() {
-      return marked(this.solution.content);
+      return marked(this.solution.content)
     },
     isUserSolution() {
-      return this.solution.submittedBy === this.user.id;
-    },
+      return this.solution.submittedBy === this.user.id
+    }
   },
   methods: {
     async deleteSolution() {
       if (window.confirm('Do you really want to delete your solution?')) {
-        await this.solutions.ref.child(this.solution.id).remove();
+        await this.solutions.ref.child(this.solution.id).remove()
         firebase
           .database()
           .ref(`challenges/${this.challenge.id}/numSolutions`)
-          .set(this.challenge.numSolutions - 1);
+          .set(this.challenge.numSolutions - 1)
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -70,7 +70,6 @@ export default {
   margin-bottom: 0.5rem;
   padding: 1rem;
 }
-
 .delete {
   margin-left: auto;
 }

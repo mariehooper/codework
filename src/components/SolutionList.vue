@@ -7,24 +7,24 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import Solution from './Solution';
+import { mapGetters } from 'vuex'
+import Solution from './Solution'
 
 export default {
   name: 'SolutionList',
   components: {
-    Solution,
+    Solution
   },
   props: {
     challenge: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
-    ...mapGetters(['solutions']),
-  },
-};
+    ...mapGetters(['solutions'])
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -33,5 +33,4 @@ export default {
   margin: 0;
   padding-left: 0;
 }
-
 </style>
