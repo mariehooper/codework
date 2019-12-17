@@ -4,7 +4,9 @@
       <router-link class="wordmark" to="/">
         <h1>Co<span>de</span>work</h1>
       </router-link>
-      <button v-if="!user" class="button-link" @click.prevent="signIn">Sign in</button>
+      <button v-if="!user" class="button-link" @click.prevent="signIn">
+        Sign in
+      </button>
       <div v-else class="dropdown">
         <button class="trigger" @click.stop="openMenu">
           <Avatar :src="user.photoUrl" :alt="user.name" />
@@ -12,7 +14,9 @@
         </button>
         <ul v-if="menuOpen" class="menu" data-toggle>
           <li data-toggle>
-            <button class="button-link" @click.prevent="signOut">Sign out</button>
+            <button class="button-link" @click.prevent="signOut">
+              Sign out
+            </button>
           </li>
         </ul>
       </div>
@@ -21,38 +25,38 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-import Avatar from './Avatar';
+import { mapState, mapActions } from 'vuex'
+import Avatar from './Avatar'
 
 export default {
   name: 'Header',
   components: {
-    Avatar,
+    Avatar
   },
   data() {
     return {
-      menuOpen: false,
-    };
+      menuOpen: false
+    }
   },
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user'])
   },
   methods: {
     ...mapActions(['signIn', 'signOut']),
     openMenu() {
       if (!this.menuOpen) {
-        this.menuOpen = true;
-        window.addEventListener('click', this.closeMenu);
+        this.menuOpen = true
+        window.addEventListener('click', this.closeMenu)
       }
     },
     closeMenu(e) {
       if (e.target.dataset.toggle == null) {
-        this.menuOpen = false;
-        window.removeEventListener('click', this.closeMenu);
+        this.menuOpen = false
+        window.removeEventListener('click', this.closeMenu)
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -61,7 +65,6 @@ export default {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   padding: 0.75rem;
 }
-
 .wrapper {
   align-items: center;
   display: flex;
@@ -69,21 +72,17 @@ export default {
   margin: 0 auto;
   max-width: 75rem;
 }
-
 .wordmark {
   text-decoration: none;
-
   h1 {
     color: #00bcd4;
     font-size: 1.5rem;
     margin: 0;
   }
-
   span {
     color: #ccc;
   }
 }
-
 .trigger {
   align-items: center;
   background: none;
@@ -95,11 +94,9 @@ export default {
   padding: 0;
   position: relative;
 }
-
 .dropdown {
   position: relative;
 }
-
 .menu {
   background: white;
   border: 1px solid #eee;
@@ -113,18 +110,15 @@ export default {
   top: 2.3rem;
   width: 100%;
   z-index: 1;
-
   li {
     padding: 0.5rem;
   }
-
   &::before,
   &::after {
     content: '';
     display: inline-block;
     position: absolute;
   }
-
   &::before {
     border: 8px solid transparent;
     border-bottom-color: #eee;
@@ -132,7 +126,6 @@ export default {
     right: auto;
     top: -16px;
   }
-
   &::after {
     border: 7px solid transparent;
     border-bottom-color: #fff;

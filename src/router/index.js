@@ -1,10 +1,10 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import HomePage from '@/components/HomePage';
-import ChallengePage from '@/components/ChallengePage';
-import ErrorPage from '@/components/ErrorPage';
+import Vue from 'vue'
+import Router from 'vue-router'
+import HomePage from '@/components/HomePage'
+import ChallengePage from '@/components/ChallengePage'
+import ErrorPage from '@/components/ErrorPage'
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
   mode: 'history',
@@ -12,20 +12,20 @@ export default new Router({
     {
       path: '/',
       name: 'HomePage',
-      component: HomePage,
+      component: HomePage
     },
     {
       path: '/challenge/:slug',
       name: 'ChallengePage',
-      component: ChallengePage,
+      component: ChallengePage
     },
     {
       path: '*',
       name: 'ErrorPage',
-      component: ErrorPage,
-    },
+      component: ErrorPage
+    }
   ],
   scrollBehavior(to, from, savedPosition) {
-    return savedPosition || { x: 0, y: 0 };
-  },
-});
+    return savedPosition || { x: 0, y: 0 }
+  }
+})

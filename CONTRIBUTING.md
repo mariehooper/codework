@@ -22,7 +22,7 @@ A typical pull request workflow will usually look something like this:
 - When you think you're done, verify there are no errors (linting, testing, or building).
 - Submit a pull request and reference any related issues.
 
-For more info, check out [*How to Contribute to an Open Source Project on GitHub*](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github). Please do your best to keep your pull request's scope focused and commit history streamlined.
+For more info, check out [_How to Contribute to an Open Source Project on GitHub_](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github). Please do your best to keep your pull request's scope focused and commit history streamlined.
 
 ## Project Overview
 
@@ -32,7 +32,7 @@ The frontend is powered by [Vue](https://vuejs.org/). Styles are written in [Sas
 
 The backend uses [Firebase](https://firebase.google.com/).
 
-The folder structure is defined by [vue-cli webpack template](http://vuejs-templates.github.io/webpack/structure.html). Other notable tooling is [Babel](http://babeljs.io/) for the ability to write nextgen JavaScript, and [ESLint](https://eslint.org/) + [stylelint](https://stylelint.io/) for checking the code style.
+The folder structure is defined by [vue-cli webpack template](http://vuejs-templates.github.io/webpack/structure.html). Other notable tooling is [Babel](http://babeljs.io/) for the ability to write nextgen JavaScript, and [ESLint](https://eslint.org/) for checking the code style.
 
 This project uses additional libraries as necessary for tasks like date handling, parsing Markdown, and more. Those aren't listed in this guide in order to keep the length reasonable, but you can find them in the project's [`package.json`](package.json) file.
 
