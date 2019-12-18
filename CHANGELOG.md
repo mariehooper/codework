@@ -2,6 +2,10 @@
 
 This project uses [Semantic Versioning](http://semver.org/). All releases are documented both on the GitHub [releases page](https://github.com/letscodework/codework/releases) and in this file.
 
+## v1.0.1 (December 18, 2019)
+
+- Updated vue-cli version
+
 ## v1.0.0 (April 5, 2019)
 
 - Finalize v1.0.0
