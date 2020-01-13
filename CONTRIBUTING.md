@@ -26,13 +26,13 @@ For more info, check out [_How to Contribute to an Open Source Project on GitHub
 
 ## Project Overview
 
-This project was started using the [vue-cli webpack template](http://vuejs-templates.github.io/webpack/).
+This project was started using the [vue-cli](https://cli.vuejs.org/).
 
 The frontend is powered by [Vue](https://vuejs.org/). Styles are written in [Sass (SCSS)](http://sass-lang.com/). Routing is handled by [vue-router](https://router.vuejs.org/en/). [Vuex](https://vuex.vuejs.org/en/intro.html) is used for state management.
 
 The backend uses [Firebase](https://firebase.google.com/).
 
-The folder structure is defined by [vue-cli webpack template](http://vuejs-templates.github.io/webpack/structure.html). Other notable tooling is [Babel](http://babeljs.io/) for the ability to write nextgen JavaScript, and [ESLint](https://eslint.org/) for checking the code style.
+Other notable tooling is [Babel](http://babeljs.io/) for the ability to write nextgen JavaScript, and [ESLint](https://eslint.org/) for checking the code style.
 
 This project uses additional libraries as necessary for tasks like date handling, parsing Markdown, and more. Those aren't listed in this guide in order to keep the length reasonable, but you can find them in the project's [`package.json`](package.json) file.
 
