@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "Daily programming challenge turns into an interactive programming reference guide.",
   "homepage": "https://codework.netlify.com",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/letscodework/codework"
