@@ -32,13 +32,19 @@ export function getFirebaseConfig(env) {
       apiKey: 'AIzaSyAZ7UqAP3jO6DF6TGtGyFu2iGbcZWilWto',
       authDomain: 'letscodework.firebaseapp.com',
       databaseURL: 'https://letscodework.firebaseio.com',
-      projectId: 'letscodework'
+      projectId: 'letscodework',
+      storageBucket: 'letscodework.appspot.com',
+      messagingSenderId: '1067511513584',
+      appId: '1:1067511513584:web:1a3af87ef8ce56810e1d35'
     }
   }
   return {
     apiKey: 'AIzaSyDaUN3Jw6zowmzt5xEq0jiMX-H184EjH28',
     authDomain: 'letscodework-dev.firebaseapp.com',
     databaseURL: 'https://letscodework-dev.firebaseio.com',
-    projectId: 'letscodework-dev'
+    projectId: 'letscodework-dev',
+    storageBucket: 'letscodework-dev.appspot.com',
+    messagingSenderId: '365633932330',
+    appId: '1:365633932330:web:b6ef76719bceded0a50753'
   }
 }
