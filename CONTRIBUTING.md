@@ -40,7 +40,7 @@ This project uses additional libraries as necessary for tasks like date handling
 
 All development will probably start by forking your own copy of the repository and running `git clone https://github.com/YOUR_GITHUB_USERNAME/codework.git` to clone it to your computer.
 
-After cloning your repo, you'll first want to navigate into the folder and run `yarn install` to download the project's dependencies. We recommend using [Yarn](https://yarnpkg.com/en/), but [npm](https://www.npmjs.com/) works, too.
+After cloning your repo, you'll first want to navigate into the folder and run `npm install` to download the project's dependencies.
 
 Once you have the dependencies, you can make use of the npm scripts available to you via the [vue-cli webpack template](http://vuejs-templates.github.io/webpack/commands.html) or others in the [`package.json`](package.json) file.
 
