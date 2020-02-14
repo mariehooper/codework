@@ -6,10 +6,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/letscodework/codework"
+    "url": "https://github.com/mariehooper/codework"
   },
   "bugs": {
-    "url": "https://github.com/letscodework/codework/issues"
+    "url": "https://github.com/mariehooper/codework/issues"
   },
   "author": "Marie Hooper <marie.ashtari@gmail.com> (https://mariehooper.me)",
   "contributors": [
@@ -24,29 +24,29 @@
     "ci": "npm run lint && npm run build"
   },
   "dependencies": {
-    "core-js": "^3.4.3",
-    "firebase": "^7.6.0",
+    "core-js": "^3.6.4",
+    "firebase": "^7.8.2",
     "marked": "^0.8.0",
     "normalize.css": "^8.0.1",
-    "prismjs": "^1.17.1",
-    "vue": "^2.6.10",
-    "vue-router": "^3.1.3",
+    "prismjs": "^1.19.0",
+    "vue": "^2.6.11",
+    "vue-router": "^3.1.5",
     "vuex": "^3.1.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.1.0",
-    "@vue/cli-plugin-eslint": "^4.1.0",
-    "@vue/cli-service": "^4.1.0",
+    "@vue/cli-plugin-babel": "^4.2.2",
+    "@vue/cli-plugin-eslint": "^4.2.2",
+    "@vue/cli-service": "^4.2.2",
     "babel-eslint": "^10.0.3",
-    "eslint": "^6.7.2",
-    "eslint-config-prettier": "^6.7.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-vue": "^6.0.1",
-    "husky": "^3.1.0",
-    "lint-staged": "^9.5.0",
-    "node-sass": "^4.13.0",
-    "prettier": "1.19.1",
-    "sass-loader": "^8.0.0",
-    "vue-template-compiler": "^2.6.10"
+    "eslint-plugin-vue": "^6.1.2",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.7",
+    "node-sass": "^4.13.1",
+    "prettier": "^1.19.1",
+    "sass-loader": "^8.0.2",
+    "vue-template-compiler": "^2.6.11"
   }
 }

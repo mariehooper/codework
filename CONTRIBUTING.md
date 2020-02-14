@@ -4,11 +4,11 @@ Thanks for your interest in contributing to this project! Any contributions from
 
 ## Bugs, Features, and Feedback
 
-You can use this project's [issue tracker](https://github.com/letscodework/codework/issues) to report bugs, request features, leave feedback, or ask questions. Please just take a quick look through the other issues first to see if a similar one already exists. Also, please try to make your issues as descriptive, clear, and organized as possible. This will go a long way in helping us understand and respond to them. Little things like spacing, indentation, and syntax highlighting can make a big difference!
+You can use this project's [issue tracker](https://github.com/mariehooper/codework/issues) to report bugs, request features, leave feedback, or ask questions. Please just take a quick look through the other issues first to see if a similar one already exists. Also, please try to make your issues as descriptive, clear, and organized as possible. This will go a long way in helping us understand and respond to them. Little things like spacing, indentation, and syntax highlighting can make a big difference!
 
 ## Pull Requests
 
-If you'd like to contribute to this project, that's great! You can check out the [issue tracker](https://github.com/letscodework/codework/issues) to see if there's an open issue that you want to work on, or open a new one if there's something else you want to do.
+If you'd like to contribute to this project, that's great! You can check out the [issue tracker](https://github.com/mariehooper/codework/issues) to see if there's an open issue that you want to work on, or open a new one if there's something else you want to do.
 
 Before you start developing, let's first have a discussion about the issue and your proposed solution. It would suck for you to do any amount of work only to find out it won't be accepted. Once an approach sounds good to everyone, go nuts!
 
@@ -40,7 +40,7 @@ This project uses additional libraries as necessary for tasks like date handling
 
 All development will probably start by forking your own copy of the repository and running `git clone https://github.com/YOUR_GITHUB_USERNAME/codework.git` to clone it to your computer.
 
-After cloning your repo, you'll first want to navigate into the folder and run `yarn install` to download the project's dependencies. We recommend using [Yarn](https://yarnpkg.com/en/), but [npm](https://www.npmjs.com/) works, too.
+After cloning your repo, you'll first want to navigate into the folder and run `npm install` to download the project's dependencies.
 
 Once you have the dependencies, you can make use of the npm scripts available to you via the [vue-cli webpack template](http://vuejs-templates.github.io/webpack/commands.html) or others in the [`package.json`](package.json) file.
 
