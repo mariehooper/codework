@@ -2,9 +2,16 @@
 
 This project uses [Semantic Versioning](http://semver.org/). All releases are documented both on the GitHub [releases page](https://github.com/mariehooper/codework/releases) and in this file.
 
+## v1.0.2 (February 14, 2020)
+
+- Update project URLs that reference the old Codework organization ([#102](https://github.com/mariehooper/codework/pull/102))
+- Switch to npm from Yarn ([#102](https://github.com/mariehooper/codework/pull/102))
+- Update Firebase configs for each environment to use Firebase app credentials ([#102](https://github.com/mariehooper/codework/pull/102))
+- Update contributing guidelines and package license ([#101](https://github.com/mariehooper/codework/pull/101))
+
 ## v1.0.1 (December 18, 2019)
 
-- Updated vue-cli version
+- Update vue-cli version ([#98](https://github.com/mariehooper/codework/pull/98), [#99](https://github.com/mariehooper/codework/pull/99))
 
 ## v1.0.0 (April 5, 2019)
 
